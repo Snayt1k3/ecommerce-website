@@ -1,5 +1,5 @@
 from django.db import models
-# from django.urls import reverse
+from django.urls import reverse
 from django.utils.text import slugify
 
 alphabet = {'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo', 'ж': 'zh', 'з': 'z', 'и': 'i',
@@ -63,3 +63,6 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_url(self):
+        return reverse('one_pr', args=[self.slug])
