@@ -36,13 +36,13 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=1000)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
     characteristics = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     img = models.URLField()
-    slug = models.SlugField(max_length=100)
+    slug = models.SlugField(max_length=1000)
     stock = models.IntegerField()
     available = models.BooleanField(default=True)
 

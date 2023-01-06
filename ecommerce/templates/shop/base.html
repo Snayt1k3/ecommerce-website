@@ -24,39 +24,39 @@
 </div>
 <div class="container">
     <div class="row mt-5">
-        {% for i in 'aaaaaaa'%}
+        {% for product in products%}
 
-        <div class="card mb-4 mx-auto ml-1" style="max-width: 540px; max-height:300px;">
+        <div class="card mb-4 mx-auto ml-1" style="max-width: 540px; max-height:300px; overflow:hidden;">
             <div class="row g-0">
                 <div class="col-md-4">
                     <a href="#" class="text-decoration-none">
-                        <img src="..." class="img-fluid rounded-start" alt="...">
+                        <img src="{{product.img}}" class="img-fluid rounded-start" alt="...">
                     </a>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
                         <a href="#" class="text-decoration-none">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural
-                                lead-in to
-                                additional
-                                content. This content is a little bit longer.</p>
+                            <h5 class="card-title">{{product.name}}</h5>
+                            <p class="card-text" style="max-height:100px; overflow:hidden;">{{product.description}}</p>
                         </a>
                         <div class="col-10">
                             <div class="row">
-
                                 <div class="col-6">
                                     <a href="#" class="btn btn-primary" style="margin-top:5px; margin-bottom:5px;">В
                                         корзину</a>
                                 </div>
-                                <div class="col-3">
-                                    <p class="card-text fw-bold fs-4 text-end"
-                                       style="margin-top:5px; margin-bottom:5px;">10$</p>
+                                <div class="col-6">
+                                    <p class="card-text fw-bold fs-4 "
+                                       style="margin-top:5px; margin-bottom:5px;">{{product.price}}₽</p>
 
                                 </div>
                             </div>
                         </div>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        {%if product.available%}
+                        <p class="card-text"><small class="text-success">в Наличии {{product.stock}}шт</small></p>
+                        {%else%}
+                        <p class="card-text"><small class="text-danger">Нет в Наличии</small></p>
+                        {%endif%}
                     </div>
                 </div>
             </div>
@@ -64,6 +64,26 @@
 
 
         {% endfor %}
+
+    </div>
+</div>
+<div class="container">
+    <div class="pagination d-flex justify-content-center fw-bold fs-5">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; Перв</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Пред</a>
+        {% endif %}
+
+        <span class="current ">
+            Стр {{ page_obj.number }} Из {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">След</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Посл &raquo;</a>
+        {% endif %}
+    </span>
     </div>
 </div>
 {% include 'shop/footer.html'%}
