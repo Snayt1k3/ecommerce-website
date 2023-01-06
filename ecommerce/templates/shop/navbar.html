@@ -24,22 +24,9 @@
                         Каталог
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Автоэлектроника и навигация</a></li>
-                        <li><a class="dropdown-item" href="#">Гарнитуры и наушники</a></li>
-                        <li><a class="dropdown-item" href="#">Детская электроника</a></li>
-                        <li><a class="dropdown-item" href="#">Игровые консоли и игры</a></li>
-                        <li><a class="dropdown-item" href="#">Кабели и зарядные устройства</a></li>
-                        <li><a class="dropdown-item" href="#">Музыка и видео</a></li>
-                        <li><a class="dropdown-item" href="#">Ноутбуки и компьютеры</a></li>
-                        <li><a class="dropdown-item" href="#">Офисная техника</a></li>
-                        <li><a class="dropdown-item" href="#">Развлечения и гаджеты</a></li>
-                        <li><a class="dropdown-item" href="#">Системы безопасности</a></li>
-                        <li><a class="dropdown-item" href="#">Смартфоны и телефоны</a></li>
-                        <li><a class="dropdown-item" href="#">Смарт-часы и браслеты</a></li>
-                        <li><a class="dropdown-item" href="#">ТВ, Аудио, Фото, Видео техника</a></li>
-                        <li><a class="dropdown-item" href="#">Умный дом</a></li>
-                        <li><a class="dropdown-item" href="#">Электротранспорт и аксессуары</a></li>
-                        <li><a class="dropdown-item" href="#">Торговое оборудование</a></li>
+                        {%for category in categories%}
+                        <li><a class="dropdown-item" href="{% url 'pr_by_cat' category %}">{{category.category_name}}</a></li>
+                        {% endfor %}
                     </ul>
                 </li>
             </ul>
