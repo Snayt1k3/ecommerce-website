@@ -12,58 +12,9 @@
     <link rel="stylesheet" href="{% static 'css/base.css'%}">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-dark " data-bs-theme="dark">
-    <div class="container-fluid">
-        <span class="material-symbols-outlined" style="color:white;">storefront</span>
-        <a class="navbar-brand text-uppercase" href="#" style="margin-left:10px;">Store</a>
-        <button class="navbar-toggler bg-light" data-bs-theme="dark" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto ">
-                <li class="nav-item">
-                    <a class="nav-link active text-uppercase fw-bold" aria-current="page" href="/">Главная</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-uppercase fw-bold" href="#">Корзина</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-uppercase fw-bold" href="#">О нас</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-uppercase fw-bold" href="#" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Каталог
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Автоэлектроника и навигация</a></li>
-                        <li><a class="dropdown-item" href="#">Гарнитуры и наушники</a></li>
-                        <li><a class="dropdown-item" href="#">Детская электроника</a></li>
-                        <li><a class="dropdown-item" href="#">Игровые консоли и игры</a></li>
-                        <li><a class="dropdown-item" href="#">Кабели и зарядные устройства</a></li>
-                        <li><a class="dropdown-item" href="#">Музыка и видео</a></li>
-                        <li><a class="dropdown-item" href="#">Ноутбуки и компьютеры</a></li>
-                        <li><a class="dropdown-item" href="#">Офисная техника</a></li>
-                        <li><a class="dropdown-item" href="#">Развлечения и гаджеты</a></li>
-                        <li><a class="dropdown-item" href="#">Системы безопасности</a></li>
-                        <li><a class="dropdown-item" href="#">Смартфоны и телефоны</a></li>
-                        <li><a class="dropdown-item" href="#">Смарт-часы и браслеты</a></li>
-                        <li><a class="dropdown-item" href="#">ТВ, Аудио, Фото, Видео техника</a></li>
-                        <li><a class="dropdown-item" href="#">Умный дом</a></li>
-                        <li><a class="dropdown-item" href="#">Электротранспорт и аксессуары</a></li>
-                        <li><a class="dropdown-item" href="#">Торговое оборудование</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2 form-control-sm" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-        </div>
-    </div>
-</nav>
+
+    {% include 'shop/navbar.html'%}
+
 <div class="container">
     <div class="col">
         <p class="text-center fs-1 mt-4 fw-bold">
@@ -115,6 +66,7 @@
         {% endfor %}
     </div>
 </div>
+    {% include 'shop/footer.html'%}
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
         crossorigin="anonymous"></script>
