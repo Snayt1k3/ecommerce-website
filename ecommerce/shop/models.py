@@ -16,9 +16,25 @@ class Category(models.Model):
     category_name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100)
 
+    class Meta:
+        ordering = ('category_name',)
+        verbose_name = 'category'
+        verbose_name_plural = 'categories'
+
+    def save(self, *args, **kwargs):
+        self.slug = self.slugify_rus(self.category_name)
+        super(Category, self).save(*args, **kwargs)
+
+    def slugify_rus(self, s):
+        """
+        Overriding django slugify that allows to use russian words as well.
+        """
+        return slugify(''.join(alphabet.get(w, w) for w in s.lower()))
 
     def __str__(self):
         return self.category_name
+
+
 class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -29,6 +45,11 @@ class Product(models.Model):
     slug = models.SlugField(max_length=100)
     stock = models.IntegerField()
     available = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name = 'product'
+        verbose_name_plural = 'products'
 
     def save(self, *args, **kwargs):
         self.slug = self.slugify_rus(self.name)
