@@ -23,6 +23,15 @@ class ProductView(DetailView):
     model = Product
     context_object_name = 'product'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        good = kwargs['object'].characteristics
+        goods_key = good.split(",")[::2]
+        goods_val = good.split(",")[1::2]
+        info = list(zip(goods_key, goods_val))
+        context["info"] = info
+        return context
+
 
 def prod_by_category(request, category):
     cat = Category.objects.get(category_name=category)
