@@ -18,6 +18,7 @@ class HomeView(ListView):
         context['categories'] = Category.objects.all()
         return context
 
+
 class ProductView(DetailView):
     template_name = 'shop/detail_pr.html'
     model = Product
@@ -30,6 +31,8 @@ class ProductView(DetailView):
         goods_val = good.split(",")[1::2]
         info = list(zip(goods_key, goods_val))
         context["info"] = info
+        context['info_sm'] = info[:6]
+        context['categories'] = Category.objects.all()
         return context
 
 
