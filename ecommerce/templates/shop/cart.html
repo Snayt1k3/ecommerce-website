@@ -10,10 +10,19 @@
 
 
 {% block content%}
-
-<div>
+{% if not cart_items%}
+<div class="text-center">
+    <br>
+    <h1 class="text-center cart-title">
+        Ваша Корзина Пуста
+    </h1>
+    <a href="#">
+        <button type="button" class="btn btn-primary btn-lg btn-block">Назад к товарам</button>
+    </a>
+</div>
+{% else %}
+<div style="height:100px;">
     <div class="text-center">
-
         <p class="fs-2 fw-bold mt-3 cart-title">Корзина</p>
     </div>
 </div>
@@ -27,30 +36,31 @@
                 </th>
             </tr>
             </thead>
-            {% for i in '123'%}
+            {% for cart_item in cart_items%}
             <tr>
                 <td>
-                    <a href="">
-                        <img src="https://cdn1.ozone.ru/s3/multimedia-3/wc1000/6342721767.jpg" alt="" width="100"
+                    <a href="{{cart_item.product.get_url}}">
+                        <img src="{{cart_item.product.img}}" alt="" width="100"
                              height="100">
                     </a>
                 </td>
                 <td class="text-start">
-                    Some name
+                    {{cart_item.product.name}}
                     <br>
-                    Цена: 1000р
+                    Цена: {{cart_item.product.price}}₽
                     <br>
-                    Кол-во: 3 x 1000
+                    Кол-во: {{cart_item.quantity}} x {{cart_item.product.price}}₽
                     <br>
-                    id: 124124
+                    id: {{cart_item.product.id}}
                 </td>
                 <td class="text-start">
                     Итого:
                     <br>
-                    3000р
+                    {{cart_item.sum_total}}₽
                 </td>
-                <td>
-                    <a href=""><span class="material-symbols-outlined cart-plus">
+                {%if cart_item.quantity < cart_item.product.stock%}
+                 <td>
+                    <a href="{% url 'add_cart' cart_item.product.id %}"><span class="material-symbols-outlined cart-plus">
                         add_circle
                     </span></a>
                     <a href=""><span class="material-symbols-outlined cart-minus">
@@ -61,6 +71,21 @@
                     <a href=""><span class="material-symbols-outlined cart-delete">
                         delete
                     </span></a>
+                </td>
+                {%else%}
+                <td>
+                    <a href="#"><span class="material-symbols-outlined cart-plus text-secondary">
+                        add_circle
+                    </span></a>
+                    <a href=""><span class="material-symbols-outlined cart-minus">
+                        <span class="material-symbols-outlined">
+                    do_not_disturb_on
+                    </span>
+                    </span></a>
+                    <a href=""><span class="material-symbols-outlined cart-delete">
+                        delete
+                    </span></a>
+                {%endif%}
                 </td>
             </tr>
             {%endfor%}
@@ -83,14 +108,14 @@
             </tr>
             <tr class="text">
                 <td>
-                    Сумма всех товаров: <strong>3000р</strong>
+                    Сумма всех товаров: <strong>{{total}}₽</strong>
                 </td>
             </tr>
             </tbody>
         </table>
         <div class="row">
             <div class="col">
-                <a href="#">
+                <a href="{% url 'home'%}">
                     <button type="button" class="btn btn-primary btn-lg btn-block">Назад к товарам</button>
                 </a>
             </div>
@@ -102,5 +127,6 @@
         </div>
     </div>
 </div>
+{%endif%}
 
 {%endblock%}

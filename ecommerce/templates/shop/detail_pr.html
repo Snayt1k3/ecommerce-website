@@ -43,7 +43,7 @@
                     <div class="card-body">
                         <h5 class="card-title text-center fw-bold fs-4">{{product.price}}₽</h5>
                         <div class='mt-2'>
-                            <a href="#" class="btn btn-primary btn-sm">Добавить В Корзину</a>
+                            <a href="{% url 'add_cart' product.id%}" class="btn btn-primary btn-sm">Добавить В Корзину</a>
                             <a href="#" class="btn btn-outline-danger btn-sm rounded-5">
                                 <span class="material-symbols-outlined" style="padding-top:2px;">favorite</span>
                             </a>
