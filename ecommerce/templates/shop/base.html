@@ -25,17 +25,17 @@
     </div>
 </div>
 <div class="container">
-    <div class="row mt-5">
+    <div class="row mt-5" >
         {% for product in products%}
 
         <div class="card mb-4 mx-auto ml-1" style="max-width: 540px; max-height:300px; overflow:hidden;">
             <div class="row g-0">
-                <div class="col-md-4">
+                <div class="col-md-4 col-4">
                     <a class="text-decoration-none" href="{{product.get_url}}">
                         <img alt="" class="img-fluid rounded-start" src="{{product.img}}" style="margin-top:10px;">
                     </a>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8 col-8">
                     <div class="card-body">
                         <a class="text-decoration-none" href="{{product.get_url}}">
                             <h5 class="card-title">{{product.name}}</h5>
