@@ -1,13 +1,106 @@
 {%extends 'shop/base.html'%}
 {% load static%}
 
-
 {%block head%}
+<title>Корзина</title>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
 {%endblock%}
 
 
 {% block content%}
 
+<div>
+    <div class="text-center">
 
+        <p class="fs-2 fw-bold mt-3 cart-title">Корзина</p>
+    </div>
+</div>
+<div class=" row mx-auto">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+        <table class="table table-hover cart-table">
+            <thead class="cart-thead">
+            <tr>
+                <th colspan="4">
+                    Ваши Товары
+                </th>
+            </tr>
+            </thead>
+            {% for i in '123'%}
+            <tr>
+                <td>
+                    <a href="">
+                        <img src="https://cdn1.ozone.ru/s3/multimedia-3/wc1000/6342721767.jpg" alt="" width="100"
+                             height="100">
+                    </a>
+                </td>
+                <td class="text-start">
+                    Some name
+                    <br>
+                    Цена: 1000р
+                    <br>
+                    Кол-во: 3 x 1000
+                    <br>
+                    id: 124124
+                </td>
+                <td class="text-start">
+                    Итого:
+                    <br>
+                    3000р
+                </td>
+                <td>
+                    <a href=""><span class="material-symbols-outlined cart-plus">
+                        add_circle
+                    </span></a>
+                    <a href=""><span class="material-symbols-outlined cart-minus">
+                        <span class="material-symbols-outlined">
+                    do_not_disturb_on
+                    </span>
+                    </span></a>
+                    <a href=""><span class="material-symbols-outlined cart-delete">
+                        delete
+                    </span></a>
+                </td>
+            </tr>
+            {%endfor%}
+        </table>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+        <table class="table cart-table">
+            <thead class="cart-thead">
+            <tr>
+                <th colspan="4">
+                    Оплата
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    Проверьте корзину перед оплатой
+                </td>
+            </tr>
+            <tr class="text">
+                <td>
+                    Сумма всех товаров: <strong>3000р</strong>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col">
+                <a href="#">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">Назад к товарам</button>
+                </a>
+            </div>
+            <div class="col">
+                <a href="#">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">К оплате</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
 {%endblock%}

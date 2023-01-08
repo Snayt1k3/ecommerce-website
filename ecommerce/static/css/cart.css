@@ -1,0 +1,26 @@
+.cart-plus{
+    color:green;
+    text-decoration:none;
+}
+
+.cart-minus{
+    color: red;
+    text-decoration:none;
+}
+
+.cart-delete {
+    color:gray;
+    text-decoration:none;
+}
+
+.cart-table{
+    font-size:18px;
+    min-width:480px;
+
+}
+
+.cart-thead , .cart-title{
+    text-transform:uppercase;
+    font-weight:normal;
+    letter-spacing: .2em;
+}
