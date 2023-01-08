@@ -27,9 +27,7 @@
 
 body{ min-height: 100vh; margin:0; }
 
-header{ min-height:50px; background:lightcyan; }
-footer{ min-height:50px; background:PapayaWhip; }
 
 /* The article fills all the space between header & footer */
 body{ display:flex; flex-direction:column; }
-.main-div{ flex:1; }
+.need_to_footer{ flex:1; }

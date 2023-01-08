@@ -16,8 +16,8 @@
     <h1 class="text-center cart-title">
         Ваша Корзина Пуста
     </h1>
-    <a href="#">
-        <button type="button" class="btn btn-primary btn-lg btn-block">Назад к товарам</button>
+    <a href="{% url 'home' %}">
+        <button type="button" class="btn btn-primary btn-lg btn-block mt-5">Назад к товарам</button>
     </a>
 </div>
 {% else %}
@@ -63,12 +63,12 @@
                     <a href="{% url 'add_cart' cart_item.product.id %}"><span class="material-symbols-outlined cart-plus">
                         add_circle
                     </span></a>
-                    <a href=""><span class="material-symbols-outlined cart-minus">
+                    <a href="{% url 'cart_remove' cart_item.product.id %}"><span class="material-symbols-outlined cart-minus">
                         <span class="material-symbols-outlined">
                     do_not_disturb_on
                     </span>
                     </span></a>
-                    <a href=""><span class="material-symbols-outlined cart-delete">
+                    <a href="{% url 'cart_delete' cart_item.product.id %}"><span class="material-symbols-outlined cart-delete">
                         delete
                     </span></a>
                 </td>
@@ -128,5 +128,6 @@
     </div>
 </div>
 {%endif%}
-
+<div class="need_to_footer">
+</div>
 {%endblock%}
