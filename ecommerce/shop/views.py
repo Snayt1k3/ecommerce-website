@@ -45,3 +45,9 @@ def prod_by_category(request, category):
     })
 
 
+def cart_view(request):
+    return render(request, 'shop/cart.html', context={
+        'categories': Category.objects.all()
+    })
+
+
