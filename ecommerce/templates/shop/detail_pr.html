@@ -50,7 +50,6 @@
                                 <span class="material-symbols-outlined" style="padding-top:2px;">favorite</span>
                             </a>
                             <div class="row">
-                                <div class="col-7">
                                     {% if product.stock < 2 %}
                                     <p class="card-text text-danger">Осталось Всего {{product.stock}}шт! </p>
                                     {% elif product.stock > 15 %}
@@ -58,12 +57,7 @@
                                     {% else %}
                                     <p class="card-text text-success">В Наличии {{product.stock}}шт </p>
                                     {% endif %}
-                                </div>
-                                <div class="col-5">
-                                    <p>Рейтинг: 0.0 </p>
-                                </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
