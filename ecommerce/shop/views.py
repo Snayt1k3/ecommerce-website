@@ -124,7 +124,7 @@ class UserLogView(LoginView):
 
 class UserRegView(CreateView):
     form_class = UserRegForm
-    template_name = 'shop/sign_up_user.html'
+    template_name = 'shop/sign_up.html'
     success_url = '/'
 
     def form_valid(self, form):
