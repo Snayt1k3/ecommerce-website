@@ -122,6 +122,10 @@ class UserLogView(LoginView):
     def get_success_url(self):
         return "/"
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
 
 class UserRegView(CreateView):
     form_class = UserRegForm
@@ -133,6 +137,10 @@ class UserRegView(CreateView):
         login(self.request, user)
         return redirect(self.success_url)
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
 
 def signoutview(request):
     logout(request)
