@@ -1,9 +1,20 @@
 {%extends 'shop/base.html'%}
 {% load static%}
 {%block head%}
+<link rel="stylesheet" href="{% static 'css/user.css' %}">
 <title>Вход</title>
 {% endblock %}
 
 {%block content%}
-{{form.as_p}}
+<div class="container text-center user-form">
+    <div class="user-form2 col">
+        <h1>Вход</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class="btn btn-primary">Войти</button>
+            <a href="#" class="btn btn-primary ">Забыли Пароль</a>
+        </form>
+    </div>
+</div>
 {% endblock %}
