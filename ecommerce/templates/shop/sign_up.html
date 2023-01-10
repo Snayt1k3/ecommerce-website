@@ -1,7 +1,7 @@
 {%extends 'shop/base.html'%}
 {% load static%}
 {%block head%}
-<link rel="stylesheet" href="{% static 'css/user.css' %}">
+<link href="{% static 'css/user.css' %}" rel="stylesheet">
 <title>Регистрация</title>
 {% endblock %}
 
@@ -16,8 +16,8 @@
             <p class="text-danger mx-auto">Неправильный пароль, мин 8 символов и не должен совпадать с Username, и не
                 должен содержать только цифры</p>
             {% endif %}
-            <button type="submit" class="btn btn-primary ">Регистрация</button>
-            <a href="#" class="btn btn-primary ">Забыли Пароль</a>
+            <button class="btn btn-primary " type="submit">Регистрация</button>
+            <a class="btn btn-primary " href="#">Забыли Пароль</a>
         </form>
     </div>
 </div>

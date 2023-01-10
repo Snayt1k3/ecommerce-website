@@ -46,7 +46,7 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item"
                                href="{% url 'home' %}">Все товары</a></li>
-                        {%for category in categories%}
+                        {%for category in links%}
                         <li><a class="dropdown-item"
                                href="{% url 'pr_by_cat' category %}">{{category.category_name}}</a></li>
                         {% endfor %}

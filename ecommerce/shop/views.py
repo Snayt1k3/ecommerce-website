@@ -4,7 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView
 
-from .forms import UserLogForm, UserRegForm
+from .forms import UserLogForm, UserRegForm, SentFeedBack
 from .models import Category, Product, Cart, CartItem
 
 
@@ -16,11 +16,6 @@ class HomeView(ListView):
     model = Product
     context_object_name = 'products'
     template_name = 'shop/base.html'
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
-        return context
 
 
 class ProductView(DetailView):
@@ -36,7 +31,7 @@ class ProductView(DetailView):
         info = list(zip(goods_key, goods_val))
         context["info"] = info
         context['info_sm'] = info[:6]
-        context['categories'] = Category.objects.all()
+        context['form'] = SentFeedBack()
         return context
 
 
@@ -45,7 +40,6 @@ def prod_by_category(request, category):
     products = Product.objects.filter(category=cat)
     return render(request, 'shop/base.html', context={
         'products': products,
-        'categories': Category.objects.all(),
     })
 
 
@@ -90,7 +84,6 @@ def cart_detail(request, total=0, cart_items=None, counter=0):
         'cart_items': cart_items,
         'total': total,
         'counter': counter,
-        'categories': Category.objects.all(),
     })
 
 
@@ -122,10 +115,6 @@ class UserLogView(LoginView):
     def get_success_url(self):
         return "/"
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
-        return context
 
 class UserRegView(CreateView):
     form_class = UserRegForm
@@ -137,10 +126,6 @@ class UserRegView(CreateView):
         login(self.request, user)
         return redirect(self.success_url)
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
-        return context
 
 def signoutview(request):
     logout(request)
