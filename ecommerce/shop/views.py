@@ -1,8 +1,9 @@
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.views import LoginView
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView
+
 from .forms import UserLogForm, UserRegForm
 from .models import Category, Product, Cart, CartItem
 
@@ -131,3 +132,8 @@ class UserRegView(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect(self.success_url)
+
+
+def signoutview(request):
+    logout(request)
+    return redirect('/')

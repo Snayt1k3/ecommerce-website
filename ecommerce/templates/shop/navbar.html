@@ -2,7 +2,8 @@
     <div class="container-fluid">
         <span class="material-symbols-outlined" style="color:white;">storefront</span>
         <a class="navbar-brand text-uppercase" href="" style="margin-left:10px;">Store</a>
-        <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler bg-light"
+        <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
+                class="navbar-toggler bg-light"
                 data-bs-target="#navbarNav" data-bs-theme="dark" data-bs-toggle="collapse"
                 type="button">
             <span class="navbar-toggler-icon"></span>
@@ -18,14 +19,27 @@
                 <li class="nav-item">
                     <a class="nav-link text-uppercase fw-bold" href="#">О нас</a>
                 </li>
+                {% if request.user.is_authenticated%}
                 <li class="nav-item">
-                    <a aria-current="page" class="nav-link text-uppercase fw-bold" href="{% url 'login_user' %}">Вход</a>
+                    <a aria-current="page" class="nav-link text-uppercase fw-bold"
+                       href="#">{{request.user.username}}</a>
+                </li>
+                <li class="nav-item">
+                    <a aria-current="page" class="nav-link text-uppercase fw-bold"
+                       href="{% url 'logout_user' %}">Выйти</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a aria-current="page" class="nav-link text-uppercase fw-bold"
+                       href="{% url 'login_user' %}">Вход</a>
                 </li>
                 <li class="nav-item">
                     <a aria-current="page" class="nav-link text-uppercase fw-bold" href="{% url 'reg_user' %}">Регистрация</a>
                 </li>
+                {%endif%}
                 <li class="nav-item dropdown">
-                    <a aria-expanded="false" class="nav-link dropdown-toggle text-uppercase fw-bold" data-bs-toggle="dropdown"
+                    <a aria-expanded="false" class="nav-link dropdown-toggle text-uppercase fw-bold"
+                       data-bs-toggle="dropdown"
                        href="#" role="button">
                         Каталог
                     </a>
