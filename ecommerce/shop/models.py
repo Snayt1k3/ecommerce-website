@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
@@ -13,6 +15,7 @@ alphabet = {'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', '�
 
 
 class Category(models.Model):
+    """Класс Категории Продукта"""
     category_name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100)
 
@@ -36,6 +39,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    """Модель товара"""
     name = models.CharField(max_length=1000)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
@@ -69,6 +73,7 @@ class Product(models.Model):
 
 
 class Cart(models.Model):
+    """Модель Корзины"""
     cart_id = models.CharField(max_length=250, blank=True)
     date_added = models.DateField(auto_now_add=True)
 
@@ -81,6 +86,7 @@ class Cart(models.Model):
 
 
 class CartItem(models.Model):
+    """Предмет Корзины"""
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     quantity = models.IntegerField()
@@ -94,3 +100,18 @@ class CartItem(models.Model):
 
     def __str__(self):
         return self.product
+
+
+class Review(models.Model):
+    """Отзывы"""
+    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    pr_slug = models.ForeignKey(Product, on_delete=models.CASCADE)
+    text = models.TextField(blank=False)
+    rating = models.IntegerField()
+    date = models.DateField(auto_now_add=True)
+
+
+class ReviewImages(models.Model):
+    """Для изображений с отзывов"""
+    img = models.FileField(upload_to=settings.MEDIA_ROOT)
+    pr_slug = models.ForeignKey(Product, on_delete=models.CASCADE)

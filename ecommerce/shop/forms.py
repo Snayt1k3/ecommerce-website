@@ -16,4 +16,13 @@ class UserRegForm(UserCreationForm):
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Пароль'}), label='Пароль')
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Повторите Пароль'}),
                                 label='Повторите Пароль')
-    
+
+
+class Reviews(forms.Form):
+    feedback = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Оставьте Отзыв'}))
+    files = forms.ImageField(widget=forms.ClearableFileInput(attrs={'multiple': True, 'class': 'right_menu'}),
+                             required=False, label='Фото')
+    rating = forms.ChoiceField(choices=((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)), label='Рейтинг',
+                               widget=forms.RadioSelect(attrs={'class': 'right_menu'}))
+
+

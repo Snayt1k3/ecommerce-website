@@ -2,12 +2,12 @@
 {% load static%}
 {%block head%}
 <link href="{% static 'css/detail.css'%}" rel="stylesheet">
-<link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
-<link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
-<link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+      rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+      rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+      rel="stylesheet"/>
 <title>{{product.name}}</title>
 {%endblock%}
 {% block content%}
@@ -20,7 +20,7 @@
                 <p class="fw-bold fs-4">{{product.name}}</p>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 col-8 col-xl-3">
-                <img src="{{product.img}}" class="img-thumbnail"
+                <img class="img-thumbnail" src="{{product.img}}"
                      style="width:300px;height:400px;margin-bottom:20px;">
             </div>
             <div class="col-md-4 mb-3">
@@ -44,19 +44,19 @@
                     <div class="card-body">
                         <h5 class="card-title text-center fw-bold fs-4">{{product.price}}₽</h5>
                         <div class='mt-2'>
-                            <a href="{% url 'add_cart' product.id%}" class="btn btn-primary btn-sm">Добавить В
+                            <a class="btn btn-primary btn-sm" href="{% url 'add_cart' product.id%}">Добавить В
                                 Корзину</a>
-                            <a href="#" class="btn btn-outline-danger btn-sm rounded-5">
+                            <a class="btn btn-outline-danger btn-sm rounded-5" href="#">
                                 <span class="material-symbols-outlined" style="padding-top:2px;">favorite</span>
                             </a>
                             <div class="row">
-                                    {% if product.stock < 2 %}
-                                    <p class="card-text text-danger">Осталось Всего {{product.stock}}шт! </p>
-                                    {% elif product.stock > 15 %}
-                                    <p class="card-text text-success">В Наличии</p>
-                                    {% else %}
-                                    <p class="card-text text-success">В Наличии {{product.stock}}шт </p>
-                                    {% endif %}
+                                {% if product.stock < 2 %}
+                                <p class="card-text text-danger">Осталось Всего {{product.stock}}шт! </p>
+                                {% elif product.stock > 15 %}
+                                <p class="card-text text-success">В Наличии</p>
+                                {% else %}
+                                <p class="card-text text-success">В Наличии {{product.stock}}шт </p>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -66,18 +66,18 @@
         </div>
         <div class="container-fluid" style="padding-left:0;">
             <div class="col-12">
-                <button type="button" class="btn btn-primary mt-2" data-bs-toggle="collapse" data-bs-target="#demo">
+                <button class="btn btn-primary mt-2" data-bs-target="#demo" data-bs-toggle="collapse" type="button">
                     Посмотреть
                     Описание
                 </button>
-                <div id="demo" class="collapse" style="margin-top:10px; font-size:16px;">
+                <div class="collapse" id="demo" style="margin-top:10px; font-size:16px;">
                     {{product.description}}
                 </div>
-                <button type="button" class="btn btn-primary mt-2" data-bs-toggle="collapse" data-bs-target="#demo1">
+                <button class="btn btn-primary mt-2" data-bs-target="#demo1" data-bs-toggle="collapse" type="button">
                     Все
                     Характеристики
                 </button>
-                <div id="demo1" class="collapse" style="margin-top:10px; font-size:16px;">
+                <div class="collapse" id="demo1" style="margin-top:10px; font-size:16px;">
                     <div class="col-md-6 mb-3">
                         <h4>Характеристики</h4>
                         {% for key, val in info%}
@@ -97,6 +97,25 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="container">
+        <div class="container">
+            <div class="row">
+                <h1 class="fs-4 fw-bold mt-5">Оставить Отзыв</h1>
+                <div class="col">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {% for field in form%}
+                        {{field}}
+                        {% endfor %}
+                    </form>
+                </div>
+            </div>
+            <div class="container">
+                Другие Отзывы
+            </div>
+        </div>
+
     </div>
 </div>
 {% endblock %}

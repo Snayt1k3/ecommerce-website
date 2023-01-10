@@ -1,7 +1,7 @@
 {%extends 'shop/base.html'%}
 {% load static%}
 {%block head%}
-<link rel="stylesheet" href="{% static 'css/user.css' %}">
+<link href="{% static 'css/user.css' %}" rel="stylesheet">
 <title>Вход</title>
 {% endblock %}
 
@@ -15,8 +15,8 @@
             {% if form.errors %}
             <p class="text-danger mx-auto">Неправильный Логин или Пароль или Email</p>
             {% endif %}
-            <button type="submit" class="btn btn-primary">Войти</button>
-            <a href="#" class="btn btn-primary ">Забыли Пароль</a>
+            <button class="btn btn-primary" type="submit">Войти</button>
+            <a class="btn btn-primary " href="#">Забыли Пароль</a>
         </form>
     </div>
 </div>
