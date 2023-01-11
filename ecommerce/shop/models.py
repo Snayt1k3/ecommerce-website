@@ -115,3 +115,4 @@ class ReviewImages(models.Model):
     """Для изображений с отзывов"""
     img = models.FileField(upload_to=settings.MEDIA_ROOT)
     pr_slug = models.ForeignKey(Product, on_delete=models.CASCADE)
+    review_id = models.ForeignKey(Review, on_delete=models.CASCADE, default='')
