@@ -21,8 +21,7 @@ class HomeView(ListView):
 
 
 def detail_view(request, slug):
-    context = {}
-
+    context = {'success_form': False}
     # Получение Товара
     product = Product.objects.get(slug=slug)
 

@@ -11,7 +11,10 @@
     float: left;
     min-width: 700px;
     max-height: 100px;
+}
 
+textarea{
+resize: none
 }
 
 #id_files{

@@ -102,8 +102,13 @@
     <div class="container">
         <div class="container">
             <div class="row">
+                {% if not success_form%}
                 <h1 class="fs-4 fw-bold mt-5">Оставить Отзыв</h1>
+                {%endif%}
                 <div class="col">
+                    {% if success_form%}
+                    <p class="text-center text-success fs-4 fw-bold mt-3" style="text-transform:uppercase;">Спасибо За Отзыв</p>
+                    {% else %}
                     <form action="" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         {% for field in form%}
@@ -112,6 +117,7 @@
                         {% endfor %}
                         <button type="submit" class="btn btn-primary btn-sm sent_review">Оставить Отзыв</button>
                     </form>
+                    {% endif %}
                 </div>
             </div>
             <div class="container">
