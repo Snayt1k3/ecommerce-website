@@ -104,7 +104,7 @@ class CartItem(models.Model):
 class Review(models.Model):
     """Отзывы"""
     username = models.ForeignKey(User, on_delete=models.CASCADE)
-    pr_slug = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     text = models.TextField(blank=False)
     rating = models.IntegerField()
     date = models.DateField(auto_now_add=True)
@@ -117,8 +117,8 @@ class Review(models.Model):
 class ReviewImages(models.Model):
     """Для изображений с отзывов"""
     img = models.ImageField(upload_to='media')
-    pr_slug = models.ForeignKey(Product, on_delete=models.CASCADE)
-    review_id = models.ForeignKey(Review, on_delete=models.CASCADE, default='')
+    review = models.ForeignKey(Review, on_delete=models.CASCADE, default='')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'ReviewImages'

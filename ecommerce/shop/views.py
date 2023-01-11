@@ -32,7 +32,7 @@ def detail_view(request, slug):
 
         user = User.objects.get(username=request.user.username)
 
-        rev = Review(rating=rating, text=review, username=user, pr_slug=product)
+        rev = Review(rating=rating, text=review, username=user, product=product)
         rev.save()
 
         # Проверка на наличие Отправленных Файлов
@@ -43,19 +43,27 @@ def detail_view(request, slug):
                 fs = FileSystemStorage()
                 # сохраняем на файловой системе
                 filename = fs.save(file.name, file)
-                ex = ReviewImages(img=filename, pr_slug=product, review_id=rev)
+                ex = ReviewImages(img=filename, product=product, review=rev)
                 ex.save()
 
         context['success_form'] = True
+        return redirect('one_pr', slug=slug)
 
-    # Характеристики из модели в виде list(tuple(key, val))
+    # Получение Отзывов на товар
+    reviews = Review.objects.filter(product=product)
+    img_reviews = ReviewImages.objects.filter(product=product)
 
+    context['reviews'] = reviews
+    context['img_reviews'] = img_reviews
+
+    # Характеристики из модели в виде list[tuple(key, val)]
     good = product.characteristics
     goods_key = good.split(",")[::2]
     goods_val = good.split(",")[1::2]
     info = list(zip(goods_key, goods_val))
     context["info"] = info
     context['product'] = product
+
     # Укороченная инфо для Начального Отображения
     context['info_sm'] = info[:6]
 
