@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
@@ -110,9 +109,17 @@ class Review(models.Model):
     rating = models.IntegerField()
     date = models.DateField(auto_now_add=True)
 
+    class Meta:
+        ordering = ('date',)
+        verbose_name = 'review'
+        verbose_name_plural = 'reviews'
 
 class ReviewImages(models.Model):
     """Для изображений с отзывов"""
-    img = models.FileField(upload_to=settings.MEDIA_ROOT)
+    img = models.ImageField(upload_to='media')
     pr_slug = models.ForeignKey(Product, on_delete=models.CASCADE)
     review_id = models.ForeignKey(Review, on_delete=models.CASCADE, default='')
+
+    class Meta:
+        verbose_name = 'ReviewImages'
+        verbose_name_plural = 'ReviewImages'

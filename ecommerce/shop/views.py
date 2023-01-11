@@ -1,11 +1,12 @@
 from django.contrib.auth import login, logout
+from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView
-
+from django.core.files.storage import FileSystemStorage
 from .forms import UserLogForm, UserRegForm, Reviews
-from .models import Category, Product, Cart, CartItem
+from .models import Category, Product, Cart, CartItem, Review, ReviewImages
 
 
 # Create your views here.
@@ -19,27 +20,48 @@ class HomeView(ListView):
     template_name = 'shop/base.html'
 
 
-class ProductView(DetailView):
-    """Страница Продукта"""
-    template_name = 'shop/detail_pr.html'
-    model = Product
-    context_object_name = 'product'
+def detail_view(request, slug):
+    context = {}
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    # Получение Товара
+    product = Product.objects.get(slug=slug)
 
-        # Характеристики из модели в виде list(tuple(key, val))
-        good = kwargs['object'].characteristics
-        goods_key = good.split(",")[::2]
-        goods_val = good.split(",")[1::2]
-        info = list(zip(goods_key, goods_val))
-        context["info"] = info
+    # Если пост, то записываем отзыв в модель
+    if request.method == 'POST':
+        rating = request.POST['rating']
+        review = request.POST['feedback']
 
-        # Укороченная инфо для Начального Отображения
-        context['info_sm'] = info[:6]
+        user = User.objects.get(username=request.user.username)
 
-        context['form'] = Reviews()
-        return context
+        rev = Review(rating=rating, text=review, username=user, pr_slug=product)
+        rev.save()
+
+        # Проверка на наличие Отправленных Файлов
+
+        if request.FILES:
+            files = request.FILES.getlist('files')
+            for file in files:
+                fs = FileSystemStorage()
+                # сохраняем на файловой системе
+                filename = fs.save(file.name, file)
+                ex = ReviewImages(img=filename, pr_slug=product, review_id=rev)
+                ex.save()
+
+        context['success_form'] = True
+
+    # Характеристики из модели в виде list(tuple(key, val))
+
+    good = product.characteristics
+    goods_key = good.split(",")[::2]
+    goods_val = good.split(",")[1::2]
+    info = list(zip(goods_key, goods_val))
+    context["info"] = info
+    context['product'] = product
+    # Укороченная инфо для Начального Отображения
+    context['info_sm'] = info[:6]
+
+    context['form'] = Reviews()
+    return render(request, 'shop/detail_pr.html', context)
 
 
 def prod_by_category(request, category):

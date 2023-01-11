@@ -19,10 +19,10 @@ class UserRegForm(UserCreationForm):
 
 
 class Reviews(forms.Form):
-    feedback = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Оставьте Отзыв'}))
-    files = forms.ImageField(widget=forms.ClearableFileInput(attrs={'multiple': True, 'class': 'right_menu'}),
+    feedback = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Оставьте Отзыв', 'class': 'form-control'}), required=False)
+    files = forms.ImageField(widget=forms.ClearableFileInput(attrs={'multiple': True, 'class': 'right_menu form-control'}),
                              required=False, label='Фото')
-    rating = forms.ChoiceField(choices=((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)), label='Рейтинг',
-                               widget=forms.RadioSelect(attrs={'class': 'right_menu'}))
+    rating = forms.ChoiceField(choices=((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)), label='Ваша Оценка',
+                               widget=forms.RadioSelect(attrs={'class': 'flex-container'}))
 
 

@@ -1,0 +1,40 @@
+.flex-container{
+    display: flex;
+
+}
+.flex-container div{
+    margin-right: 10px;
+
+}
+
+#id_feedback{
+    float: left;
+    min-width: 700px;
+    max-height: 100px;
+
+}
+
+#id_files{
+    width: 400px;
+}
+
+label[for='id_feedback']{
+    display: none;
+}
+
+label[for='id_files']{
+    display: none;
+}
+
+textarea{
+    margin-bottom: 10px;
+}
+
+label{
+    margin-top: 10px;
+}
+
+.sent_review{
+    margin-left: 0;
+    margin-top: 10px;
+}
