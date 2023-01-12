@@ -23,7 +23,7 @@ body{ display:flex; flex-direction:column; }
     width: 400px;
     max-height: 500px;
     border-radius: 20px;
-    box-shadow: 5px 10px 18px lightblue;
+    box-shadow: 5px 10px 60px lightblue;
 }
 
 .user-form2 h1{

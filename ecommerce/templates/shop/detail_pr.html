@@ -8,7 +8,7 @@
       rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
       rel="stylesheet"/>
-      <link rel="stylesheet" href="{% static 'css/review.css'%}">
+<link rel="stylesheet" href="{% static 'css/review.css'%}">
 <title>{{product.name}}</title>
 {%endblock%}
 {% block content%}
@@ -40,7 +40,7 @@
                 {% endfor %}
 
             </div>
-            <div class="col-md-4 text-center mx-auto">
+            <div class="col-md-5 text-center d-flex justify-content-lg-end justify-content-start">
                 <div class="card" style="width: 18rem; height:140px;">
                     <div class="card-body">
                         <h5 class="card-title text-center fw-bold fs-4">{{product.price}}₽</h5>
@@ -102,13 +102,10 @@
     <div class="container">
         <div class="container">
             <div class="row">
-                {% if not success_form%}
+                {% if not user_not_auth%}
                 <h1 class="fs-4 fw-bold mt-5">Оставить Отзыв</h1>
-                {%endif%}
-                <div class="col">
-                    {% if success_form%}
-                    <p class="text-center text-success fs-4 fw-bold mt-3" style="text-transform:uppercase;">Спасибо За Отзыв</p>
-                    {% else %}
+
+                <div class="col-6">
                     <form action="" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         {% for field in form%}
@@ -117,11 +114,36 @@
                         {% endfor %}
                         <button type="submit" class="btn btn-primary btn-sm sent_review">Оставить Отзыв</button>
                     </form>
-                    {% endif %}
                 </div>
+                {%else%}
+                <h1 class="fs-4 fw-bold mt-5">Вы не <a href="{% url 'login_user'%}">Авторизовались</a></h1>
+                {%endif%}
             </div>
-            <div class="container">
-                <p class="fs-4 fw-bold mt-5">Другие Отзывы</p>
+
+            <div class="row">
+                <div class="col-lg-12 col-12 col-xl-8 other_reviews">
+                    <p class="fs-4 fw-bold mt-5">Другие Отзывы</p>
+                    {%for review in reviews%}
+                    <div class="rounded-4 pl-4 mb-3 review">
+                        <div class="ps-3 review_head">
+                            <h1 class="fs-5 fw-bold mt-2"><span class="material-symbols-outlined people_icon">
+                                    person
+                            </span>{{review.username}}</h1>
+                            <p class="fw-bold">Оценка Пользователя: {{review.rating}}</p>
+                            <p style="white-space: pre-line; padding-right:10px;">{{review.text}}</p>
+                        </div>
+                        <div class="pb-3 ps-3 review_footer">
+                            {%for img in img_reviews%}
+                            {%if img.review == review%}
+                            <a href="{{img.img.url}}" rel="noopener noreferrer" target="_blank"><img
+                                    src="{{img.img.url}}" alt="" height="70" width="90" class="pe-2 rounded-4 mt-2"></a>
+                            {%endif%}
+                            {%endfor%}
+                        </div>
+                    </div>
+                    {%endfor%}
+
+                </div>
             </div>
         </div>
 

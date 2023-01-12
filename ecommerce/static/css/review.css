@@ -9,7 +9,7 @@
 
 #id_feedback{
     float: left;
-    min-width: 700px;
+    max-width: 700px;
     max-height: 100px;
 }
 
@@ -40,4 +40,10 @@ label{
 .sent_review{
     margin-left: 0;
     margin-top: 10px;
+}
+
+.people_icon{
+    position: relative;
+    right: 5px;
+    top: 5px;
 }

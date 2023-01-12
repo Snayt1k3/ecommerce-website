@@ -21,33 +21,35 @@ class HomeView(ListView):
 
 
 def detail_view(request, slug):
-    context = {'success_form': False}
+    context = {'user_not_auth': False}
     # Получение Товара
     product = Product.objects.get(slug=slug)
 
     # Если пост, то записываем отзыв в модель
     if request.method == 'POST':
-        rating = request.POST['rating']
-        review = request.POST['feedback']
+        if request.user.is_authenticated:
+            rating = request.POST['rating']
+            review = request.POST['feedback']
 
-        user = User.objects.get(username=request.user.username)
+            user = User.objects.get(username=request.user.username)
 
-        rev = Review(rating=rating, text=review, username=user, product=product)
-        rev.save()
+            rev = Review(rating=rating, text=review, username=user, product=product)
+            rev.save()
 
-        # Проверка на наличие Отправленных Файлов
+            # Проверка на наличие Отправленных Файлов
 
-        if request.FILES:
-            files = request.FILES.getlist('files')
-            for file in files:
-                fs = FileSystemStorage()
-                # сохраняем на файловой системе
-                filename = fs.save(file.name, file)
-                ex = ReviewImages(img=filename, product=product, review=rev)
-                ex.save()
+            if request.FILES:
+                files = request.FILES.getlist('files')
+                for file in files:
+                    fs = FileSystemStorage()
+                    # сохраняем на файловой системе
+                    filename = fs.save(file.name, file)
+                    ex = ReviewImages(img=filename, product=product, review=rev)
+                    ex.save()
 
-        context['success_form'] = True
-        return redirect('one_pr', slug=slug)
+            return redirect('one_pr', slug=slug)
+        else:
+            context['user_not_auth'] = True
 
     # Получение Отзывов на товар
     reviews = Review.objects.filter(product=product)
