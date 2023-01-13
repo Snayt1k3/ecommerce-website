@@ -41,22 +41,30 @@
 
             </div>
             <div class="col-md-5 text-center d-flex justify-content-lg-end justify-content-start">
-                <div class="card" style="width: 18rem; height:140px;">
+                <div class="card cards" style="width: 18rem; height:140px;">
+                    <input type="hidden" name="_token" value="{{ csrf_token }}" />
+                    <input type="hidden" value="{{product.id}}" class="prod_id">
                     <div class="card-body">
                         <h5 class="card-title text-center fw-bold fs-4">{{product.price}}₽</h5>
-                        <div class='mt-2'>
-                            <a class="btn btn-primary btn-sm" href="{% url 'add_cart' product.id%}">Добавить В
+                        <div class='mt-2 row '>
+                            <div class="col-7">
+                            <a class="btn btn-primary ms-4" href="{% url 'add_cart' product.id%}">В
                                 Корзину</a>
-                            <a class="btn btn-outline-danger btn-sm rounded-5" href="#">
-                                <span class="material-symbols-outlined" style="padding-top:2px;">favorite</span>
-                            </a>
+                            </div>
+                            <div class="col-2">
+                            <button class="btn btn-danger AddToWishList rounded-5"><span class="material-symbols-outlined">
+                                favorite
+                            </span>
+                            </button>
+                            </div>
+
                             <div class="row">
                                 {% if product.stock < 2 %}
-                                <p class="card-text text-danger">Осталось Всего {{product.stock}}шт! </p>
+                                <p class="card-text text-danger d-flex justify-content-start mt-3">Осталось Всего {{product.stock}}шт! </p>
                                 {% elif product.stock > 15 %}
-                                <p class="card-text text-success">В Наличии</p>
+                                <p class="card-text text-success d-flex justify-content-start mt-3">В Наличии</p>
                                 {% else %}
-                                <p class="card-text text-success">В Наличии {{product.stock}}шт </p>
+                                <p class="card-text text-success d-flex justify-content-start mt-3">В Наличии {{product.stock}}шт </p>
                                 {% endif %}
                             </div>
                         </div>
@@ -124,7 +132,7 @@
                 <div class="col-lg-12 col-12 col-xl-8 other_reviews">
                     <p class="fs-4 fw-bold mt-5">Другие Отзывы</p>
                     {%for review in reviews%}
-                    <div class="rounded-4 pl-4 mb-3 review">
+                    <div class="rounded-4 pl-4 mb-3 review cards">
                         <div class="ps-3 review_head">
                             <h1 class="fs-5 fw-bold mt-2"><span class="material-symbols-outlined people_icon">
                                     person
@@ -139,6 +147,7 @@
                                     src="{{img.img.url}}" alt="" height="70" width="90" class="pe-2 rounded-4 mt-2"></a>
                             {%endif%}
                             {%endfor%}
+                            <p>{{review.date}}</p>
                         </div>
                     </div>
                     {%endfor%}
@@ -146,7 +155,10 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
+
+{% endblock %}
+{%block scripts%}
+<script src="{% static 'js/wishlist.js'%}"></script>
 {% endblock %}

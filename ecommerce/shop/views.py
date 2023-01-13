@@ -2,11 +2,13 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, DetailView, CreateView
 from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView, CreateView
+
 from .forms import UserLogForm, UserRegForm, Reviews
-from .models import Category, Product, Cart, CartItem, Review, ReviewImages
+from .models import Category, Product, Cart, CartItem, Review, ReviewImages, WishList
 
 
 # Create your views here.
@@ -177,3 +179,25 @@ def signoutview(request):
     """Выход"""
     logout(request)
     return redirect('/')
+
+
+def addtowish(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            prod_id = request.POST.get('product_id')
+            product = Product.objects.get(id=prod_id)
+            if WishList.objects.filter(
+                    product=prod_id, user=request.user.id):
+                return JsonResponse(
+                    {'status': 'Product Already added'})
+            else:
+                WishList.objects.create(user=request.user, product=product)
+                return JsonResponse({'status': 'successfully added'})
+        else:
+            return JsonResponse({'status': 'Login to continue'})
+
+    return redirect('/')
+
+
+def viewwishlist(request):
+    return HttpResponse('Hello')

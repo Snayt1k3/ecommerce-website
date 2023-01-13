@@ -44,7 +44,3 @@ body{ display:flex; flex-direction:column; }
     background-color: lightblue;
     color: black;
 }
-
-.errorlist{
-    display: none;
-}

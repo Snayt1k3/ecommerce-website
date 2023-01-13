@@ -114,6 +114,7 @@ class Review(models.Model):
         verbose_name = 'review'
         verbose_name_plural = 'reviews'
 
+
 class ReviewImages(models.Model):
     """Для изображений с отзывов"""
     img = models.ImageField(upload_to='media')
@@ -123,3 +124,10 @@ class ReviewImages(models.Model):
     class Meta:
         verbose_name = 'ReviewImages'
         verbose_name_plural = 'ReviewImages'
+
+
+class WishList(models.Model):
+    """Избранное"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
