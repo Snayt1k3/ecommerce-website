@@ -71,36 +71,6 @@ class Product(models.Model):
         return reverse('one_pr', args=[self.slug])
 
 
-class Cart(models.Model):
-    """Модель Корзины"""
-    cart_id = models.CharField(max_length=250, blank=True)
-    date_added = models.DateField(auto_now_add=True)
-
-    class Meta:
-        ordering = ['date_added']
-        db_table = 'Cart'
-
-    def __str__(self):
-        return self.cart_id
-
-
-class CartItem(models.Model):
-    """Предмет Корзины"""
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
-    active = models.BooleanField(default=True)
-
-    class Meta:
-        db_table = 'CartItem'
-
-    def sum_total(self):
-        return self.product.price * self.quantity
-
-    def __str__(self):
-        return self.product
-
-
 class Review(models.Model):
     """Отзывы"""
     username = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -128,6 +98,12 @@ class ReviewImages(models.Model):
 
 class WishList(models.Model):
     """Избранное"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
+
+
+class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
