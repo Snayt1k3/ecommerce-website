@@ -2,8 +2,8 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.core.files.storage import FileSystemStorage
-from django.http import JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse, HttpResponse
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView
 
 from .forms import UserLogForm, UserRegForm, Reviews
@@ -22,7 +22,7 @@ class HomeView(ListView):
 
 
 def detail_view(request, slug):
-    context = {'user_not_auth': False}
+    context = {}
     # Получение Товара
     product = Product.objects.get(slug=slug)
 
@@ -49,8 +49,6 @@ def detail_view(request, slug):
                     ex.save()
 
             return redirect('one_pr', slug=slug)
-        else:
-            context['user_not_auth'] = True
 
     # Получение Отзывов на товар
     reviews = Review.objects.filter(product=product)
@@ -83,29 +81,6 @@ def prod_by_category(request, category):
     })
 
 
-def cart_remove(request, product_id):
-    """Удаление единицы товара"""
-    cart = Cart.objects.get(cart_id=_cart_id(request))
-    product = get_object_or_404(Product, id=product_id)
-    cart_item = CartItem.objects.get(cart=cart, product=product)
-    if cart_item.quantity > 1:
-        cart_item.quantity -= 1
-        cart_item.save()
-
-    else:
-        cart_item.delete()
-    return redirect('cart_detail')
-
-
-def cart_delete(request, product_id):
-    """Полное удаление товара"""
-    cart = Cart.objects.get(cart_id=_cart_id(request))
-    product = get_object_or_404(Product, id=product_id)
-    cart_item = CartItem.objects.get(cart=cart, product=product)
-    cart_item.delete()
-    return redirect('cart_detail')
-
-
 class UserLogView(LoginView):
     """Вход"""
     form_class = UserLogForm
@@ -127,13 +102,13 @@ class UserRegView(CreateView):
         return redirect(self.success_url)
 
 
-def signoutview(request):
+def sign_out(request):
     """Выход"""
     logout(request)
     return redirect('/')
 
 
-def addtowish(request):
+def add_to_wish_list(request):
     """Добавление в Избранное"""
     if request.method == 'POST':
         if request.user.is_authenticated:
@@ -152,7 +127,7 @@ def addtowish(request):
     return redirect('/')
 
 
-def deletewishlist(request):
+def delete_from_wish_list(request):
     """Удаление из Избранного"""
     if request.method == 'POST':
         prod_id = request.POST.get('prod_id')
@@ -166,9 +141,13 @@ def deletewishlist(request):
         return redirect('/')
 
 
-def viewwishlist(request):
+def wish_list(request):
     user = User.objects.get(username=request.user.username)
     wish_products = WishList.objects.filter(user=user)
     return render(request, 'shop/wishlist.html', context={
         'wish_products': wish_products,
     })
+
+
+def add_to_cart(request):
+    return HttpResponse('200')

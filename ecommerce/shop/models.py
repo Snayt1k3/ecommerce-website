@@ -104,6 +104,8 @@ class WishList(models.Model):
 
 
 class Cart(models.Model):
+    """Корзина"""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
     date = models.DateField(auto_now_add=True)
