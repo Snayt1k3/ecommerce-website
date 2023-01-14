@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.storage import FileSystemStorage
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, CreateView
 
@@ -182,6 +182,7 @@ def signoutview(request):
 
 
 def addtowish(request):
+    """Добавление в Избранное"""
     if request.method == 'POST':
         if request.user.is_authenticated:
             prod_id = request.POST.get('product_id')
@@ -199,5 +200,23 @@ def addtowish(request):
     return redirect('/')
 
 
+def deletewishlist(request):
+    """Удаление из Избранного"""
+    if request.method == 'POST':
+        prod_id = request.POST.get('prod_id')
+        product = Product.objects.get(id=prod_id)
+        if product:
+            WishList.objects.get(product=product).delete()
+            return JsonResponse({'status': 'Successfully deleted'})
+        else:
+            return JsonResponse({'status': 'Product are not available'})
+    else:
+        return redirect('/')
+
+
 def viewwishlist(request):
-    return HttpResponse('Hello')
+    user = User.objects.get(username=request.user.username)
+    wish_products = WishList.objects.filter(user=user)
+    return render(request, 'shop/wishlist.html', context={
+        'wish_products': wish_products,
+    })

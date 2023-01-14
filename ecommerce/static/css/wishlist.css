@@ -1,0 +1,18 @@
+.cart-table{
+    font-size:18px;
+    min-width:480px;
+
+}
+
+.thead-wish , .title-table{
+    text-transform:uppercase;
+    font-weight:normal;
+    letter-spacing: .2em;
+}
+
+body{ min-height: 100vh; margin:0; }
+
+
+/* The article fills all the space between header & footer */
+body{ display:flex; flex-direction:column; }
+.need_to_footer{ flex:1; }

@@ -16,6 +16,7 @@ urlpatterns = [
     path('shop/signup/', views.UserRegView.as_view(), name='reg_user'),
     path('shop/logout/', views.signoutview, name='logout_user'),
 
-    path('wishlist/', views.viewwishlist),
+    path('wishlist', views.WishList.viewwishlist, name='wishlist'),
     path('add_to_wish', views.addtowish),
+    path('delete_from_wish', views.deletewishlist),
 ]
