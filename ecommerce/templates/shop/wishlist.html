@@ -24,10 +24,10 @@
             </tr>
             </thead>
             {% for wish_product in wish_products%}
-            <tr>
+            <tr class="all_data">
                 <td class="col-1">
                     <a href="{{wish_product.product.get_url}}">
-                        <img alt="" height="100" src="{{wish_product.product.img}}"
+                        <img alt="" height="140" src="{{wish_product.product.img}}"
                              width="100" class="me-3">
                     </a>
                 </td>
@@ -37,15 +37,16 @@
                     Цена: {{wish_product.product.price}}₽
                     <br>
                     id: {{wish_product.product.id}}
-
+                    <br>
+                    Добавлен: {{wish_product.date}}
                 </td>
-                <td class="text-start text-center">
+                <td>
                     <input type="hidden" name="_token" value="{{ csrf_token }}" />
                     <input type="hidden" class="prod_id" value="{{wish_product.product.id}}">
-                    <button class="btn btn-success rounded-4">
+                    <button class="btn btn-success rounded-5">
                         <span class="material-symbols-outlined">shopping_cart</span>
                     </button>
-                    <button class="btn btn-danger rounded-4 deleteBtnWl">
+                    <button class="btn btn-danger rounded-5 deleteBtnWl">
                         <span class="material-symbols-outlined">delete</span>
                     </button>
                 </td>
