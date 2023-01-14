@@ -10,7 +10,7 @@
 
 
 {% block content%}
-{% if not cart_items%}
+{% if not user_cart%}
 <div class="text-center">
     <br>
     <h1 class="text-center cart-title">
@@ -36,41 +36,41 @@
                 </th>
             </tr>
             </thead>
-            {% for cart_item in cart_items%}
+            {% for item in user_cart%}
             <tr>
                 <td>
-                    <a href="{{cart_item.product.get_url}}">
-                        <img alt="" height="100" src="{{cart_item.product.img}}"
+                    <a href="{{item.product.get_url}}">
+                        <img alt="" height="100" src="{{item.product.img}}"
                              width="100">
                     </a>
                 </td>
                 <td class="text-start">
-                    {{cart_item.product.name}}
+                    {{item.product.name}}
                     <br>
-                    Цена: {{cart_item.product.price}}₽
+                    Цена: {{item.product.price}}₽
                     <br>
-                    Кол-во: {{cart_item.quantity}} x {{cart_item.product.price}}₽
+                    Кол-во: {{item.quantity}} x {{item.product.price}}₽
                     <br>
-                    id: {{cart_item.product.id}}
+                    id: {{item.product.id}}
                 </td>
                 <td class="text-start">
                     Итого:
                     <br>
-                    {{cart_item.sum_total}}₽
+                    {{item.sub_total}}₽
                 </td>
-                {%if cart_item.quantity < cart_item.product.stock%}
+                {%if cart.quantity < cart.product.stock%}
                 <td>
-                    <a href="{% url 'add_cart' cart_item.product.id %}"><span
+                    <a href=""><span
                             class="material-symbols-outlined cart-plus">
                         add_circle
                     </span></a>
-                    <a href="{% url 'cart_remove' cart_item.product.id %}"><span
+                    <a href=""><span
                             class="material-symbols-outlined cart-minus">
                         <span class="material-symbols-outlined">
                     do_not_disturb_on
                     </span>
                     </span></a>
-                    <a href="{% url 'cart_delete' cart_item.product.id %}"><span
+                    <a href=""><span
                             class="material-symbols-outlined cart-delete">
                         delete
                     </span></a>

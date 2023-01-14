@@ -19,5 +19,6 @@ urlpatterns = [
     path('delete_from_wish', views.delete_from_wish_list),
 
     # Cart
-    path('add_to_cart', views.add_to_cart)
+    path('cart', views.cart, name='cart'),
+    path('add_to_cart', views.add_to_cart),
 ]

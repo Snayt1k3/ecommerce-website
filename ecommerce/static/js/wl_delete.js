@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function(){
-    alertify.set('notifier','position', 'top-right');
+    alertify.set('notifier','position', 'top-left');
     var del_btn = document.querySelectorAll('.deleteBtnWl');
     var id_products = document.querySelectorAll('.prod_id');
     var token = $('input[name=_token]').val();

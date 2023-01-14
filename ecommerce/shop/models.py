@@ -109,3 +109,6 @@ class Cart(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     date = models.DateField(auto_now_add=True)
+
+    def sub_total(self):
+        return self.product.price * self.quantity
