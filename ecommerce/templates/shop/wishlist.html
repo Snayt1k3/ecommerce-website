@@ -42,11 +42,10 @@
                 </td>
                 <td>
                     <input type="hidden" name="_token" value="{{ csrf_token }}" />
-                    <input type="hidden" class="prod_id" value="{{wish_product.product.id}}">
                     <button class="btn btn-success rounded-5">
                         <span class="material-symbols-outlined">shopping_cart</span>
                     </button>
-                    <button class="btn btn-danger rounded-5 deleteBtnWl">
+                    <button class="btn btn-danger rounded-5 deleteBtnWl" onclick="delete_from_wish({{wish_product.product.id}})">
                         <span class="material-symbols-outlined">delete</span>
                     </button>
                 </td>
@@ -57,7 +56,4 @@
 </div>
 <div class="need_to_footer"></div>
 {% endblock%}
-
-{% block scripts%}
-<script src="{% static 'js/wl_delete.js'%}"></script>
-{% endblock%}
+}

@@ -43,17 +43,16 @@
             <div class="col-md-5 text-center d-flex justify-content-lg-end justify-content-start">
                 <div class="card cards" style="width: 18rem; height:140px;">
                     <input type="hidden" name="_token" value="{{ csrf_token }}" />
-                    <input type="hidden" value="{{product.id}}" class="prod_id">
                     <div class="card-body">
                         <h5 class="card-title text-center fw-bold fs-4 mt-2">{{product.price}}₽</h5>
                         <div class='mt-3 row'>
                             <div class="d-grid gap-2 col-9">
-                            <button class="btn btn-success rounded-2 AddToCart" style="width:200px;">
+                            <button class="btn btn-success rounded-2 AddToCart" onclick='add_to_cart({{product.id}})' style="width:200px;">
                                 Добавить в корзину
                             </button>
                             </div>
                             <div class="d-grid gap-2 col-2">
-                            <button class="btn btn-danger rounded-3 AddToWishList"><span class="material-symbols-outlined">
+                            <button class="btn btn-danger rounded-3 AddToWishList" onclick="add_to_wish({{product.id}})"><span class="material-symbols-outlined">
                                 favorite
                             </span>
                             </button>
@@ -159,7 +158,4 @@
     </div>
 </div>
 
-{% endblock %}
-{%block scripts%}
-<script src="{% static 'js/wl_add.js'%}"></script>
 {% endblock %}

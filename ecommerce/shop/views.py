@@ -119,7 +119,7 @@ def add_to_wish_list(request):
                     {'status': 'Product Already added'})
             else:
                 WishList.objects.create(user=request.user, product=product)
-                return JsonResponse({'status': 'successfully added'})
+                return JsonResponse({'status': 'Successfully Added'})
         else:
             return JsonResponse({'status': 'Login to continue'})
 
@@ -129,12 +129,12 @@ def add_to_wish_list(request):
 def delete_from_wish_list(request):
     """Удаление из Избранного"""
     if request.method == 'POST':
-        product = Product.objects.get(id=request.POST.get('prod_id'))
+        product = Product.objects.get(id=request.POST.get('product_id'))
         if product:
             WishList.objects.get(product=product).delete()
             return JsonResponse({'status': 'Successfully deleted'})
         else:
-            return JsonResponse({'status': 'product unavailable'})
+            return JsonResponse({'status': 'Product unavailable'})
     else:
         return redirect('/')
 
@@ -148,6 +148,7 @@ def wish_list(request):
 
 
 def cart(request):
+    """Корзина"""
     user = User.objects.get(username=request.user.username)
     user_cart = Cart.objects.filter(user=user)
     total = 0
@@ -161,18 +162,61 @@ def cart(request):
 
 
 def add_to_cart(request):
+    """Добавление Товара В Корзину"""
     if request.method == 'POST':
         if request.user.is_authenticated:
-            product = Product.objects.get(id=request.POST.get('prod_id'))
+            product = Product.objects.get(id=request.POST.get('product_id'))
             if product:
                 if Cart.objects.filter(product=product, user=request.user.id):
                     return JsonResponse({'status': 'Product Already added'})
                 else:
                     Cart.objects.create(user=request.user, product=product)
-                    return JsonResponse({'status': 'successfully added'})
+                    return JsonResponse({'status': 'Successfully Added'})
             else:
-                return JsonResponse({'status': 'product unavailable'})
+                return JsonResponse({'status': 'Product unavailable'})
         else:
             return JsonResponse({'status': 'Login to continue'})
+    else:
+        return redirect('/')
+
+
+def minus_quantity(request):
+    """Уменьшение Кол-ва Товара в корзине"""
+    if request.method == 'POST':
+        product = Product.objects.get(id=request.POST.get('product_id'))
+        cart_item = Cart.objects.get(product=product, user=request.user)
+        if cart_item.quantity == 1:
+            cart_item.delete()
+            return JsonResponse({'status': 'Successfully Deleted from cart'})
+        else:
+            cart_item.quantity -= 1
+            cart_item.save()
+            return JsonResponse({'status': 'Quantity Updated'})
+    else:
+        return redirect('/')
+
+
+def plus_quantity(request):
+    """Увеличение Кол-ва Товара в корзине"""
+    if request.method == 'POST':
+        product = Product.objects.get(id=request.POST.get('product_id'))
+        cart_item = Cart.objects.get(product=product, user=request.user)
+        if cart_item.quantity < product.stock:
+            cart_item.quantity += 1
+            cart_item.save()
+            return JsonResponse({'status': 'Quantity Updated'})
+        else:
+            return JsonResponse({'status': f'Product stock - {product.stock}'})
+    else:
+        return redirect('/')
+
+
+def delete_from_cart(request):
+    """Удаление Товара Из Корзины"""
+    if request.method == 'POST':
+        product = Product.objects.get(id=request.POST.get('product_id'))
+        cart_item = Cart.objects.get(product=product, user=request.user)
+        cart_item.delete()
+        return JsonResponse({'status': 'Successfully Deleted'})
     else:
         return redirect('/')

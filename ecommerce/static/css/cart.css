@@ -1,15 +1,12 @@
 .cart-plus{
-    color:green;
     text-decoration:none;
 }
 
 .cart-minus{
-    color: red;
     text-decoration:none;
 }
 
 .cart-delete {
-    color:gray;
     text-decoration:none;
 }
 
@@ -31,3 +28,13 @@ body{ min-height: 100vh; margin:0; }
 /* The article fills all the space between header & footer */
 body{ display:flex; flex-direction:column; }
 .need_to_footer{ flex:1; }
+
+.btns-cart{
+    display: flex;
+    flex-direction: column;
+}
+
+.btns-cart button {
+    margin-top: 5px;
+    margin-left: 30px;
+}
