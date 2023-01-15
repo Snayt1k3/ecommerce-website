@@ -48,6 +48,7 @@ class Product(models.Model):
     slug = models.SlugField(max_length=1000)
     stock = models.IntegerField()
     available = models.BooleanField(default=True)
+    avg_rating = models.FloatField(default=0)
 
     class Meta:
         ordering = ('name',)
@@ -58,7 +59,8 @@ class Product(models.Model):
         self.slug = self.slugify_rus(self.name)
         super(Product, self).save(*args, **kwargs)
 
-    def slugify_rus(self, s):
+    @staticmethod
+    def slugify_rus(s):
         """
         Overriding django slugify that allows to use russian words as well.
         """

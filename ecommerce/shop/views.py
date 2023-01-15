@@ -69,6 +69,16 @@ def detail_view(request, slug):
     context['info_sm'] = info[:6]
 
     context['form'] = Reviews()
+
+    # Средний Рейтинг Товара
+    reviews = Review.objects.filter(product=product)
+    if reviews:
+        avg_rating = 0
+        for review in reviews:
+            avg_rating += review.rating
+        avg = round(avg_rating / len(reviews), 1)
+        product.avg_rating = avg
+        product.save()
     return render(request, 'shop/detail_pr.html', context)
 
 
