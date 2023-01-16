@@ -150,8 +150,7 @@ def delete_from_wish_list(request):
 
 
 def wish_list(request):
-    user = User.objects.get(username=request.user.username)
-    wish_products = WishList.objects.filter(user=user)
+    wish_products = WishList.objects.filter(user=request.user)
     return render(request, 'shop/wishlist.html', context={
         'wish_products': wish_products,
     })
@@ -159,8 +158,7 @@ def wish_list(request):
 
 def cart(request):
     """Корзина"""
-    user = User.objects.get(username=request.user.username)
-    user_cart = Cart.objects.filter(user=user)
+    user_cart = Cart.objects.filter(user=request.user)
     total = 0
     for item in user_cart:
         total += item.sub_total()
@@ -177,7 +175,7 @@ def add_to_cart(request):
         if request.user.is_authenticated:
             product = Product.objects.get(id=request.POST.get('product_id'))
             if product:
-                if Cart.objects.filter(product=product, user=request.user.id):
+                if Cart.objects.filter(product=product, user=request.user):
                     return JsonResponse({'status': 'Product Already added'})
                 else:
                     Cart.objects.create(user=request.user, product=product)
@@ -233,4 +231,13 @@ def delete_from_cart(request):
 
 
 def checkout(request):
-    return render(request, 'shop/checkout.html')
+    cart_products = Cart.objects.filter(user=request.user)
+
+    total = 0
+    for item in cart_products:
+        total += item.sub_total()
+
+    return render(request, 'shop/checkout.html', context={
+        'cart_products': cart_products,
+        'total': total,
+    })
