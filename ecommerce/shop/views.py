@@ -230,3 +230,7 @@ def delete_from_cart(request):
         return JsonResponse({'status': 'Successfully Deleted'})
     else:
         return redirect('/')
+
+
+def checkout(request):
+    return render(request, 'shop/checkout.html')
