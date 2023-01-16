@@ -79,6 +79,7 @@ def detail_view(request, slug):
         avg = round(avg_rating / len(reviews), 1)
         product.avg_rating = avg
         product.save()
+
     return render(request, 'shop/detail_pr.html', context)
 
 
@@ -150,7 +151,7 @@ def delete_from_wish_list(request):
 
 
 def wish_list(request):
-    wish_products = WishList.objects.filter(user=request.user)
+    wish_products = WishList.objects.filter(user=request.user.id)
     return render(request, 'shop/wishlist.html', context={
         'wish_products': wish_products,
     })
@@ -158,7 +159,7 @@ def wish_list(request):
 
 def cart(request):
     """Корзина"""
-    user_cart = Cart.objects.filter(user=request.user)
+    user_cart = Cart.objects.filter(user=request.user.id)
     total = 0
     for item in user_cart:
         total += item.sub_total()
@@ -175,7 +176,7 @@ def add_to_cart(request):
         if request.user.is_authenticated:
             product = Product.objects.get(id=request.POST.get('product_id'))
             if product:
-                if Cart.objects.filter(product=product, user=request.user):
+                if Cart.objects.filter(product=product, user=request.user.id):
                     return JsonResponse({'status': 'Product Already added'})
                 else:
                     Cart.objects.create(user=request.user, product=product)
@@ -192,7 +193,7 @@ def minus_quantity(request):
     """Уменьшение Кол-ва Товара в корзине"""
     if request.method == 'POST':
         product = Product.objects.get(id=request.POST.get('product_id'))
-        cart_item = Cart.objects.get(product=product, user=request.user)
+        cart_item = Cart.objects.get(product=product, user=request.user.id)
         if cart_item.quantity == 1:
             cart_item.delete()
             return JsonResponse({'status': 'Successfully Deleted from cart'})
@@ -208,7 +209,7 @@ def plus_quantity(request):
     """Увеличение Кол-ва Товара в корзине"""
     if request.method == 'POST':
         product = Product.objects.get(id=request.POST.get('product_id'))
-        cart_item = Cart.objects.get(product=product, user=request.user)
+        cart_item = Cart.objects.get(product=product, user=request.user.id)
         if cart_item.quantity < product.stock:
             cart_item.quantity += 1
             cart_item.save()
@@ -223,7 +224,7 @@ def delete_from_cart(request):
     """Удаление Товара Из Корзины"""
     if request.method == 'POST':
         product = Product.objects.get(id=request.POST.get('product_id'))
-        cart_item = Cart.objects.get(product=product, user=request.user)
+        cart_item = Cart.objects.get(product=product, user=request.user.id)
         cart_item.delete()
         return JsonResponse({'status': 'Successfully Deleted'})
     else:
@@ -231,7 +232,7 @@ def delete_from_cart(request):
 
 
 def checkout(request):
-    cart_products = Cart.objects.filter(user=request.user)
+    cart_products = Cart.objects.filter(user=request.user.id)
 
     total = 0
     for item in cart_products:

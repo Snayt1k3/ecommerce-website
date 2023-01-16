@@ -118,9 +118,11 @@
                                 <p class="card-text"><small class="text-danger">Нет в Наличии</small></p>
                                 {%endif%}
                             </div>
+                            {% if product.avg_rating%}
                             <div class="col-3">
                                 <p class="avg_rating"><span class="fs-4 text-warning">★</span>{{product.avg_rating}}</p>
                             </div>
+                            {% endif%}
                         </div>
                     </div>
                 </div>

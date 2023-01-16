@@ -16,7 +16,7 @@
 <div class="container-fluid" style="margin-top:10px;">
 
     <div class="container">
-        <div class="row d-flex justify-content-between">
+        <div class="row">
             <div>
                 <p class="fw-bold fs-4">{{product.name}}</p>
             </div>
@@ -40,7 +40,7 @@
                 {% endfor %}
 
             </div>
-            <div class="col-md-5 text-center d-flex justify-content-lg-end justify-content-start">
+            <div class="col-md-5 col-lg-4 text-center d-flex justify-content-lg-end justify-content-start">
                 <div class="card cards" style="width: 18rem; height:140px;">
                     <input type="hidden" name="_token" value="{{ csrf_token }}"/>
                     <div class="card-body">
@@ -150,6 +150,7 @@
 
             <div class="row">
                 <div class="col-lg-12 col-12 col-xl-8 other_reviews">
+                    {% if reviews %}
                     <p class="fs-4 fw-bold mt-5">Другие Отзывы</p>
                     <div>
                         <p class="avg_rating "><span class="fs-4 text-warning">★</span>{{product.avg_rating}}</p>
@@ -174,7 +175,7 @@
                         </div>
                     </div>
                     {%endfor%}
-
+                    {%endif%}
                 </div>
             </div>
         </div>
