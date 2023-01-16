@@ -12,11 +12,34 @@
             <ul class="navbar-nav me-auto ">
                 <li class="nav-item">
                     <a aria-current="page" class="nav-link text-uppercase fw-bold" href="{% url 'home' %}">Главная</a>
-                </li>    
+                </li>
                 {% if request.user.is_authenticated%}
                 <li class="nav-item">
                     <a class="nav-link text-uppercase fw-bold" href="{% url 'cart'%}">Корзина</a>
                 </li>
+                {% if count_product_in_cart%}
+                <li class="nav-item">
+                    <a class="count_product_in_cart text-white">
+                        {%if count_product_in_cart > 9 %}
+                        9+
+                        {%else%}
+                        {{count_product_in_cart}}</a>
+                        {%endif%}
+                </li>
+                {%endif%}
+                <li class="nav-item">
+                    <a class="nav-link text-uppercase fw-bold" href="{% url 'wishlist' %}">Избранное</a>
+                </li>
+                {% if count_product_in_wishlist%}
+                <li class="nav-item">
+                    <a class="count_product_in_wishlist text-white">
+                        {%if count_product_in_wishlist > 9 %}
+                        9+
+                        {%else%}
+                        {{count_product_in_wishlist}}</a>
+                        {%endif%}
+                </li>
+                {%endif%}
                 <li class="nav-item">
                     <a aria-current="page" class="nav-link text-uppercase fw-bold"
                        href="#">{{request.user.username}}</a>
@@ -24,9 +47,6 @@
                 <li class="nav-item">
                     <a aria-current="page" class="nav-link text-uppercase fw-bold"
                        href="{% url 'logout_user' %}">Выйти</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-uppercase fw-bold" href="{% url 'wishlist' %}">Избранное</a>
                 </li>
                 {% else %}
                 <li class="nav-item">

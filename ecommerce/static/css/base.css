@@ -12,10 +12,32 @@ body {
 .avg_rating{
     position: relative;
     font-size: 18px;
-    top: -7px;
+    top: -8px;
     left: -4px;
 }
 
 .avg_rating span{
     margin-right: 5px;
+}
+
+.count_product_in_cart{
+    text-align: center;
+    position: relative;
+    right: 8px;
+    padding-left: 6px;
+    padding-right: 7px;
+    background-color: #cf5d5d;
+    border-radius: 15px;
+    text-decoration: none;
+}
+
+.count_product_in_wishlist{
+    text-align: center;
+    position: relative;
+    right: 7px;
+    padding-left: 6px;
+    padding-right: 7px;
+    background-color: #cf5d5d;
+    border-radius: 15px;
+    text-decoration: none;
 }

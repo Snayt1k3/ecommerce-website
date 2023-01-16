@@ -6,9 +6,9 @@
 
 
 {% block content%}
-    <div class="container text-center">
-        <p class="fw-bold fs-3 title-table">Избранное</p>
-    </div>
+<div class="container text-center">
+    <p class="fw-bold fs-3 title-table">Избранное</p>
+</div>
 <div class="row mx-auto main-div">
     <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
         <table class="table table-hover">
@@ -41,11 +41,12 @@
                     Добавлен: {{wish_product.date}}
                 </td>
                 <td>
-                    <input type="hidden" name="_token" value="{{ csrf_token }}" />
+                    <input type="hidden" name="_token" value="{{ csrf_token }}"/>
                     <button class="btn btn-success rounded-5">
                         <span class="material-symbols-outlined">shopping_cart</span>
                     </button>
-                    <button class="btn btn-danger rounded-5 deleteBtnWl" onclick="delete_from_wish({{wish_product.product.id}})">
+                    <button class="btn btn-danger rounded-5 deleteBtnWl"
+                            onclick="delete_from_wish({{wish_product.product.id}})">
                         <span class="material-symbols-outlined">delete</span>
                     </button>
                 </td>

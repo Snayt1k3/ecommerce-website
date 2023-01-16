@@ -114,3 +114,7 @@ class Cart(models.Model):
 
     def sub_total(self):
         return self.product.price * self.quantity
+
+
+# class Orders(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
