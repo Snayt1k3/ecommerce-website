@@ -116,5 +116,19 @@ class Cart(models.Model):
         return self.product.price * self.quantity
 
 
-# class Orders(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+class Orders(models.Model):
+    CHOICES = (
+        ('assembl', 'В сборке у продавца'),
+        ('delivery', 'В доставке'),
+        ('received', 'Получен')
+    )
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    status = models.CharField(max_length=30, choices=CHOICES)
+
+
+class PersonalArea(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    avatar = models.ImageField(upload_to='media/avatars', blank=False)
+    city = models.CharField(max_length=100, blank=False)
+    street = models.CharField(max_length=100, blank=False)
