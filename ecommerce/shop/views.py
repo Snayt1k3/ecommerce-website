@@ -2,7 +2,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.core.files.storage import FileSystemStorage
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView
 
@@ -232,13 +232,18 @@ def delete_from_cart(request):
 
 
 def checkout(request):
-    cart_products = Cart.objects.filter(user=request.user.id)
+    if request.method == 'GET':
+        cart_products = Cart.objects.filter(user=request.user.id)
 
-    total = 0
-    for item in cart_products:
-        total += item.sub_total()
+        total = 0
+        for item in cart_products:
+            total += item.sub_total()
 
-    return render(request, 'shop/checkout.html', context={
-        'cart_products': cart_products,
-        'total': total,
-    })
+        return render(request, 'shop/checkout.html', context={
+            'cart_products': cart_products,
+            'total': total,
+        })
+
+
+def checkout_success(request):
+    return HttpResponse(200)
