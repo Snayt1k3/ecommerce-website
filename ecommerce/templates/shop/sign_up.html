@@ -12,10 +12,6 @@
         <form action="" method="post">
             {% csrf_token %}
             {{form.as_p}}
-            {% if form.errors %}
-            <p class="text-danger mx-auto">Неправильный пароль, мин 8 символов и не должен совпадать с Username, и не
-                должен содержать только цифры</p>
-            {% endif %}
             <button class="btn btn-primary " type="submit">Регистрация</button>
             <a class="btn btn-primary " href="#">Забыли Пароль</a>
         </form>
