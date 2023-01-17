@@ -8,7 +8,7 @@ from django.views.generic import ListView, CreateView
 
 from .forms import UserLogForm, UserRegForm, Reviews
 from .models import Category, Product, Review, ReviewImages, WishList, Cart
-
+from django.core.exceptions import ValidationError
 
 # Create your views here.
 
@@ -111,7 +111,6 @@ class UserRegView(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect(self.success_url)
-
 
 def sign_out(request):
     """Выход"""
