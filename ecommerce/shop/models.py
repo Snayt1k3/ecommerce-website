@@ -131,4 +131,4 @@ class PersonalArea(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='media/avatars', blank=False)
     city = models.CharField(max_length=100, blank=False)
-    street = models.CharField(max_length=100, blank=False)
+    address = models.CharField(max_length=100, blank=False)

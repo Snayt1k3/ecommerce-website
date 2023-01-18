@@ -23,8 +23,9 @@
                         {%if count_product_in_cart > 9 %}
                         9+
                         {%else%}
-                        {{count_product_in_cart}}</a>
+                        {{count_product_in_cart}}
                         {%endif%}
+                    </a>
                 </li>
                 {%endif%}
                 <li class="nav-item">
@@ -42,7 +43,7 @@
                 {%endif%}
                 <li class="nav-item">
                     <a aria-current="page" class="nav-link text-uppercase fw-bold"
-                       href="#">{{request.user.username}}</a>
+                       href="{% url 'profile' request.user.username %}">{{request.user.username}}</a>
                 </li>
                 <li class="nav-item">
                     <a aria-current="page" class="nav-link text-uppercase fw-bold"

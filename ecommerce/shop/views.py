@@ -2,7 +2,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.core.files.storage import FileSystemStorage
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import ListView, CreateView, TemplateView
@@ -96,7 +96,7 @@ def prod_by_category(request, category):
 class UserLogView(LoginView):
     """Вход"""
     form_class = UserLogForm
-    template_name = 'shop/login_user.html'
+    template_name = 'shop/registration/login_user.html'
 
     def get_success_url(self):
         return "/"
@@ -105,7 +105,7 @@ class UserLogView(LoginView):
 class UserRegView(CreateView):
     """Регистрация"""
     form_class = UserRegForm
-    template_name = 'shop/sign_up.html'
+    template_name = 'shop/registration/sign_up.html'
     success_url = '/'
 
     def form_valid(self, form):
@@ -233,6 +233,7 @@ def delete_from_cart(request):
 
 
 def checkout(request):
+    """Оплата"""
     if request.method == 'GET':
         cart_products = Cart.objects.filter(user=request.user.id)
 
@@ -240,7 +241,7 @@ def checkout(request):
         for item in cart_products:
             total += item.sub_total()
 
-        return render(request, 'shop/checkout.html', context={
+        return render(request, 'shop/payment/checkout.html', context={
             'cart_products': cart_products,
             'total': total,
         })
@@ -254,8 +255,14 @@ def checkout(request):
 
 
 class CheckFailed(TemplateView):
-    template_name = 'shop/checkout_failed.html'
+    template_name = 'shop/payment/checkout_failed.html'
 
 
 class CheckSuccess(TemplateView):
-    template_name = 'shop/checkout_success.html'
+    template_name = 'shop/payment/checkout_success.html'
+
+
+def profile_user_view(request, username):
+    # if not PersonalArea.objects.filter(user=request.user):
+    #     PersonalArea.objects.create(user=request.user)
+    return render(request, 'shop/profile_user.html')
