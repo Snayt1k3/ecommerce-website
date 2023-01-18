@@ -1,0 +1,10 @@
+
+body{ min-height: 100vh; margin:0; }
+
+body{ display:flex; flex-direction:column; }
+.for_footer{ flex:1; }
+
+
+.success_cont{
+    margin-top: 250px;
+}

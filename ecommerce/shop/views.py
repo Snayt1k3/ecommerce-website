@@ -4,11 +4,12 @@ from django.contrib.auth.views import LoginView
 from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, CreateView
+from django.urls import reverse
+from django.views.generic import ListView, CreateView, TemplateView
 
 from .forms import UserLogForm, UserRegForm, Reviews
-from .models import Category, Product, Review, ReviewImages, WishList, Cart
-from django.core.exceptions import ValidationError
+from .models import Category, Product, Review, ReviewImages, WishList, Cart, Orders
+
 
 # Create your views here.
 
@@ -111,6 +112,7 @@ class UserRegView(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect(self.success_url)
+
 
 def sign_out(request):
     """Выход"""
@@ -243,6 +245,17 @@ def checkout(request):
             'total': total,
         })
 
+    if request.method == 'POST':
+        cart_items = Cart.objects.filter(user=request.user)
+        for cart_item in cart_items:
+            Orders.objects.create(product=cart_item.product, user=request.user, status='assembl')
+            cart_item.delete()
+        return redirect(reverse('checkout_success'))
 
-def checkout_success(request):
-    return HttpResponse(200)
+
+class CheckFailed(TemplateView):
+    template_name = 'shop/checkout_failed.html'
+
+
+class CheckSuccess(TemplateView):
+    template_name = 'shop/checkout_success.html'

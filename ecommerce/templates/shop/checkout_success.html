@@ -1,0 +1,21 @@
+{% extends 'shop/base.html' %}
+{% load static%}
+{%block head%}
+<title>checkout success</title>
+<link rel="stylesheet" href="{% static 'css/checkout_success.css' %}">
+{%endblock%}
+
+{% block content %}
+<div class="container d-flex justify-content-center success_cont">
+    <div class="row mt-5">
+        <div class="img-success col-md-3 col-3 col-lg-3">
+            <img src="{% static 'img/checked.png'%}" width="150" height="150">
+        </div>
+        <div class="col-lg-8 col-7 ms-5">
+            <p class="fs-1 fw-bold text-success">Спасибо за покупку!</p>
+            <a href="{% url 'home'%}" class="btn btn-primary rounded-4">На главную</a>
+        </div>
+    </div>
+</div>
+<div class="for_footer"></div>
+{% endblock %}

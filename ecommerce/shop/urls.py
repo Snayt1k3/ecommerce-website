@@ -31,5 +31,6 @@ urlpatterns = [
     path('minus_quantity', views.minus_quantity),
 
     path('checkout', views.checkout, name='checkout'),
-    path('checkout/success', views.checkout_success),
+    path('checkout/success', views.CheckSuccess.as_view(), name='checkout_success'),
+    path('checkout/failed', views.CheckFailed.as_view(), name='checkout_failed'),
 ]
