@@ -115,7 +115,7 @@
                 {% if request.user.is_authenticated%}
                 <h1 class="fs-4 fw-bold mt-5">Оставить Отзыв</h1>
 
-                <div class="col-6">
+                <div class="col-12 col-lg-7">
                     <form action="" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         {% for field in form%}

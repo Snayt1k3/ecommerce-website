@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.views.generic import ListView, CreateView, TemplateView
 
 from .forms import UserLogForm, UserRegForm, Reviews
-from .models import Category, Product, Review, ReviewImages, WishList, Cart, Orders
+from .models import Category, Product, Review, ReviewImages, WishList, Cart, Orders, PersonalArea
 
 
 # Create your views here.
@@ -67,7 +67,7 @@ def detail_view(request, slug):
     context['product'] = product
 
     # Укороченная инфо для Начального Отображения
-    context['info_sm'] = info[:6]
+    context['info_sm'] = info[:5]
 
     context['form'] = Reviews()
 
@@ -247,10 +247,19 @@ def checkout(request):
         })
 
     if request.method == 'POST':
+        total = 0
         cart_items = Cart.objects.filter(user=request.user)
+        current_order = Orders.objects.create(user=request.user, status='В сборке у продавца')
+
         for cart_item in cart_items:
-            Orders.objects.create(product=cart_item.product, user=request.user, status='assembl')
+            total += cart_item.sub_total()
+            current_order.products.add(cart_item.product)
+            cart_item.product.stock -= 1
             cart_item.delete()
+
+        current_order.total = total
+        current_order.save()
+
         return redirect(reverse('checkout_success'))
 
 
@@ -263,6 +272,14 @@ class CheckSuccess(TemplateView):
 
 
 def profile_user_view(request, username):
-    # if not PersonalArea.objects.filter(user=request.user):
-    #     PersonalArea.objects.create(user=request.user)
-    return render(request, 'shop/profile_user.html')
+    context = {}
+    if not PersonalArea.objects.filter(user=request.user):
+        PersonalArea.objects.create(user=request.user)
+
+    history_orders = Orders.objects.filter(user=request.user, status='received')
+    current_orders = Orders.objects.exclude(status='received').filter(user=request.user).order_by('id')
+
+    context['history_orders'] = history_orders
+    context['current_orders'] = current_orders.reverse()
+
+    return render(request, 'shop/profile_user.html', context)

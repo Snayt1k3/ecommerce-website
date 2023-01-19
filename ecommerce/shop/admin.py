@@ -10,6 +10,8 @@ admin.site.register(Review)
 admin.site.register(ReviewImages)
 admin.site.register(WishList)
 admin.site.register(Cart)
-admin.site.register(Orders)
 
 
+@admin.register(Orders)
+class AdminStore(admin.ModelAdmin):
+    filter_horizontal = ['products']
