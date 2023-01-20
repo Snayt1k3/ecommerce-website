@@ -255,6 +255,7 @@ def checkout(request):
             total += cart_item.sub_total()
             current_order.products.add(cart_item.product)
             cart_item.product.stock -= 1
+            cart_item.product.save()
             cart_item.delete()
 
         current_order.total = total
@@ -276,10 +277,54 @@ def profile_user_view(request, username):
     if not PersonalArea.objects.filter(user=request.user):
         PersonalArea.objects.create(user=request.user)
 
+    more_info_user = PersonalArea.objects.get(user=request.user)
     history_orders = Orders.objects.filter(user=request.user, status='received')
     current_orders = Orders.objects.exclude(status='received').filter(user=request.user).order_by('id')
 
+    context['more_info_user'] = more_info_user
     context['history_orders'] = history_orders
     context['current_orders'] = current_orders.reverse()
 
     return render(request, 'shop/profile_user.html', context)
+
+
+def profile_user_edit_view(request, username):
+    if request.method == 'POST':
+
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        phone = request.POST.get('phone')
+        address = request.POST.get('address')
+        avatar = request.FILES.get('avatar')
+
+        user = User.objects.get(username=username)
+        user_profile = PersonalArea.objects.get(user=user)
+
+        if first_name:
+            user.first_name = first_name
+
+        if last_name:
+            user.last_name = last_name
+
+        if phone:
+            user_profile.phone = phone
+
+        if address:
+            user_profile.address = address
+
+        if avatar:
+            fs = FileSystemStorage()
+            # сохраняем на файловой системе
+            filename = fs.save(avatar.name, avatar)
+            user_profile.avatar = filename
+
+        user.save()
+        user_profile.save()
+
+        return redirect('profile', username=username)
+    else:
+        user = User.objects.get(username=username)
+        user_profile = PersonalArea.objects.get(user=user)
+        return render(request, 'shop/profile_edit.html', context={
+            'more_info_user': user_profile
+        })

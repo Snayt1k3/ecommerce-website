@@ -43,6 +43,7 @@ urlpatterns = [
     path('checkout/success', views.CheckSuccess.as_view(), name='checkout_success'),
     path('checkout/failed', views.CheckFailed.as_view(), name='checkout_failed'),
 
-    # PersonalArea
-    path('profile/<str:username>', views.profile_user_view, name='profile')
+    # Profile
+    path('profile/<str:username>', views.profile_user_view, name='profile'),
+    path('profile_edit/<str:username>', views.profile_user_edit_view, name='edit_profile')
 ]

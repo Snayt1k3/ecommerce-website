@@ -7,5 +7,5 @@ btn.addEventListener('click', function(){
     } else {
         btn.innerHTML = 'Скрыть Историю';
         body.style.maxHeight = 'None';
-    }
-})
+    };
+});

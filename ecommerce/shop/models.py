@@ -127,8 +127,9 @@ class Orders(models.Model):
     status = models.CharField(max_length=30, choices=CHOICES)
     total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
+
 class PersonalArea(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='media/avatars', blank=False)
-    city = models.CharField(max_length=100, blank=False)
-    street = models.CharField(max_length=100, blank=False)
+    address = models.CharField(max_length=100, blank=False)
+    phone = models.CharField(max_length=100, blank=False)
