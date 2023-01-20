@@ -1,6 +1,7 @@
 {%extends 'shop/base.html'%}
 {% load static %}
 {% block head %}
+<title>Профиль</title>
 {% endblock %}
 
 {% block content %}
@@ -118,12 +119,13 @@
                                         <div>
                                             <p>Статус Заказа: {{order.status}}</p>
                                         </div>
-                                        {%for product in order.products.all%}
+                                        {%for item in order.order_items.all%}
                                         <div>
-                                            <a href="{% url 'one_pr' product.slug %}" class="d-flex flex-row mb-3"
+                                            <a href="{% url 'one_pr' item.product.slug %}" class="d-flex flex-row mb-3"
                                                style="text-decoration:none;">
-                                                <img src="{{product.img}}" alt="" width="40" height="40">
-                                                <p class="mt-3 ms-1 text-dark">{{product.name|slice:":40"}}</p>
+                                                <img src="{{item.product.img}}" alt="" width="40" height="40">
+                                                <p class="mt-3 ms-1 text-dark">{{item.product.name|slice:":40"}}</p>
+                                                <p class="ms-1 text-dark">{{item.product.price}} x {{item.quantity}}</p>
                                             </a>
                                         </div>
                                         {% endfor%}
@@ -147,14 +149,14 @@
                                         <div>
                                             <p>Статус Заказа: {{order.status}}</p>
                                         </div>
-                                        {%for product in order.products.all%}
+                                        {%for item in order.order_items.all%}
                                         <div>
-                                            <a href="{% url 'one_pr' product.slug %}" class="d-flex flex-row mb-3"
+                                            <a href="{% url 'one_pr' item.product.slug %}" class="d-flex flex-row mb-3"
                                                style="text-decoration:none;">
-                                                <img src="{{product.img}}" alt="" width="40" height="40">
-                                                <p class="mt-3 ms-1 text-dark">{{product.name|slice:":40"}}</p>
-                                                <p> {{request.session.}}</p>
+                                                <img src="{{item.product.img}}" alt="" width="40" height="40">
+                                                <p class=" ms-1 text-dark">{{item.product.name|slice:":40"}}</p>
                                             </a>
+                                            <p class="ms-1 text-dark">{{item.product.price}}₽ x {{item.quantity}}</p>
                                         </div>
                                         {% endfor%}
                                     </div>
@@ -168,6 +170,7 @@
         </div>
     </div>
 </section>
+<div class="need_to_footer"></div>
 {% endblock %}
 
 {% block scripts %}

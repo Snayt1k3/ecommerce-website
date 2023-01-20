@@ -116,16 +116,22 @@ class Cart(models.Model):
         return self.product.price * self.quantity
 
 
+class OrdersItem(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=0)
+
+
 class Orders(models.Model):
     CHOICES = (
         ('assembl', 'В сборке у продавца'),
         ('delivery', 'В доставке'),
         ('received', 'Получен')
     )
-    products = models.ManyToManyField(Product)
+    order_items = models.ManyToManyField(OrdersItem)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=30, choices=CHOICES)
     total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    date = models.DateField(auto_now_add=True, null=True)
 
 
 class PersonalArea(models.Model):

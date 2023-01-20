@@ -10,7 +10,7 @@ from django.urls import reverse
 from django.views.generic import ListView, CreateView, TemplateView
 
 from .forms import UserLogForm, UserRegForm, Reviews
-from .models import Category, Product, Review, ReviewImages, WishList, Cart, Orders, PersonalArea
+from .models import Category, Product, Review, ReviewImages, WishList, Cart, Orders, PersonalArea, OrdersItem
 
 
 # Create your views here.
@@ -263,9 +263,15 @@ def checkout(request):
         current_order = Orders.objects.create(user=request.user, status='В сборке у продавца')
 
         for cart_item in cart_items:
+            # Манипуляции с CartItem
             total += cart_item.sub_total()
-            current_order.products.add(cart_item.product)
             cart_item.product.stock -= 1
+
+            # Создание Item и его присоединение к order
+            item = OrdersItem.objects.create(product=cart_item.product, quantity=cart_item.quantity)
+            current_order.order_items.add(item)
+
+            # Сохранение Кол-во продукта на складе и удаление корзины пользователя
             cart_item.product.save()
             cart_item.delete()
 
@@ -293,11 +299,11 @@ def profile_user_view(request, username):
 
     more_info_user = PersonalArea.objects.get(user=request.user)
     history_orders = Orders.objects.filter(user=request.user, status='received')
-    current_orders = Orders.objects.exclude(status='received').filter(user=request.user).order_by('id')
+    current_orders = Orders.objects.exclude(status='received').filter(user=request.user).order_by('-id')
 
     context['more_info_user'] = more_info_user
     context['history_orders'] = history_orders
-    context['current_orders'] = current_orders.reverse()
+    context['current_orders'] = current_orders
 
     return render(request, 'shop/profile_user.html', context)
 
