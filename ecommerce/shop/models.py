@@ -52,8 +52,8 @@ class Product(models.Model):
 
     class Meta:
         ordering = ('name',)
-        verbose_name = 'product'
-        verbose_name_plural = 'products'
+        verbose_name = 'Product'
+        verbose_name_plural = 'Products'
 
     def save(self, *args, **kwargs):
         self.slug = self.slugify_rus(self.name)
@@ -83,8 +83,8 @@ class Review(models.Model):
 
     class Meta:
         ordering = ('date',)
-        verbose_name = 'review'
-        verbose_name_plural = 'reviews'
+        verbose_name = 'Review'
+        verbose_name_plural = 'Reviews'
 
 
 class ReviewImages(models.Model):
@@ -94,8 +94,8 @@ class ReviewImages(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = 'ReviewImages'
-        verbose_name_plural = 'ReviewImages'
+        verbose_name = 'Review_Image'
+        verbose_name_plural = 'Review_Images'
 
 
 class WishList(models.Model):
@@ -129,8 +129,8 @@ class OrdersItem(models.Model):
     quantity = models.IntegerField(default=0)
 
     class Meta:
-        verbose_name = 'OrderItem'
-        verbose_name_plural = 'OrderItems'
+        verbose_name = 'Order_Item'
+        verbose_name_plural = 'Order_Items'
 
 
 class Orders(models.Model):
@@ -156,3 +156,7 @@ class PersonalArea(models.Model):
     avatar = models.ImageField(upload_to='media/avatars', blank=False)
     address = models.CharField(max_length=100, blank=False)
     phone = models.CharField(max_length=100, blank=False)
+
+    class Meta:
+        verbose_name = 'Personal_Area'
+        verbose_name_plural = 'Personal_Areas'

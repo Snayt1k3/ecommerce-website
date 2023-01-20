@@ -260,7 +260,7 @@ def checkout(request):
     if request.method == 'POST':
         total = 0
         cart_items = Cart.objects.filter(user=request.user)
-        current_order = Orders.objects.create(user=request.user, status='В сборке у продавца')
+        current_order = Orders.objects.create(user=request.user, status='assembl')
 
         for cart_item in cart_items:
             # Манипуляции с CartItem
