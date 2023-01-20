@@ -274,6 +274,9 @@ class CheckSuccess(TemplateView):
 
 def profile_user_view(request, username):
     context = {}
+    if not request.user.is_authenticated or request.user.username != username:
+        return redirect('home')
+
     if not PersonalArea.objects.filter(user=request.user):
         PersonalArea.objects.create(user=request.user)
 
@@ -289,6 +292,9 @@ def profile_user_view(request, username):
 
 
 def profile_user_edit_view(request, username):
+    if not request.user.is_authenticated or request.user.username != username:
+        return redirect('home')
+
     if request.method == 'POST':
 
         first_name = request.POST.get('first_name')
