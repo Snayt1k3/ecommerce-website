@@ -76,10 +76,12 @@
                 </li>
 
             </ul>
-            <form class="d-flex" role="search">
-                <input aria-label="Search" class="form-control me-2 form-control-sm" placeholder="Search" type="search">
+            {% if request.path == '/' %}
+            <form class="d-flex" role="search" method="get">
+                <input name='search' aria-label="Search" class="form-control me-2 form-control-sm" placeholder="Search" type="search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
+            {% endif %}
         </div>
     </div>
 </nav>

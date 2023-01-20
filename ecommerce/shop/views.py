@@ -2,6 +2,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.core.files.storage import FileSystemStorage
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -20,6 +21,14 @@ class HomeView(ListView):
     model = Product
     context_object_name = 'products'
     template_name = 'shop/base.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('search')
+        if query:
+            object_list = Product.objects.filter(Q(name__icontains=query))
+        else:
+            object_list = Product.objects.all()
+        return object_list
 
 
 def detail_view(request, slug):
