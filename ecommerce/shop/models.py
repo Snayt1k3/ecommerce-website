@@ -105,8 +105,8 @@ class WishList(models.Model):
     date = models.DateField(auto_now_add=True)
 
     class Meta:
-        verbose_name = 'WishList'
-        verbose_name_plural = 'WishLists'
+        verbose_name = 'Wish_List'
+        verbose_name_plural = 'Wish_Lists'
 
 
 class Cart(models.Model):
@@ -125,6 +125,7 @@ class Cart(models.Model):
 
 
 class OrdersItem(models.Model):
+    """Для Order, Чтобы хранить какие-то смежные данные"""
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=0)
 
@@ -135,9 +136,9 @@ class OrdersItem(models.Model):
 
 class Orders(models.Model):
     CHOICES = (
-        ('assembl', 'В сборке у продавца'),
-        ('delivery', 'В доставке'),
-        ('received', 'Получен')
+        ('В сборке у продавца', 'assembl'),
+        ('В доставке', 'delivery'),
+        ('Получен', 'received')
     )
     order_items = models.ManyToManyField(OrdersItem)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
