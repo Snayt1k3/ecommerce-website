@@ -107,7 +107,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="card mb-4 mb-md-0">
+                        <div class="card mb-4 mb-md-0" style="max-height:500px; overflow:hidden;">
                             <div class="card-body history_orders" style="max-height:500px; overflow:hidden;">
                                 <p class="mb-4"><span class="text-primary font-italic me-1">История Заказов</span>
                                 </p>
@@ -138,7 +138,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="card mb-4 mb-md-0">
-                            <div class="card-body">
+                            <div class="card-body current_orders" style="max-height:500px; overflow:hidden;">
                                 <p class="mb-4"><span class="text-primary font-italic me-1">Текущие Заказы</span>
                                 </p>
                                 {% for order in current_orders %}
@@ -163,6 +163,7 @@
                                 </div>
                                 {% endfor %}
                             </div>
+                            <button class="btn btn-primary show_all_chistory">Показать Всю Историю</button>
                         </div>
                     </div>
                 </div>
