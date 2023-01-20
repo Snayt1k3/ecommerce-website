@@ -3,15 +3,13 @@
 }
 
 body{ 
-    min-height: 100vh; 
+
     margin:0; 
     background-color: #d9d9d9;
 }
 
 
-/* The article fills all the space between header & footer */
-body{ display:flex; flex-direction:column; }
-.user-form{ flex:1; }
+
 
 .user-form2{
     background-color: white;

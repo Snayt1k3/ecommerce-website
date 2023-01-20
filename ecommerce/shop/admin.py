@@ -15,4 +15,4 @@ admin.site.register(PersonalArea)
 
 @admin.register(Orders)
 class AdminStore(admin.ModelAdmin):
-    filter_horizontal = ['products']
+    filter_horizontal = ['order_items']
