@@ -104,6 +104,10 @@ class WishList(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
 
+    class Meta:
+        verbose_name = 'WishList'
+        verbose_name_plural = 'WishLists'
+
 
 class Cart(models.Model):
     """Корзина"""
@@ -112,6 +116,10 @@ class Cart(models.Model):
     quantity = models.IntegerField(default=1)
     date = models.DateField(auto_now_add=True)
 
+    class Meta:
+        verbose_name = 'Cart'
+        verbose_name_plural = 'Carts'
+
     def sub_total(self):
         return self.product.price * self.quantity
 
@@ -119,6 +127,10 @@ class Cart(models.Model):
 class OrdersItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name = 'OrderItem'
+        verbose_name_plural = 'OrderItems'
 
 
 class Orders(models.Model):
@@ -132,6 +144,11 @@ class Orders(models.Model):
     status = models.CharField(max_length=30, choices=CHOICES)
     total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     date = models.DateField(auto_now_add=True, null=True)
+
+    class Meta:
+        verbose_name = 'Order'
+        verbose_name_plural = 'Orders'
+        ordering = ['date']
 
 
 class PersonalArea(models.Model):
