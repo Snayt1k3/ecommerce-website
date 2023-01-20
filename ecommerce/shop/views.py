@@ -260,7 +260,7 @@ def checkout(request):
     if request.method == 'POST':
         total = 0
         cart_items = Cart.objects.filter(user=request.user)
-        current_order = Orders.objects.create(user=request.user, status='assembl')
+        current_order = Orders.objects.create(user=request.user, status='В сборке у продавца')
 
         for cart_item in cart_items:
             # Манипуляции с CartItem
@@ -298,8 +298,8 @@ def profile_user_view(request, username):
         PersonalArea.objects.create(user=request.user)
 
     more_info_user = PersonalArea.objects.get(user=request.user)
-    history_orders = Orders.objects.filter(user=request.user, status='received')
-    current_orders = Orders.objects.exclude(status='received').filter(user=request.user).order_by('-id')
+    history_orders = Orders.objects.filter(user=request.user, status='Получен')
+    current_orders = Orders.objects.exclude(status='Получен').filter(user=request.user).order_by('-id')
 
     context['more_info_user'] = more_info_user
     context['history_orders'] = history_orders

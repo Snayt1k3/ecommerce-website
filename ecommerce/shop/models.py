@@ -142,7 +142,7 @@ class Orders(models.Model):
     )
     order_items = models.ManyToManyField(OrdersItem)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    status = models.CharField(max_length=30, choices=CHOICES)
+    status = models.CharField(max_length=30, choices=CHOICES, blank=False, default='В сборке у продавца')
     total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     date = models.DateField(auto_now_add=True, null=True)
 
@@ -154,7 +154,7 @@ class Orders(models.Model):
 
 class PersonalArea(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to='media/avatars', blank=False)
+    avatar = models.ImageField(upload_to='media/avatars/', blank=False)
     address = models.CharField(max_length=100, blank=False)
     phone = models.CharField(max_length=100, blank=False)
 
