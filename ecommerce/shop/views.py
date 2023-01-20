@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
@@ -38,7 +39,7 @@ def detail_view(request, slug):
 
     # Если пост, то записываем отзыв в модель
     if request.method == 'POST':
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and not Review.objects.filter(username=request.user.id, product=product):
             rating = request.POST['rating']
             review = request.POST['feedback']
 
@@ -59,7 +60,8 @@ def detail_view(request, slug):
                     ex.save()
 
             return redirect('one_pr', slug=slug)
-
+        else:
+            messages.error(request, 'У вас Уже есть отзыв на данный товар')
     # Получение Отзывов на товар
     reviews = Review.objects.filter(product=product)
     img_reviews = ReviewImages.objects.filter(product=product)

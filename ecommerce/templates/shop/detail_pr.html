@@ -113,6 +113,11 @@
         <div class="container">
             <div class="row">
                 {% if request.user.is_authenticated%}
+                <div class="row mt-2">
+                    {% for msg in messages%}
+                    <p class="text-danger fs-5">{{msg}}</p>
+                    {% endfor %}
+                </div>
                 <h1 class="fs-4 fw-bold mt-5">Оставить Отзыв</h1>
 
                 <div class="col-12 col-lg-7">
