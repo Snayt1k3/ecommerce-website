@@ -1,8 +1,12 @@
+from random import randint
+
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.core.files.storage import FileSystemStorage
+from django.core.mail import send_mail
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
@@ -323,6 +327,7 @@ def profile_user_edit_view(request, username):
         user = User.objects.get(username=username)
         user_profile = PersonalArea.objects.get(user=user)
 
+        # Проверки, что надо сохранить
         if first_name:
             user.first_name = first_name
 
@@ -351,3 +356,38 @@ def profile_user_edit_view(request, username):
         return render(request, 'shop/profile_edit.html', context={
             'more_info_user': user_profile
         })
+
+
+def email_sent_view(request):
+    """Отправка mail с кодом из 6 цифр"""
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            auth_key = ''.join([str(randint(0, 9)) for _ in range(6)])
+            request.session['auth_key'] = auth_key
+            send_mail(
+                'Confirm email',
+                f'Код для Подтверждения Почты - {auth_key} Никому не сообщайте его',
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[request.user.email])
+            return JsonResponse({'status': 'Email has been send', 'error': False})
+        else:
+            return JsonResponse({'status': 'Something went wrong', 'error': True})
+    else:
+        return redirect('home')
+
+
+def email_confirm_view(request):
+    """Обработка Кода пользователя"""
+    if request.method == 'POST':
+        key1 = request.session.get('auth_key')
+        key2 = request.POST.get('auth_key')
+        if key1 == key2:
+            profile_user = PersonalArea.objects.get(user=request.user)
+            profile_user.email_confirm = True
+            profile_user.save()
+            del request.session['auth_key']
+            return JsonResponse({'status': 'Success'})
+        else:
+            return JsonResponse({'status': 'Wrong Key'})
+    else:
+        return redirect('home')

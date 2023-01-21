@@ -28,15 +28,15 @@ urlpatterns = [
 
     # Wish List
     path('wishlist', views.wish_list, name='wishlist'),
-    path('add_to_wish', views.add_to_wish_list),
-    path('delete_from_wish', views.delete_from_wish_list),
+    path('add_to_wish', views.add_to_wish_list),  # AJAX
+    path('delete_from_wish', views.delete_from_wish_list),  # AJAX
 
     # Cart
     path('cart', views.cart, name='cart'),
-    path('add_to_cart', views.add_to_cart),
-    path('delete_from_cart', views.delete_from_cart),
-    path('plus_quantity', views.plus_quantity),
-    path('minus_quantity', views.minus_quantity),
+    path('add_to_cart', views.add_to_cart),  # AJAX
+    path('delete_from_cart', views.delete_from_cart),  # AJAX
+    path('plus_quantity', views.plus_quantity),  # AJAX
+    path('minus_quantity', views.minus_quantity),  # AJAX
 
     # Payment
     path('checkout', views.checkout, name='checkout'),
@@ -45,5 +45,11 @@ urlpatterns = [
 
     # Profile
     path('profile/<str:username>', views.profile_user_view, name='profile'),
-    path('profile_edit/<str:username>', views.profile_user_edit_view, name='edit_profile')
+    path('profile_edit/<str:username>', views.profile_user_edit_view, name='edit_profile'),
+
+    # Email Confirmation
+    path('profile/email/send_letter', views.email_sent_view),  # AJAX
+    path('profile/email/confirm_email', views.email_confirm_view),  # AJAX
+
+
 ]

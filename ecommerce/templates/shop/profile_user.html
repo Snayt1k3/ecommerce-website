@@ -76,7 +76,23 @@
                                 <p class="mb-0">Email</p>
                             </div>
                             <div class="col-sm-9">
+                                {% if more_info_user.email_confirm%}
                                 <p class="text-muted mb-0">{{request.user.email}}</p>
+                                {% else%}
+                                <div class="d-inline-flex">
+                                    <input type="hidden" name="_token" value="{{ csrf_token }}">
+                                    <p class="text-warning mb-0">{{request.user.email}}
+                                        <button class="btn btn-outline-primary btn-sm ms-2 email_btn">Подтвердить
+                                        </button>
+                                    <div class="email_confirm_div d-inline-flex ms-2 invisible">
+                                        <input type="text" placeholder="Ваш код" class="form-control auth_email_key"
+                                               style="width:100px; height:30px;" name="auth_email_key">
+                                        <button type="submit" class="btn btn-outline-primary btn-sm ms-1 sent_btn_key"
+                                                style="width:120px;">Отправить Код
+                                        </button>
+                                    </div>
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
                         <hr>
@@ -126,7 +142,8 @@
                                                 <img src="{{item.product.img}}" alt="" width="40" height="40">
                                                 <p class=" ms-1 text-dark">{{item.product.name|slice:":40"}}</p>
                                             </a>
-                                            <p class="ms-1 mt-1 text-dark">{{item.product.price}}₽ x {{item.quantity}}шт</p>
+                                            <p class="ms-1 mt-1 text-dark">{{item.product.price}}₽ x
+                                                {{item.quantity}}шт</p>
                                         </div>
                                         {% endfor%}
                                     </div>
@@ -156,7 +173,8 @@
                                                 <img src="{{item.product.img}}" alt="" width="40" height="40">
                                                 <p class=" ms-1 text-dark">{{item.product.name|slice:":40"}}</p>
                                             </a>
-                                            <p class="ms-1 mt-1 text-dark">{{item.product.price}}₽ x {{item.quantity}}шт</p>
+                                            <p class="ms-1 mt-1 text-dark">{{item.product.price}}₽ x
+                                                {{item.quantity}}шт</p>
                                         </div>
                                         {% endfor%}
                                     </div>

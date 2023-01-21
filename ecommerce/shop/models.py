@@ -157,6 +157,7 @@ class PersonalArea(models.Model):
     avatar = models.ImageField(upload_to='media/avatars/', blank=False)
     address = models.CharField(max_length=100, blank=False)
     phone = models.CharField(max_length=100, blank=False)
+    email_confirm = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Personal_Area'
