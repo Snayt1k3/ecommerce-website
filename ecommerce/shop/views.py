@@ -323,11 +323,16 @@ def profile_user_edit_view(request, username):
         phone = request.POST.get('phone')
         address = request.POST.get('address')
         avatar = request.FILES.get('avatar')
+        email = request.POST.get('email')
 
         user = User.objects.get(username=username)
         user_profile = PersonalArea.objects.get(user=user)
 
         # Проверки, что надо сохранить
+        if email:
+            user.email = email
+            user_profile.email_confirm = False
+
         if first_name:
             user.first_name = first_name
 

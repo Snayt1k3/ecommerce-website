@@ -19,8 +19,7 @@
                         <li class="breadcrumb-item "><a
                                 href="{% url 'profile' request.user.username%}">Profile</a></li>
                         <li class="breadcrumb-item active"><a href="#">Edit Profile</a></li>
-                        <li class="breadcrumb-item active"><a href="#">Change Email</a></li>
-                        <li class="breadcrumb-item active"><a href="#">Change Password</a></li>
+                        <li class="breadcrumb-item"><a href="#">Change Password</a></li>
                     </ol>
                 </nav>
             </div>
@@ -90,6 +89,21 @@
                                            >
                                 </div>
                             </div>
+                            <hr>
+                            {% if more_info_user.email_confirm%}
+                            <div class="row">
+                                <div class="input-group">
+                                <span class="material-symbols-outlined input-group-text">
+                                    mail
+                                </span>
+                                    <input type="email" name="email" placeholder="email" class="form-control">
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="row">
+                               <p class="text-warning mb-0">Подтвердите свой Email</p>
+                            </div>
+                            {% endif %}
                             <hr>
                             <div class="row">
                                 <div class="input-group">
