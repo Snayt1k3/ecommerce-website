@@ -25,11 +25,14 @@ def add_to_cart(request):
         if request.user.is_authenticated:
             product = Product.objects.get(id=request.POST.get('product_id'))
             if product:
-                if Cart.objects.filter(product=product, user=request.user.id):
-                    return JsonResponse({'status': 'Product Already added'})
+                if product.stock > 0:
+                    if Cart.objects.filter(product=product, user=request.user.id):
+                        return JsonResponse({'status': 'Product Already added'})
+                    else:
+                        Cart.objects.create(user=request.user, product=product)
+                        return JsonResponse({'status': 'Successfully Added'})
                 else:
-                    Cart.objects.create(user=request.user, product=product)
-                    return JsonResponse({'status': 'Successfully Added'})
+                    return JsonResponse({'status': 'Product out of stock'})
             else:
                 return JsonResponse({'status': 'Product unavailable'})
         else:

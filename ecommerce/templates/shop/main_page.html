@@ -71,11 +71,9 @@
                         </div>
                         <div class="row">
                             <div class="col-5">
-                                {%if product.available and product.stock < 15 %}
+                                {%if product.stock > 1 %}
                                 <p class="card-text"><small class="text-success">в Наличии {{product.stock}}шт</small>
                                 </p>
-                                {% elif product.stock > 15 %}
-                                <p class="card-text text-success">В Наличии</p>
                                 {%else%}
                                 <p class="card-text"><small class="text-danger">Нет в Наличии</small></p>
                                 {%endif%}
