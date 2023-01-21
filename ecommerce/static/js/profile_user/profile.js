@@ -32,7 +32,7 @@ email_sent_btn.addEventListener('click', function(){
     alertify.set('notifier','position', 'top-left');
     $.ajax({
         type: "POST",
-        url: "/profile/email/send_letter",
+        url: "/profile/email/send",
         data: {csrfmiddlewaretoken: token},
         dataType: "json",
         success: function (response) {
@@ -52,7 +52,7 @@ email_sent_btn.addEventListener('click', function(){
         var token = $('input[name=_token]').val();
         $.ajax({
             type: "POST",
-            url: "/profile/email/confirm_email",
+            url: "/profile/email/confirm",
             data: {'auth_key': auth_key,
                     csrfmiddlewaretoken: token
             },

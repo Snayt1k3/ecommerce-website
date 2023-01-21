@@ -10,7 +10,7 @@ urlpatterns = [
     path('edit/<str:username>', views.profile_user_edit_view, name='edit_profile'),
 
     # Email Confirmation
-    path('email/send_letter', views.email_sent_view),  # AJAX
-    path('email/confirm_email', views.email_confirm_view),  # AJAX
+    path('email/send', views.email_sent_view),  # AJAX
+    path('email/confirm', views.email_confirm_view),  # AJAX
 
 ]

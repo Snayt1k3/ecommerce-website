@@ -38,13 +38,4 @@ urlpatterns = [
     path('checkout', views.checkout, name='checkout'),
     path('checkout/success', views.CheckSuccess.as_view(), name='checkout_success'),
     path('checkout/failed', views.CheckFailed.as_view(), name='checkout_failed'),
-
-    # Profile
-    path('profile/<str:username>', views.profile_user_view, name='profile'),
-    path('profile_edit/<str:username>', views.profile_user_edit_view, name='edit_profile'),
-
-    # Email Confirmation
-    path('profile/email/send_letter', views.email_sent_view),  # AJAX
-    path('profile/email/confirm_email', views.email_confirm_view),  # AJAX
-
 ]
