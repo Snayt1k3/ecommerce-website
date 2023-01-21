@@ -19,7 +19,7 @@
                         <li class="breadcrumb-item "><a
                                 href="{% url 'profile' request.user.username%}">Profile</a></li>
                         <li class="breadcrumb-item active"><a href="#">Edit Profile</a></li>
-                        <li class="breadcrumb-item"><a href="#">Change Password</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'password_change'%}">Change Password</a></li>
                     </ol>
                 </nav>
             </div>

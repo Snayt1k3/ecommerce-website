@@ -25,6 +25,9 @@ urlpatterns = [
     path('reset/done',
          auth_views.PasswordResetCompleteView.as_view(template_name='shop/registration/password_reset_complete.html'),
          name='password_reset_complete'),
+    path('password/change',
+         auth_views.PasswordChangeView.as_view(template_name='shop/registration/password_change.html'),
+         name='password_change'),
 
     # Wish List
     path('wishlist', views.wish_list, name='wishlist'),
@@ -50,6 +53,5 @@ urlpatterns = [
     # Email Confirmation
     path('profile/email/send_letter', views.email_sent_view),  # AJAX
     path('profile/email/confirm_email', views.email_confirm_view),  # AJAX
-
 
 ]
