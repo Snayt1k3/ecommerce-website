@@ -34,13 +34,6 @@ urlpatterns = [
     path('add_to_wish', views.add_to_wish_list),  # AJAX
     path('delete_from_wish', views.delete_from_wish_list),  # AJAX
 
-    # Cart
-    path('cart', views.cart, name='cart'),
-    path('add_to_cart', views.add_to_cart),  # AJAX
-    path('delete_from_cart', views.delete_from_cart),  # AJAX
-    path('plus_quantity', views.plus_quantity),  # AJAX
-    path('minus_quantity', views.minus_quantity),  # AJAX
-
     # Payment
     path('checkout', views.checkout, name='checkout'),
     path('checkout/success', views.CheckSuccess.as_view(), name='checkout_success'),
