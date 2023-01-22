@@ -158,6 +158,7 @@ class PersonalArea(models.Model):
     address = models.CharField(max_length=100, blank=False)
     phone = models.CharField(max_length=100, blank=False)
     email_confirm = models.BooleanField(default=False)
+    is_seller = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Personal_Area'
