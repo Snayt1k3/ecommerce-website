@@ -1,6 +1,14 @@
 from django.contrib.auth.models import User
 
-from .models import Category, Cart, WishList
+from .models import Category, Cart, WishList, PersonalArea
+
+
+def is_seller(request):
+    is_seller_bool = False
+    if request.user.is_authenticated:
+        is_seller_bool = PersonalArea.objects.get(user=request.user).is_seller
+
+    return dict(is_seller=is_seller_bool)
 
 
 def menu_links(request):
