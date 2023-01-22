@@ -173,3 +173,10 @@ def become_seller(request):
 
 class BecomeSellerSuccess(TemplateView):
     template_name = 'profile_user/success_seller.html'
+
+
+def product_seller_view(request):
+    more_info_user = PersonalArea.objects.get(user=request.user)
+    return render(request, 'profile_user/products_seller.html', context={
+        'more_info_user': more_info_user
+    })

@@ -10,7 +10,6 @@
 
 {% block content%}
 <div class="container content-form text-center">
-
     <div class="container">
         <p class="fs-4 text-dark">Стать Продавцом</p>
         <div class="d-flex justify-content-center">
@@ -23,9 +22,7 @@
                 {% endfor%}
                 <div class="row">
                     <div class="input-group">
-                                <span class="material-symbols-outlined input-group-text">
-                                    mail
-                                </span>
+                        <span class="material-symbols-outlined input-group-text">mail</span>
                         <input type="email" name="email" placeholder="email" class="form-control" value="{{request.user.email}}">
                     </div>
                 </div>
@@ -37,9 +34,7 @@
                 </div>
                 <div class="row">
                     <div class="input-group">
-                                <span class="material-symbols-outlined input-group-text">
-                                    key
-                                </span>
+                        <span class="material-symbols-outlined input-group-text">key</span>
                         <input type="password" name="password" placeholder="Пароль" class="form-control">
                     </div>
                 </div>
