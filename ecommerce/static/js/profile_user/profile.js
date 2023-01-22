@@ -26,6 +26,7 @@ btn1.addEventListener('click', function(){
     };
 });
 
+if (email_sent_btn){
 email_sent_btn.addEventListener('click', function(){
     var email_conf_div = document.querySelector('.email_confirm_div');
     var token = $('input[name=_token]').val();
@@ -44,8 +45,10 @@ email_sent_btn.addEventListener('click', function(){
                 email_sent_btn.classList.add('invisible');
             };
         }
-    });
+    })
+})}
 
+if (email_sent_btn){
     var email_confirm_btn = document.querySelector('.sent_btn_key');
     email_confirm_btn.addEventListener('click', function(){
         var auth_key = $('input[name=auth_email_key]').val();
@@ -62,5 +65,4 @@ email_sent_btn.addEventListener('click', function(){
 
             }
         });
-    })
-});
+    })}
