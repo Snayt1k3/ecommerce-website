@@ -1,4 +1,3 @@
-from django.contrib.auth import views as auth_views
 from django.urls import path
 
 from . import views
@@ -13,4 +12,7 @@ urlpatterns = [
     path('email/send', views.email_sent_view),  # AJAX
     path('email/confirm', views.email_confirm_view),  # AJAX
 
+    # BecomeSeller
+    path('become-seller/', views.become_seller, name='become_seller'),
+    path('become-seller/success', views.BecomeSellerSuccess.as_view(), name='become_seller_success'),
 ]
