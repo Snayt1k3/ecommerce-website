@@ -49,6 +49,7 @@ class Product(models.Model):
     stock = models.IntegerField()
     available = models.BooleanField(default=True)
     avg_rating = models.FloatField(default=0)
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     class Meta:
         ordering = ('name',)
@@ -135,6 +136,7 @@ class OrdersItem(models.Model):
 
 
 class Orders(models.Model):
+    """Модель Заказа"""
     CHOICES = (
         ('В сборке у продавца', 'assembl'),
         ('В доставке', 'delivery'),
@@ -159,6 +161,7 @@ class PersonalArea(models.Model):
     phone = models.CharField(max_length=100, blank=False)
     email_confirm = models.BooleanField(default=False)
     is_seller = models.BooleanField(default=False)
+    your_products = models.ManyToManyField(Product)
 
     class Meta:
         verbose_name = 'Personal_Area'
