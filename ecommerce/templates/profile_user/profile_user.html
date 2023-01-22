@@ -2,6 +2,11 @@
 {% load static %}
 {% block head %}
 <title>Профиль</title>
+<style>
+    a{
+    text-decoration: none;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -38,7 +43,8 @@
                             Продавец
                             {%else%}
                             Покупатель
-                            {%endif%}</p>
+                            {%endif%}
+                        </p>
                     </div>
                 </div>
                 <!--                <div class="card mb-4 mb-lg-0">-->
@@ -71,6 +77,8 @@
             <div class="col-lg-8">
                 <div class="card mb-4">
                     <div class="card-body">
+                        <h1 class="text-center fs-3  fst-italic">Ваш Профиль</h1>
+                            <hr>
                         <div class="row">
                             <div class="col-sm-3">
                                 <p class="mb-0">Full Name</p>

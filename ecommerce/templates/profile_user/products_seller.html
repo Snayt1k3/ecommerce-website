@@ -1,13 +1,14 @@
 {%extends 'shop/base.html'%}
 {% load static %}
+{% load bootstrap5 %}
 {% block head %}
 <title>Выставить Товар</title>
 <style>
     a{
     text-decoration: none;
     }
-
 </style>
+<link rel="stylesheet" href="{% static 'css/seller_product.css'%}">
 {% endblock %}
 
 {% block content %}
@@ -49,7 +50,88 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <form action="" method="post" enctype="multipart/form-data">
+                            <h1 class="text-center fs-3  fst-italic">Ваш Товар</h1>
+                            <hr>
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="material-symbols-outlined input-group-text">topic</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="product_name" placeholder="Имя Товара"
+                                           name="product_name" required>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="material-symbols-outlined input-group-text">currency_ruble</span>
+                                    </div>
+                                    <input type="number" class="form-control" id="price"
+                                           placeholder="Цена Товара в Рублях" name="product_price" required>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="material-symbols-outlined input-group-text">description </span>
+                                    </div>
+                                    <input type="text" class="form-control" id="description"
+                                           placeholder="Описание Товара" name="description" required>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="material-symbols-outlined input-group-text">settings</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="characteristics"
+                                           placeholder="Характеристики, записываете в формате: хар-ка - значение, ..."
+                                           name="characteristics" required>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="material-symbols-outlined input-group-text">list</span>
+                                    </div>
 
+                                    <select class="form-select" required id="inputGroupSelect01">
+                                        <option selected name="category">Выберите Категорию</option>
+                                        {% for category in links%}
+                                        <option value="{{category}}">{{category}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    </div>
+                                </div>
+                            <hr>
+                            <div class="row">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="material-symbols-outlined input-group-text">inventory_2</span>
+                                    </div>
+                                    <input type="number" class="form-control" id="stock"
+                                           placeholder="Кол-во Товара у вас на складе" name="stock" required>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="material-symbols-outlined input-group-text">image</span>
+                                    </div>
+                                    <input type="file" class="form-control" id="img"
+                                           placeholder="Изображение вашего товара" name="img" required>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-lg">Выставить</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -58,9 +140,4 @@
     </div>
 </section>
 {% endblock %}
-
-{% block scripts%}
-<script src="{% static 'js/profile_user/profile.js'%}"></script>
-{% endblock %}
-
 

@@ -177,6 +177,7 @@ class BecomeSellerSuccess(TemplateView):
 
 def product_seller_view(request):
     more_info_user = PersonalArea.objects.get(user=request.user)
+
     return render(request, 'profile_user/products_seller.html', context={
-        'more_info_user': more_info_user
+        'more_info_user': more_info_user,
     })
