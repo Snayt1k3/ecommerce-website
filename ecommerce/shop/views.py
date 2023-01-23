@@ -69,7 +69,7 @@ def detail_view(request, slug):
     context['reviews'] = reviews
     context['img_reviews'] = img_reviews
 
-    # Характеристики из модели в виде list[tuple(key, val)]
+    # Характеристики из модели в виде
     good = product.characteristics
     goods_key = good.split(",")[::2]
     goods_val = good.split(",")[1::2]

@@ -10,7 +10,9 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from shop.models import PersonalArea, Orders, Product, Category
+
 from .models import SellerStatistics
+
 
 # Create your views here.
 
@@ -197,6 +199,11 @@ def product_seller_view(request):
 
             category = Category.objects.get(category_name=category)
 
+            # Parse characteristics
+            characteristics = characteristics.split(',')
+            characteristics = [i.split('-') for i in characteristics]
+            characteristics = ','.join([x for i in characteristics for x in i ])
+
             product = Product.objects.create(name=product_name, price=product_price, description=description,
                                              characteristics=characteristics, category=category, stock=stock,
                                              img='https://bipbap.ru/wp-content/uploads/2017/04/0_7c779_5df17311_orig.jpg',
@@ -213,9 +220,9 @@ def product_seller_view(request):
             'more_info_user': more_info_user,
         })
 
+
 def seller_view(request):
     return render(request, 'profile_user/seller.html')
-
 
 
 class ProductSellerSuccess(TemplateView):
