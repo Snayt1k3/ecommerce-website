@@ -99,7 +99,7 @@ def prod_by_category(request, category):
     """Продукты упорядоченные по категории"""
     cat = Category.objects.get(category_name=category)
     products = Product.objects.filter(category=cat)
-    return render(request, 'shop/base.html', context={
+    return render(request, 'shop/main_page.html', context={
         'products': products,
     })
 
