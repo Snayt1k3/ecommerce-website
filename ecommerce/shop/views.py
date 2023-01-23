@@ -7,7 +7,7 @@ from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView, TemplateView
-
+from profile_user.models import SellerStatistics
 from .forms import UserLogForm, UserRegForm, Reviews
 from .models import Category, Product, Review, ReviewImages, WishList, Cart, Orders, OrdersItem
 
@@ -141,6 +141,10 @@ def add_to_wish_list(request):
                 return JsonResponse(
                     {'status': 'Product Already added'})
             else:
+                if product.seller:
+                    seller_stat = SellerStatistics.objects.get(product=product)
+                    seller_stat.add_wish_list += 1
+                    seller_stat.save()
                 WishList.objects.create(user=request.user, product=product)
                 return JsonResponse({'status': 'Successfully Added'})
         else:
@@ -155,6 +159,10 @@ def delete_from_wish_list(request):
         product = Product.objects.get(id=request.POST.get('product_id'))
         if product:
             WishList.objects.get(product=product).delete()
+            if product.seller:
+                seller_stat = SellerStatistics.objects.get(product=product)
+                seller_stat.remove_wish_list += 1
+                seller_stat.save()
             return JsonResponse({'status': 'Successfully deleted'})
         else:
             return JsonResponse({'status': 'Product unavailable'})
@@ -193,6 +201,11 @@ def checkout(request):
             # Манипуляции с CartItem
             total += cart_item.sub_total()
             cart_item.product.stock -= 1
+
+            if cart_item.product.seller:
+                stat = SellerStatistics.objects.get(product=cart_item.product)
+                stat.bought += 1
+                stat.save()
 
             # Создание Item и его присоединение к order
             item = OrdersItem.objects.create(product=cart_item.product, quantity=cart_item.quantity)

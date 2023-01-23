@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from shop.models import Cart, Product
-
+from profile_user.models import SellerStatistics
 
 # Create your views here.
 
@@ -29,6 +29,12 @@ def add_to_cart(request):
                     if Cart.objects.filter(product=product, user=request.user.id):
                         return JsonResponse({'status': 'Product Already added'})
                     else:
+                        # Для статистики (продавца)
+                        if product.seller:
+                            seller_stat = SellerStatistics.objects.get(product=product)
+                            seller_stat.add_cart += 1
+                            seller_stat.save()
+
                         Cart.objects.create(user=request.user, product=product)
                         return JsonResponse({'status': 'Successfully Added'})
                 else:
@@ -76,6 +82,13 @@ def delete_from_cart(request):
     """Удаление Товара Из Корзины"""
     if request.method == 'POST':
         product = Product.objects.get(id=request.POST.get('product_id'))
+
+        # Для статистики (продавца)
+        if product.seller:
+            seller_stat = SellerStatistics.objects.get(product=product)
+            seller_stat.remove_cart += 1
+            seller_stat.save()
+
         cart_item = Cart.objects.get(product=product, user=request.user.id)
         cart_item.delete()
         return JsonResponse({'status': 'Successfully Deleted'})
