@@ -4,7 +4,7 @@ function add_to_wish(id){
     var token = $('input[name=_token]').val();
     $.ajax({
         type: "POST",
-        url: "/add_to_wish",
+        url: "/fav/add_to_wish/",
         data: {
             'product_id': id,
             csrfmiddlewaretoken: token
@@ -23,7 +23,7 @@ function delete_from_wish(id){
     var token = $('input[name=_token]').val();
     $.ajax({
         type: "POST",
-        url: "/delete_from_wish",
+        url: "/fav/delete_from_wish/",
         data: {
             'product_id': id,
             csrfmiddlewaretoken: token

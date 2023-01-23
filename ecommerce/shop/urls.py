@@ -29,10 +29,6 @@ urlpatterns = [
          auth_views.PasswordChangeView.as_view(template_name='shop/registration/password_change.html'),
          name='password_change'),
 
-    # Wish List
-    path('wishlist', views.wish_list, name='wishlist'),
-    path('add_to_wish', views.add_to_wish_list),  # AJAX
-    path('delete_from_wish', views.delete_from_wish_list),  # AJAX
 
     # Payment
     path('checkout', views.checkout, name='checkout'),
