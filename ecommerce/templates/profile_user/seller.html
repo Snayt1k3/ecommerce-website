@@ -6,6 +6,8 @@
     a{
     text-decoration: none;
     }
+
+
 </style>
 {% endblock %}
 
@@ -16,7 +18,8 @@
             <div class="col">
                 <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item active"><a href="{% url 'profile' request.user.username %}">Профиль</a></li>
+                        <li class="breadcrumb-item active"><a
+                                href="{% url 'profile' request.user.username %}">Профиль</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'edit_profile' request.user.username %}">Редактировать
                             Профиль</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'password_change'%}">Сменить Пароль</a></li>
@@ -48,14 +51,28 @@
                         </p>
                     </div>
                 </div>
-              <div class="card mb-4 mb-lg-0">
-                <div class="card-body p-0">
-                  <div class="row text-center">
-                      <h2 class="fst-italic fs-4 mb-0  mt-2">Ваши Товары</h2>
-                  </div>
-                    <hr>
+                <div class="card mb-4 mb-lg-0">
+                    <div class="card-body p-0">
+                        <div class="row text-center">
+                            <h2 class="fst-italic fs-4 mb-0  mt-2">Ваши Товары</h2>
+                        </div>
+                        <hr>
+                        {% for product in your_products%}
+                        <div class="row ms-1">
+                            <div class="col-sm-4">
+                                <a href="{% url 'update_product' product.slug %}">
+                                    <img src="{{product.img}}" alt="" width="100" height="100">
+                                </a>
+                            </div>
+                            <div class="col-sm-7" style="max-height:100px; overflow:hidden;">
+                                <h1 class="fs-5 text-secondary fst-italic mb-0 fw-bold">{{product.name}}</h1>
+                                <p>{{product.description}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        {% endfor %}
+                    </div>
                 </div>
-              </div>
             </div>
             <div class="col-lg-8">
                 <div class="card mb-4">
@@ -64,31 +81,36 @@
                         <hr>
                         <div class="row">
                             <div class="text-start">
-                                <p class="fs-5 text-secondary fst-italic mb-0 fw-bold"> <span class="fs-4 me-3">{{add_cart}}</span> Пользователей <span class="text-success">Добавили</span> Ваши Товары В Корзину</p>
+                                <p class="fs-5 text-secondary fst-italic mb-0 fw-bold"><span class="fs-4 me-3">{{add_cart}}</span>
+                                    Пользователей <span class="text-success">Добавили</span> Ваши Товары В Корзину</p>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="text-start">
-                                <p class="fs-5 text-secondary fst-italic mb-0 fw-bold"> <span class="fs-4 me-3">{{remove_cart}}</span> Пользователей <span class="text-danger">Удалили</span> Ваши Товары Из Корзины</p>
+                                <p class="fs-5 text-secondary fst-italic mb-0 fw-bold"><span class="fs-4 me-3">{{remove_cart}}</span>
+                                    Пользователей <span class="text-danger">Удалили</span> Ваши Товары Из Корзины</p>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="text-start">
-                                <p class="fs-5 text-secondary fst-italic mb-0 fw-bold"> <span class="fs-4 me-3">{{add_wish_list}}</span> Пользователей <span class="text-success">Добавили</span> Ваши Товары В Избранное</p>
+                                <p class="fs-5 text-secondary fst-italic mb-0 fw-bold"><span class="fs-4 me-3">{{add_wish_list}}</span>
+                                    Пользователей <span class="text-success">Добавили</span> Ваши Товары В Избранное</p>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="text-start">
-                                <p class="fs-5 text-secondary fst-italic mb-0 fw-bold"> <span class="fs-4 me-3">{{remove_wish_list}}</span> Пользователей <span class="text-danger">Удалили</span> Ваши Товары Из Избранного</p>
+                                <p class="fs-5 text-secondary fst-italic mb-0 fw-bold"><span class="fs-4 me-3">{{remove_wish_list}}</span>
+                                    Пользователей <span class="text-danger">Удалили</span> Ваши Товары Из Избранного</p>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="text-start">
-                                <p class="fs-5 text-secondary fst-italic mb-0 fw-bold"> <span class="fs-4 me-3">{{bought}}</span> Пользователей <span class="text-success">Приобрели</span> Ваш Товар</p>
+                                <p class="fs-5 text-secondary fst-italic mb-0 fw-bold"><span class="fs-4 me-3">{{bought}}</span>
+                                    Пользователей <span class="text-success">Приобрели</span> Ваш Товар</p>
                             </div>
                         </div>
                         <hr>

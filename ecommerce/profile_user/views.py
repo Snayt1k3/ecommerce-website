@@ -9,6 +9,7 @@ from django.core.mail import send_mail
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
+from django.views.generic.edit import UpdateView
 from shop.models import PersonalArea, Orders, Product, Category
 
 from .models import SellerStatistics
@@ -248,6 +249,7 @@ def seller_view(request):
         stats = SellerStatistics.objects.filter(user=request.user)
 
         return render(request, 'profile_user/seller.html', context={
+            'your_products': your_products,
             'more_info_user': user_profile,
             'stats': stats,
             'add_cart': add_cart,
@@ -258,6 +260,13 @@ def seller_view(request):
         })
     else:
         return redirect('/')
+
+
+class SellerProductUpdateView(UpdateView):
+    success_url = '/'
+    model = Product
+    fields = ['name', 'price', 'description', 'characteristics', 'category', 'img', 'stock']
+    template_name = 'profile_user/update_product_seller.html'
 
 
 class ProductSellerSuccess(TemplateView):

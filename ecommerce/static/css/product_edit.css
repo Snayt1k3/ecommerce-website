@@ -1,0 +1,18 @@
+.form-content{
+    box-shadow: 0px 5px 20px #c2c2c2;
+    padding: 20px;
+    border-radius: 20px;
+    width: 600px;
+}
+
+textarea{
+    resize: none;
+    height: 100px;
+    
+}
+
+
+.mb-3{
+    margin-left: 100px;
+    margin-right: 100px;
+}

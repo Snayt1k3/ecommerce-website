@@ -20,5 +20,6 @@ urlpatterns = [
     path('seller/', views.seller_view, name='seller'),
     path('seller/product', views.product_seller_view, name='product_seller'),
     path('seller/product/success', views.ProductSellerSuccess.as_view(), name='seller_product_ok'),
+    path('seller/product/edit/<slug:slug>', views.SellerProductUpdateView.as_view(), name='update_product'),
 
 ]
