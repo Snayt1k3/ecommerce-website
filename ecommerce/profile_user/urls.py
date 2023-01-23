@@ -15,6 +15,7 @@ urlpatterns = [
     # BecomeSeller
     path('become-seller/', views.become_seller, name='become_seller'),
     path('become-seller/success', views.BecomeSellerSuccess.as_view(), name='become_seller_success'),
+
     # Seller
     path('seller/product', views.product_seller_view, name='product_seller')
 ]

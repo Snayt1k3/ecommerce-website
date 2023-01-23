@@ -87,7 +87,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="firstName">First name</label>
                         <input type="text" class="form-control" id="firstName" placeholder=""
-                               value="{{request.user.firstname}}" required>
+                               value="{{request.user.first_name}}" required>
                         <div class="invalid-feedback">
                             Valid first name is required.
                         </div>
@@ -95,7 +95,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="lastName">Last name</label>
                         <input type="text" class="form-control" id="lastName" placeholder=""
-                               value="{{request.user.lastname}}" required>
+                               value="{{request.user.last_name}}" required>
                         <div class="invalid-feedback">
                             Valid last name is required.
                         </div>
@@ -134,7 +134,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
+                    <label for="address2">Address 2<span class="text-muted">(Optional)</span></label>
                     <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
                 </div>
 
@@ -225,13 +225,12 @@
     </div>
 </div>
 
+{%endblock%}
+{% block scripts%}
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
-{%endblock%}
-{% block scripts%}
 <script src="{% static 'js/form-validation.js' %}"></script>
 {%endblock%}

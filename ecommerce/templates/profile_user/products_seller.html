@@ -49,7 +49,7 @@
             <div class="col-lg-8">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <form action="" method="post" enctype="multipart/form-data">
+                        <form action="" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
                             <h1 class="text-center fs-3  fst-italic">Ваш Товар</h1>
                             <hr>
                             {% csrf_token %}
@@ -58,8 +58,10 @@
                                     <div class="input-group-prepend">
                                         <span class="material-symbols-outlined input-group-text">topic</span>
                                     </div>
-                                    <input type="text" class="form-control" id="product_name" placeholder="Имя Товара"
-                                           name="product_name" required>
+                                    <input type="text" class="form-control" id="product_name" placeholder="Имя Товара" name="product_name" required>
+                                    <div class="invalid-feedback">
+                                        Укажите Имя Товара
+                                    </div>
                                 </div>
                             </div>
                             <hr>
@@ -70,6 +72,9 @@
                                     </div>
                                     <input type="number" class="form-control" id="price"
                                            placeholder="Цена Товара в Рублях" name="product_price" required>
+                                    <div class="invalid-feedback">
+                                        Укажите цену Товара
+                                    </div>
                                 </div>
                             </div>
                             <hr>
@@ -80,6 +85,9 @@
                                     </div>
                                     <input type="text" class="form-control" id="description"
                                            placeholder="Описание Товара" name="description" required>
+                                    <div class="invalid-feedback">
+                                        Опишите Вас Товар
+                                    </div>
                                 </div>
                             </div>
                             <hr>
@@ -91,6 +99,9 @@
                                     <input type="text" class="form-control" id="characteristics"
                                            placeholder="Характеристики, записываете в формате: хар-ка - значение, ..."
                                            name="characteristics" required>
+                                    <div class="invalid-feedback">
+                                        Укажите Характеристики
+                                    </div>
                                 </div>
                             </div>
                             <hr>
@@ -101,11 +112,14 @@
                                     </div>
 
                                     <select class="form-select" required id="inputGroupSelect01">
-                                        <option selected name="category">Выберите Категорию</option>
+                                        <option  name="category"></option>
                                         {% for category in links%}
                                         <option value="{{category}}">{{category}}</option>
                                         {% endfor %}
                                     </select>
+                                    <div class="invalid-feedback">
+                                        Выберите Категорию
+                                    </div>
                                     </div>
                                 </div>
                             <hr>
@@ -116,6 +130,9 @@
                                     </div>
                                     <input type="number" class="form-control" id="stock"
                                            placeholder="Кол-во Товара у вас на складе" name="stock" required>
+                                    <div class="invalid-feedback">
+                                        Укажите сколько у вас товара
+                                    </div>
                                 </div>
                             </div>
                             <hr>
@@ -126,6 +143,9 @@
                                     </div>
                                     <input type="file" class="form-control" id="img"
                                            placeholder="Изображение вашего товара" name="img" required>
+                                    <div class="invalid-feedback">
+                                        Прикрепите Фото вашего Товара
+                                    </div>
                                 </div>
                             </div>
                             <hr>
@@ -139,5 +159,9 @@
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block scripts%}
+<script src="{% static 'js/profile_user/product_seller.js'%}"></script>
 {% endblock %}
 

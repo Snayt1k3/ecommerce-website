@@ -6,7 +6,6 @@ from django.core.files.storage import FileSystemStorage
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from django.urls import reverse
 from django.views.generic import ListView, CreateView, TemplateView
 
 from .forms import UserLogForm, UserRegForm, Reviews
@@ -62,6 +61,7 @@ def detail_view(request, slug):
             return redirect('one_pr', slug=slug)
         else:
             messages.error(request, 'У вас Уже есть отзыв на данный товар')
+
     # Получение Отзывов на товар
     reviews = Review.objects.filter(product=product)
     img_reviews = ReviewImages.objects.filter(product=product)
@@ -189,6 +189,7 @@ def checkout(request):
         current_order = Orders.objects.create(user=request.user, status='В сборке у продавца')
 
         for cart_item in cart_items:
+
             # Манипуляции с CartItem
             total += cart_item.sub_total()
             cart_item.product.stock -= 1
@@ -204,7 +205,7 @@ def checkout(request):
         current_order.total = total
         current_order.save()
 
-        return redirect(reverse('checkout_success'))
+        return redirect('checkout_success')
 
 
 class CheckFailed(TemplateView):
