@@ -9,8 +9,8 @@ from shop.models import Product
 class SellerStatistics(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    add_cart = models.IntegerField()
-    remove_cart = models.IntegerField()
-    add_wish_list = models.IntegerField()
-    remove_wish_list = models.IntegerField()
-    bought = models.IntegerField()
+    add_cart = models.IntegerField(default=0)
+    remove_cart = models.IntegerField(default=0)
+    add_wish_list = models.IntegerField(default=0)
+    remove_wish_list = models.IntegerField(default=0)
+    bought = models.IntegerField(default=0)

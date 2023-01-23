@@ -9,8 +9,8 @@ from django.core.mail import send_mail
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from shop.models import PersonalArea, Orders
-
+from shop.models import PersonalArea, Orders, Product, Category
+from .models import SellerStatistics
 
 # Create your views here.
 
@@ -176,8 +176,43 @@ class BecomeSellerSuccess(TemplateView):
 
 
 def product_seller_view(request):
-    more_info_user = PersonalArea.objects.get(user=request.user)
+    if request.method == 'POST':
+        # Проверка Продавец Или нет
+        profile_user = PersonalArea.objects.get(user=request.user)
 
-    return render(request, 'profile_user/products_seller.html', context={
-        'more_info_user': more_info_user,
-    })
+        if profile_user.is_seller:
+            # Вытаскиваем Данные
+            product_name = request.POST.get('product_name')
+            product_price = request.POST.get('product_price')
+            description = request.POST.get('description')
+            characteristics = request.POST.get('characteristics')
+            category = request.POST.get('category')
+            stock = request.POST.get('stock')
+
+            # Работа с файлом
+            img = request.FILES.get('img')
+            fs = FileSystemStorage()
+            # сохраняем на файловой системе
+            img = fs.save(img.name, img)
+
+            category = Category.objects.get(category_name=category)
+
+            product = Product.objects.create(name=product_name, price=product_price, description=description,
+                                             characteristics=characteristics, category=category, stock=stock,
+                                             img='https://bipbap.ru/wp-content/uploads/2017/04/0_7c779_5df17311_orig.jpg',
+                                             seller=request.user)
+            SellerStatistics.objects.create(product=product, user=request.user)
+            return redirect('seller_product_ok')
+        else:
+            return redirect('profile')
+
+    else:
+        more_info_user = PersonalArea.objects.get(user=request.user)
+
+        return render(request, 'profile_user/products_seller.html', context={
+            'more_info_user': more_info_user,
+        })
+
+
+class ProductSellerSuccess(TemplateView):
+    template_name = 'profile_user/success_seller_product.html'

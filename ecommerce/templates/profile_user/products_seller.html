@@ -111,8 +111,8 @@
                                         <span class="material-symbols-outlined input-group-text">list</span>
                                     </div>
 
-                                    <select class="form-select" required id="inputGroupSelect01">
-                                        <option  name="category"></option>
+                                    <select class="form-select" required id="inputGroupSelect01" name="category">
+                                        <option name="category"></option>
                                         {% for category in links%}
                                         <option value="{{category}}">{{category}}</option>
                                         {% endfor %}

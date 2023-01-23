@@ -1,0 +1,21 @@
+{% extends 'shop/base.html' %}
+{% load static%}
+{%block head%}
+<title>Вы успешно Стали Продавцом</title>
+<link rel="stylesheet" href="{% static 'css/checkout_success.css' %}">
+{%endblock%}
+
+{% block content %}
+<div class="container d-flex justify-content-center success_cont">
+    <div class="row mt-5">
+        <div class="img-success col-md-3 col-3 col-lg-3">
+            <img src="{% static 'img/checked.png'%}" width="150" height="150">
+        </div>
+        <div class="col-lg-8 col-7 ms-5">
+            <p class="fs-1 fw-bold text-success">Вы успешно Добавили Товар</p>
+            <a href="{% url 'profile' request.user.username%}" class="btn btn-primary rounded-4 mt-2">В профиль</a>
+            <a href="{% url 'product_seller' %}" class="btn btn-primary rounded-4 mt-2">Разместить еще товар</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
