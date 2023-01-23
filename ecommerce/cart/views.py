@@ -54,6 +54,10 @@ def minus_quantity(request):
         cart_item = Cart.objects.get(product=product, user=request.user.id)
         if cart_item.quantity == 1:
             cart_item.delete()
+            if product.seller:
+                seller_stat = SellerStatistics.objects.get(product=product)
+                seller_stat.remove_cart += 1
+                seller_stat.save()
             return JsonResponse({'status': 'Successfully Deleted from cart'})
         else:
             cart_item.quantity -= 1

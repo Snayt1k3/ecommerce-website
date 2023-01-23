@@ -210,6 +210,7 @@ def product_seller_view(request):
                                              seller=request.user)
             SellerStatistics.objects.create(product=product, user=request.user)
             profile_user.your_products.add(product)
+            profile_user.save()
             return redirect('seller_product_ok')
         else:
             return redirect('profile')
