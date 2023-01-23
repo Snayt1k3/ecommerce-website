@@ -209,6 +209,7 @@ def product_seller_view(request):
                                              img='https://bipbap.ru/wp-content/uploads/2017/04/0_7c779_5df17311_orig.jpg',
                                              seller=request.user)
             SellerStatistics.objects.create(product=product, user=request.user)
+            profile_user.your_products.add(product)
             return redirect('seller_product_ok')
         else:
             return redirect('profile')
@@ -222,7 +223,40 @@ def product_seller_view(request):
 
 
 def seller_view(request):
-    return render(request, 'profile_user/seller.html')
+    user_profile = PersonalArea.objects.get(user=request.user)
+    if user_profile.is_seller:
+        # Общая статистика Продавца
+        your_products = user_profile.your_products.all()
+
+        # Цикл сбора
+        add_cart = 0
+        remove_cart = 0
+        add_wish_list = 0
+        remove_wish_list = 0
+        bought = 0
+        for product in your_products:
+            stat = SellerStatistics.objects.get(product=product)
+
+            # Обновление Данных Счетчиков
+            add_cart += stat.add_cart
+            remove_cart += stat.remove_cart
+            add_wish_list += stat.add_wish_list
+            remove_wish_list += stat.remove_wish_list
+            bought += stat.bought
+
+        stats = SellerStatistics.objects.filter(user=request.user)
+
+        return render(request, 'profile_user/seller.html', context={
+            'more_info_user': user_profile,
+            'stats': stats,
+            'add_cart': add_cart,
+            'remove_cart': remove_cart,
+            'add_wish_list': add_wish_list,
+            'remove_wish_list': remove_wish_list,
+            'bought': bought,
+        })
+    else:
+        return redirect('/')
 
 
 class ProductSellerSuccess(TemplateView):
