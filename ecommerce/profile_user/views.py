@@ -213,6 +213,10 @@ def product_seller_view(request):
             'more_info_user': more_info_user,
         })
 
+def seller_view(request):
+    return render(request, 'profile_user/seller.html')
+
+
 
 class ProductSellerSuccess(TemplateView):
     template_name = 'profile_user/success_seller_product.html'

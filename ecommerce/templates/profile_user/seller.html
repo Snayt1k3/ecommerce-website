@@ -1,0 +1,77 @@
+{%extends 'shop/base.html'%}
+{% load static %}
+{% block head %}
+<title>Профиль</title>
+<style>
+    a{
+    text-decoration: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section style="background-color: #eee;">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col">
+                <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item active"><a href="{% url 'profile' request.user.username %}">Профиль</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'edit_profile' request.user.username %}">Редактировать
+                            Профиль</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'password_change'%}">Сменить Пароль</a></li>
+                        {% if not is_seller%}
+                        <li class="breadcrumb-item"><a href="{% url 'become_seller' %}">Стать Продавцом</a></li>
+                        {% else %}
+                        <li class="breadcrumb-item"><a href="{% url 'product_seller'%}">Выставить Товар</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'seller'%}">Ваша Статистика</a></li>
+
+                        {% endif %}
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <img src="{{more_info_user.avatar.url}}"
+                             alt="avatar"
+                             class="rounded-circle img-fluid" style="width: 150px; height:145px;">
+                        <h5 class="my-3">{{request.user.username}}</h5>
+                        <p class="text-muted mb-1">
+                            {% if is_seller%}
+                            Продавец
+                            {%else%}
+                            Покупатель
+                            {%endif%}
+                        </p>
+                    </div>
+                </div>
+              <div class="card mb-4 mb-lg-0">
+                <div class="card-body p-0">
+                  <div class="row text-center">
+                      <h2 class="fst-italic fs-4 mb-0  mt-2">Ваши Товары</h2>
+                  </div>
+                    <hr>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h1 class="text-center fs-3  fst-italic">Ваша Статистика</h1>
+                        <hr>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts%}
+<script src="{% static 'js/profile_user/profile.js'%}"></script>
+{% endblock %}
