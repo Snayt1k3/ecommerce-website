@@ -11,9 +11,14 @@
         <h1 class="fs-3 text-secondary fst-italic fw-bold text-center">Ваш Товар</h1>
         <form action="" method="post">
             {%csrf_token%}
-            {% bootstrap_form form %}
-            {% bootstrap_form_errors form layout='inline' %}
-
+            {% bootstrap_field form.name show_label='skip' addon_before='<span class="material-symbols-outlined">menu</span>'%}
+            {% bootstrap_field form.price show_label='skip' addon_before='<span class="material-symbols-outlined">request_quote</span>'%}
+            {% bootstrap_field form.description  %}
+            {% bootstrap_field form.characteristics %}
+            {% bootstrap_field form.category show_label='skip' addon_before='<span class="material-symbols-outlined">article</span>'%}
+            {% bootstrap_field form.stock show_label='skip' addon_before='<span class="material-symbols-outlined">inventory_2</span>'%}
+            {% bootstrap_field form.img show_label='skip' addon_before='<span class="material-symbols-outlined">image</span>'%}
+            {% bootstrap_form_errors form %}
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Обновить</button>
             </div>
