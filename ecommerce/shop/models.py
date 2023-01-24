@@ -155,13 +155,18 @@ class Orders(models.Model):
 
 
 class PersonalArea(models.Model):
+    # Информация О пользователе
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='media/avatars/', blank=False)
     address = models.CharField(max_length=100, blank=False)
     phone = models.CharField(max_length=100, blank=False)
     email_confirm = models.BooleanField(default=False)
+    # Для продавцов
     is_seller = models.BooleanField(default=False)
     your_products = models.ManyToManyField(Product)
+    # Заработок и траты
+    all_spent_money = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    all_earned_money = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     class Meta:
         verbose_name = 'Personal_Area'
