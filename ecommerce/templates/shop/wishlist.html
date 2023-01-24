@@ -41,19 +41,25 @@
                     <br>
                     Добавлен: {{wish_product.date}}
                 </td>
-                <td>
-                    <input type="hidden" name="_token" value="{{ csrf_token }}"/>
-                    <button class="btn btn-success rounded-5">
-                        <span class="material-symbols-outlined">shopping_cart</span>
-                    </button>
-                    <button class="btn btn-danger rounded-5 deleteBtnWl"
-                            onclick="delete_from_wish({{wish_product.product.id}})">
-                        <span class="material-symbols-outlined">delete</span>
-                    </button>
+                <td class="col-1">
+                    <div class="btns-wl">
+                        <input type="hidden" name="_token" value="{{ csrf_token }}"/>
+                        <button class="btn btn-success rounded-5 mt-3 AddToCart" onclick="add_to_cart({{wish_product.product.id}})">
+                            <span class="material-symbols-outlined">shopping_cart</span>
+                        </button>
+                        <button class="btn btn-danger rounded-5 deleteBtnWl mt-3"
+                                onclick="delete_from_wish({{wish_product.product.id}})">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
                 </td>
             </tr>
             {%endfor%}
         </table>
     </div>
 </div>
+{% endblock%}
+
+{% block scripts%}
+<script src="{% static 'js/cart/cart.js' %}"></script>
 {% endblock%}
