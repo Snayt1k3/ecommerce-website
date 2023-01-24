@@ -32,12 +32,13 @@
                 </li>
                 {% if count_product_in_wishlist%}
                 <li class="nav-item">
-                    <a class="count_product_in_wishlist text-white">
+                    <a class="count_product_in_wishlist text-white position-relative">
                         {%if count_product_in_wishlist > 9 %}
                         9+
                         {%else%}
-                        {{count_product_in_wishlist}}</a>
+                        {{count_product_in_wishlist}}
                         {%endif%}
+                    </a>
                 </li>
                 {%endif%}
                 <li class="nav-item">
@@ -82,7 +83,8 @@
             </ul>
             {% if request.path == '/' %}
             <form class="d-flex" role="search" method="get">
-                <input name='search' aria-label="Search" class="form-control me-2 form-control-sm" placeholder="Search" type="search">
+                <input name='search' aria-label="Search" class="form-control me-2 form-control-sm" placeholder="Search"
+                       type="search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
             {% endif %}

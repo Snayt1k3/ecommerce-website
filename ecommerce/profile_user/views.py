@@ -8,7 +8,7 @@ from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 from django.views.generic.edit import UpdateView
 from shop.models import PersonalArea, Orders, Product, Category
 
@@ -174,10 +174,6 @@ def become_seller(request):
         return render(request, 'profile_user/become_seller.html')
 
 
-class BecomeSellerSuccess(TemplateView):
-    template_name = 'profile_user/success_seller.html'
-
-
 def product_seller_view(request):
     if request.method == 'POST':
         # Проверка Продавец Или нет
@@ -203,7 +199,7 @@ def product_seller_view(request):
             # Parse characteristics
             characteristics = characteristics.split(',')
             characteristics = [i.split('-') for i in characteristics]
-            characteristics = ','.join([x for i in characteristics for x in i ])
+            characteristics = ','.join([x for i in characteristics for x in i])
 
             product = Product.objects.create(name=product_name, price=product_price, description=description,
                                              characteristics=characteristics, category=category, stock=stock,
@@ -262,11 +258,26 @@ def seller_view(request):
         return redirect('/')
 
 
+class OrderDetailView(DetailView):
+    template_name = 'profile_user/order_detail.html'
+    model = Orders
+    context_object_name = 'order'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['more_info_user'] = PersonalArea.objects.get(user=self.request.user)
+        return context
+
+
 class SellerProductUpdateView(UpdateView):
     success_url = '/'
     model = Product
     fields = ['name', 'price', 'description', 'characteristics', 'category', 'img', 'stock']
     template_name = 'profile_user/update_product_seller.html'
+
+
+class BecomeSellerSuccess(TemplateView):
+    template_name = 'profile_user/success_seller.html'
 
 
 class ProductSellerSuccess(TemplateView):
