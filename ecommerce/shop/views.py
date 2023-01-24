@@ -25,9 +25,9 @@ class HomeView(ListView):
     def get_queryset(self):
         query = self.request.GET.get('search')
         if query:
-            object_list = Product.objects.filter(Q(name__icontains=query))
+            object_list = Product.objects.filter(Q(name__icontains=query)).order_by('-stock')
         else:
-            object_list = Product.objects.all()
+            object_list = Product.objects.all().order_by('-stock')
         return object_list
 
 
