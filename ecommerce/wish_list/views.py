@@ -1,7 +1,8 @@
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
+from django.views.generic import ListView
 from profile_user.models import SellerStatistics
-from shop.models import Product, Review, WishList, Cart, Orders
+from shop.models import Product, WishList
 
 
 # Create your views here.
@@ -44,8 +45,9 @@ def delete_from_wish_list(request):
         return redirect('/')
 
 
-def wish_list(request):
-    wish_products = WishList.objects.filter(user=request.user.id)
-    return render(request, 'shop/wishlist.html', context={
-        'wish_products': wish_products,
-    })
+class WishListView(ListView):
+    template_name = 'shop/wishlist.html'
+    context_object_name = 'wish_products'
+
+    def get_queryset(self):
+        return WishList.objects.filter(user=self.request.user)
