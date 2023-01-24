@@ -46,3 +46,15 @@ body{ display:flex; flex-direction:column; }
     border-radius: 15px;
     text-decoration: none;
 }
+
+.card-name-product{
+    min-height: 90px;
+    max-height:100px; 
+    overflow:hidden;
+}
+
+.cart-des-product{
+    min-height: 100px;
+    max-height:100px; 
+    overflow:hidden;
+}

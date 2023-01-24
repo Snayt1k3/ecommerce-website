@@ -46,21 +46,21 @@
             <div class="row g-0">
                 <div class="col-md-4 col-4">
                     <a class="text-decoration-none" href="{{product.get_url}}">
-                        <img alt="" class="img-fluid rounded-start" src="{{product.img}}" style="margin-top:10px;">
+                        <img alt="" class="img-fluid rounded-start mt-4" src="{{product.img}}" style="height:250px; width:200px;">
                     </a>
                 </div>
                 <div class="col-md-8 col-8">
                     <div class="card-body">
                         <a class="text-decoration-none" href="{{product.get_url}}">
-                            <h5 class="card-title" style="max-height:100px; overflow:hidden;">{{product.name}}</h5>
-                            <p class="card-text" style="max-height:100px; overflow:hidden;">{{product.description}}</p>
+                            <h5 class="card-title card-name-product mb-0">{{product.name}}</h5>
+                            <p class="card-text text-muted cart-des-product">{{product.description}}</p>
                         </a>
                         <div class="col-10">
                             <div class="row">
                                 <div class="col-6">
                                     <input type="hidden" name="_token" value="{{ csrf_token }}">
-                                    <button class="btn btn-primary AddToCart" onclick="add_to_cart({{product.id}})"
-                                            style="margin-top:5px; margin-bottom:5px;">В корзину
+                                    <button class="btn btn-primary AddToCart mb-1 mt-1" onclick="add_to_cart({{product.id}})"
+                                            >В корзину
                                     </button>
                                 </div>
                                 <div class="col-6">
