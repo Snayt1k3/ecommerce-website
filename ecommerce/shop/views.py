@@ -100,8 +100,8 @@ class ProductCategoryView(ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
-        self.category = Category.objects.get(category_name=self.kwargs['category'])
-        return Product.objects.filter(category=self.category)
+        category = Category.objects.get(category_name=self.kwargs['category'])
+        return Product.objects.filter(category=category)
 
 
 class UserLogView(LoginView):

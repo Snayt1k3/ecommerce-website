@@ -1,22 +1,28 @@
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
-
-from shop.models import Cart, Product
+from django.shortcuts import redirect
+from django.views.generic import ListView
 from profile_user.models import SellerStatistics
+from shop.models import Cart, Product
+
 
 # Create your views here.
 
-def cart(request):
-    """Корзина"""
-    user_cart = Cart.objects.filter(user=request.user.id)
-    total = 0
-    for item in user_cart:
-        total += item.sub_total()
 
-    return render(request, 'cart/cart.html', context={
-        'user_cart': user_cart,
-        'total': total,
-    })
+class CartView(ListView):
+    template_name = 'cart/cart.html'
+    context_object_name = 'user_cart'
+
+    def get_queryset(self):
+        items = Cart.objects.filter(user=self.request.user).order_by('-quantity')
+        return items
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data()
+        total = 0
+        for item in self.object_list:
+            total += item.sub_total()
+        context['total'] = total
+        return context
 
 
 def add_to_cart(request):
