@@ -35,9 +35,15 @@
             <div class="col-lg-4">
                 <div class="card mb-4">
                     <div class="card-body text-center">
+                        {% if more_info_user.avatar %}
                         <img src="{{more_info_user.avatar.url}}"
                              alt="avatar"
                              class="rounded-circle img-fluid" style="width: 150px; height:145px;">
+                        {% else %}
+                        <img src="https://media.istockphoto.com/id/678536514/ru/%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D0%B0%D1%8F/%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8C-%D0%B7%D0%BD%D0%B0%D1%87%D0%BE%D0%BA-%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80-%D0%BF%D0%BB%D0%BE%D1%81%D0%BA%D0%B8%D0%B9-%D1%87%D0%B5%D0%BB%D0%BE%D0%B2%D0%B5%D0%BA-%D0%BF%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D1%8C-%D0%B0%D0%B2%D0%B0%D1%82%D0%B0%D1%80.jpg?s=612x612&w=0&k=20&c=JSZ-GRSTLTIm3LHD5ijYf4LnNOFuMo779YExwu4RAhQ="
+                             alt="avatar"
+                             class="rounded-circle img-fluid" style="width: 150px; height:145px;">
+                        {% endif %}
                         <h5 class="my-3">{{request.user.username}}</h5>
                         <p class="text-muted mb-1">
                             {% if is_seller%}
@@ -48,32 +54,22 @@
                         </p>
                     </div>
                 </div>
-                <!--                <div class="card mb-4 mb-lg-0">-->
-                <!--                    <div class="card-body p-0">-->
-                <!--                        <ul class="list-group list-group-flush rounded-3">-->
-                <!--                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">-->
-                <!--                                <i class="fas fa-globe fa-lg text-warning"></i>-->
-                <!--                                <p class="mb-0">https://mdbootstrap.com</p>-->
-                <!--                            </li>-->
-                <!--                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">-->
-                <!--                                <i class="fab fa-github fa-lg" style="color: #333333;"></i>-->
-                <!--                                <p class="mb-0">mdbootstrap</p>-->
-                <!--                            </li>-->
-                <!--                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">-->
-                <!--                                <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>-->
-                <!--                                <p class="mb-0">@mdbootstrap</p>-->
-                <!--                            </li>-->
-                <!--                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">-->
-                <!--                                <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>-->
-                <!--                                <p class="mb-0">mdbootstrap</p>-->
-                <!--                            </li>-->
-                <!--                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">-->
-                <!--                                <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>-->
-                <!--                                <p class="mb-0">mdbootstrap</p>-->
-                <!--                            </li>-->
-                <!--                        </ul>-->
-                <!--                    </div>-->
-                <!--                </div>-->
+                <div class="card mb-4 mb-lg-0">
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush rounded-3">
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <span class="fs-5 text-secondary fst-italic fw-bold">Вы потратили</span>
+                                <p class="mb-0 fw-bold text-danger fs-5">{{more_info_user.all_spent_money}}</p>
+                            </li>
+                            {% if more_info_user.is_seller%}
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <span class="fs-5 text-secondary fst-italic fw-bold">Вы заработали</span>
+                                <p class="mb-0 fw-bold text-success fs-5">{{more_info_user.all_earned_money}}</p>
+                            </li>
+                            {% endif%}
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div class="col-lg-8">
                 <div class="card mb-4">

@@ -9,7 +9,7 @@ from django.views.generic import ListView, CreateView, TemplateView
 from profile_user.models import SellerStatistics
 
 from .forms import UserLogForm, UserRegForm, Reviews
-from .models import Category, Product, Review, ReviewImages, Cart, Orders, OrdersItem
+from .models import Category, Product, Review, ReviewImages, Cart, Orders, OrdersItem, PersonalArea
 
 
 # Create your views here.
@@ -149,14 +149,21 @@ def checkout(request):
         total = 0
         cart_items = Cart.objects.filter(user=request.user)
         current_order = Orders.objects.create(user=request.user, status='В сборке у продавца')
+        user_profile = PersonalArea.objects.get(user=request.user)
 
         for cart_item in cart_items:
 
             # Манипуляции с CartItem
             total += cart_item.sub_total()
             cart_item.product.stock -= 1
+            user_profile.all_spent_money += cart_item.sub_total()
 
+            # Манипуляции С продавцом
             if cart_item.product.seller:
+                seller_profile = PersonalArea.objects.get(user=cart_item.product.seller)
+                seller_profile.all_earned_money += cart_item.sub_total()
+                seller_profile.save(update_fields=['all_earned_money'])
+
                 stat = SellerStatistics.objects.get(product=cart_item.product)
                 stat.bought += 1
                 stat.save()
@@ -168,6 +175,7 @@ def checkout(request):
             # Сохранение Кол-во продукта на складе и удаление корзины пользователя
             cart_item.product.save()
             cart_item.delete()
+            user_profile.save()
 
         current_order.total = total
         current_order.save()
