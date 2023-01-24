@@ -8,13 +8,17 @@
 
 {%block content%}
 <div class="container text-center user-form">
-    <div class="user-form2 col">
+    <div class="user-form2">
         <h1>Вход</h1>
         <form action="" method="post">
             {% csrf_token %}
-            {% bootstrap_form form %}
-            <button class="btn btn-primary" type="submit">Войти</button>
-            <a class="btn btn-primary " href="{% url 'reset_password'%}">Забыли Пароль</a>
+            {% bootstrap_field form.username addon_before='<span class="material-symbols-outlined">person</span>'%}
+            {% bootstrap_field form.email addon_before='<span class="material-symbols-outlined">mail</span>'%}
+            {% bootstrap_field form.password addon_before='<span class="material-symbols-outlined">key</span>'%}
+            <div class="mt-4">
+                <button class="btn btn-primary" type="submit">Войти</button>
+                <a class="btn btn-primary" href="{% url 'reset_password'%}">Забыли Пароль</a>
+            </div>
         </form>
     </div>
 </div>

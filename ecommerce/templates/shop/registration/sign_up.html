@@ -12,7 +12,10 @@
         <h1>Регистрация</h1>
         <form action="" method="post">
             {% csrf_token %}
-             {% bootstrap_form form %}
+            {% bootstrap_field form.username addon_before='<span class="material-symbols-outlined">person</span>'%}
+            {% bootstrap_field form.email addon_before='<span class="material-symbols-outlined">mail</span>'%}
+            {% bootstrap_field form.password1 addon_before='<span class="material-symbols-outlined">key</span>'%}
+            {% bootstrap_field form.password2 addon_before='<span class="material-symbols-outlined">key</span>'%}
             <button class="btn btn-primary " type="submit">Регистрация</button>
             <a class="btn btn-primary " href="{% url 'reset_password'%}">Забыли Пароль</a>
         </form>
