@@ -6,7 +6,7 @@ from . import views
 urlpatterns = [
     # Home, product by category, detail products
     path('', views.HomeView.as_view(), name='home'),
-    path('category/<str:category>/', views.prod_by_category, name='pr_by_cat'),
+    path('category/<str:category>/', views.ProductCategoryView.as_view(), name='pr_by_cat'),
     path('product/<slug:slug>/', views.detail_view, name='one_pr'),
 
     # Auth

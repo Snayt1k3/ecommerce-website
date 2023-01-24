@@ -95,13 +95,13 @@ def detail_view(request, slug):
     return render(request, 'shop/detail_pr.html', context)
 
 
-def prod_by_category(request, category):
-    """Продукты упорядоченные по категории"""
-    cat = Category.objects.get(category_name=category)
-    products = Product.objects.filter(category=cat)
-    return render(request, 'shop/main_page.html', context={
-        'products': products,
-    })
+class ProductCategoryView(ListView):
+    template_name = 'shop/main_page.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        self.category = Category.objects.get(category_name=self.kwargs['category'])
+        return Product.objects.filter(category=self.category)
 
 
 class UserLogView(LoginView):
