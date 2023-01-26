@@ -8,9 +8,9 @@ from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import TemplateView, DetailView, ListView
 from django.views.generic.edit import UpdateView
-from shop.models import PersonalArea, Orders, Product, Category, PromoCode
+from shop.models import PersonalArea, Orders, Product, Category, PromoCode, ReviewSeller
 
 from .models import SellerStatistics
 
@@ -26,15 +26,11 @@ def profile_user_view(request, username):
     if not PersonalArea.objects.filter(user=request.user):
         PersonalArea.objects.create(user=request.user, email=request.user.email)
 
-    more_info_user = PersonalArea.objects.get(user=request.user)
-    history_orders = Orders.objects.filter(user=request.user, status='Получен')
-    current_orders = Orders.objects.exclude(status='Получен').filter(user=request.user).order_by('-id')
-    promos = PromoCode.objects.filter(user=request.user)
-
-    context['more_info_user'] = more_info_user
-    context['history_orders'] = history_orders
-    context['current_orders'] = current_orders
-    context['promos'] = promos
+    context['more_info_user'] = PersonalArea.objects.get(user=request.user)
+    context['history_orders'] = Orders.objects.filter(user=request.user, status='Получен')
+    context['current_orders'] = Orders.objects.exclude(status='Получен').filter(user=request.user).order_by('-id')
+    context['promos'] = PromoCode.objects.filter(user=request.user)
+    context['seller_reviews'] = ReviewSeller.objects.filter(seller=request.user)
 
     return render(request, 'profile_user/profile_user.html', context)
 
@@ -161,10 +157,8 @@ def product_seller_view(request):
             return redirect('profile')
 
     else:
-        more_info_user = PersonalArea.objects.get(user=request.user)
-
         return render(request, 'profile_user/expose_product.html', context={
-            'more_info_user': more_info_user,
+            'more_info_user': PersonalArea.objects.get(user=request.user),
         })
 
 
@@ -225,8 +219,7 @@ class ProfileUserUpdate(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        more_info_user = PersonalArea.objects.get(user=self.request.user)
-        context['more_info_user'] = more_info_user
+        context['more_info_user'] = PersonalArea.objects.get(user=self.request.user)
         return context
 
 
@@ -235,6 +228,21 @@ class SellerProductUpdateView(UpdateView):
     model = Product
     fields = ['name', 'price', 'description', 'characteristics', 'category', 'img', 'stock']
     template_name = 'profile_user/update_product_seller.html'
+
+
+class SellerFeedbackView(ListView):
+    template_name = 'profile_user/seller_feedbacks.html'
+    context_object_name = 'reviews'
+
+    def get_queryset(self):
+        user = User.objects.get(username=self.kwargs['username'])
+        return ReviewSeller.objects.filter(seller=user)
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = User.objects.get(username=self.kwargs['username'])
+        context['more_info_user'] = PersonalArea.objects.get(user=user)
+        return context
 
 
 class BecomeSellerSuccess(TemplateView):

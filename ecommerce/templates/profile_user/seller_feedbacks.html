@@ -41,22 +41,15 @@
             <div class="col-lg-8">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h1 class="fs-3 text-secondary fst-italic fw-bold text-center">Товары Данного Продавца
-                            {% if request.user.username != more_info_user.user.username%}
-                            <a href="{% url 'feedback_seller' more_info_user.user.username %}"
-                                class="btn btn-outline-primary ms-3">Оставить Отзыв</a>
-                        {% endif %}
-                        </h1>
+                        <h1 class="fs-3 text-secondary fst-italic fw-bold text-center">Отзывы о Продавце</h1>
                         <hr>
                         <div class="row ms-5">
-                            {% for product in seller_products%}
+                            {% for review in reviews%}
                             <div class="col-sm-6 mt-3">
                                 <div class="card" style="width: 18rem;">
-                                    <img src="{{product.img}}" class="card-img-top" alt="...">
                                     <div class="card-body">
-                                        <h5 class="card-title">{{product.name|slice:":50"}}</h5>
-                                        <p class="card-text">{{product.description|slice:":100"}}</p>
-                                        <a href="{% url 'one_pr' product.slug %}" class="btn btn-primary">К товару</a>
+                                        <h5 class="card-title">Отзыв от {{review.username}}</h5>
+                                        <p class="card-text">{{review.feedback}}</p>
                                     </div>
                                 </div>
                             </div>

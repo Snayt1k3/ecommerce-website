@@ -28,6 +28,7 @@
                         {% else %}
                         <li class="breadcrumb-item"><a href="{% url 'product_seller'%}">Выставить Товар</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'seller'%}">Ваша Статистика</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'seller_feedback_list' request.user.username %}">Ваши Отзывы</a></li>
                         {% endif %}
                     </ol>
                 </nav>
