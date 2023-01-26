@@ -70,21 +70,19 @@ def detail_view(request, slug):
     context['reviews'] = reviews
     context['img_reviews'] = img_reviews
 
-    # Характеристики из модели в виде
+    # Характеристики из модели
     good = product.characteristics
     goods_key = good.split(",")[::2]
     goods_val = good.split(",")[1::2]
     info = list(zip(goods_key, goods_val))
     context["info"] = info
+
     context['product'] = product
-
-    # Укороченная инфо для Начального Отображения
-    context['info_sm'] = info[:5]
-
     context['form'] = Reviews()
 
     # Средний Рейтинг Товара
     reviews = Review.objects.filter(product=product)
+
     if reviews:
         avg_rating = 0
         for review in reviews:
@@ -206,10 +204,13 @@ def checkout(request):
         # Промокод
         promo_db = request.session.get('promo')
         if promo_db:
+
             if promo_db['is_percent']:
                 total = total * (int(promo_db['amount_of_discount']) / 100)
+
             else:
                 total = total - int(promo_db['amount_of_discount'])
+
             PromoCode.objects.get(name=promo_db['name'], user=request.user).delete()
             del promo_db
 

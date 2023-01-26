@@ -60,7 +60,7 @@
                 {%endif%}
                 {% if is_seller%}
                 <li class="nav-item">
-                    <a aria-current="page" class="nav-link text-uppercase fw-bold" href="#">Ваши Товары</a>
+                    <a aria-current="page" class="nav-link text-uppercase fw-bold" href="{% url 'list_seller_products' request.user.username%}">Ваши Товары</a>
                 </li>
                 {% endif %}
                 <li class="nav-item dropdown">
@@ -70,11 +70,13 @@
                         Каталог
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item"
-                               href="{% url 'home' %}">Все товары</a></li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'home' %}">Все товары</a>
+                        </li>
                         {%for category in links%}
-                        <li><a class="dropdown-item"
-                               href="{% url 'pr_by_cat' category %}">{{category.category_name}}</a></li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'pr_by_cat' category %}">{{category.category_name}}</a>
+                        </li>
                         {% endfor %}
                     </ul>
 

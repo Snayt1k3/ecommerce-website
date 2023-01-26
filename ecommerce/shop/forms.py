@@ -33,5 +33,5 @@ class Reviews(forms.Form):
         widget=forms.Textarea(attrs={'placeholder': 'Оставьте Отзыв', 'class': 'form-control', 'wrap': 'hard', }),
         required=False)
     files = forms.ImageField(
-        widget=forms.ClearableFileInput(attrs={'multiple': True, 'class': 'right_menu form-control'}),
+        widget=forms.ClearableFileInput(attrs={'multiple': True, 'class': 'form-control'}),
         required=False, label='Фото')
