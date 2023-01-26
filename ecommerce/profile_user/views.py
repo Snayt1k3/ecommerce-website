@@ -161,7 +161,7 @@ def product_seller_view(request):
     else:
         more_info_user = PersonalArea.objects.get(user=request.user)
 
-        return render(request, 'profile_user/products_seller.html', context={
+        return render(request, 'profile_user/expose_product.html', context={
             'more_info_user': more_info_user,
         })
 
@@ -190,7 +190,7 @@ def seller_view(request):
 
         stats = SellerStatistics.objects.filter(user=request.user)
 
-        return render(request, 'profile_user/seller.html', context={
+        return render(request, 'profile_user/seller_profile.html', context={
             'your_products': your_products,
             'more_info_user': user_profile,
             'stats': stats,
