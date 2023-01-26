@@ -93,7 +93,10 @@ def detail_view(request, slug):
         product.avg_rating = avg
         product.save()
 
-    return render(request, 'shop/detail_pr.html', context)
+    if product.seller:
+        context['seller_profile'] = PersonalArea.objects.get(user=product.seller)
+
+    return render(request, 'shop/detail_product.html', context)
 
 
 class ProductCategoryView(ListView):
@@ -216,6 +219,21 @@ def checkout(request):
                                  from_the_price=1000)
 
         return redirect('checkout_success')
+
+
+class SellerProductsView(ListView):
+    template_name = 'shop/seller_products.html'
+    context_object_name = 'seller_products'
+
+    def get_queryset(self):
+        user = User.objects.get(username=self.kwargs['username'])
+        return Product.objects.filter(seller=user)
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data()
+        user = User.objects.get(username=self.kwargs['username'])
+        context['more_info_user'] = PersonalArea.objects.get(user=user)
+        return context
 
 
 class CheckFailed(TemplateView):

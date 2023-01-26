@@ -14,7 +14,6 @@
 {% block content%}
 
 <div class="container-fluid" style="margin-top:10px;">
-
     <div class="container">
         <div class="row">
             <div>
@@ -41,7 +40,7 @@
 
             </div>
             <div class="col-md-5 col-lg-4 text-center d-flex justify-content-lg-end justify-content-start">
-                <div class="card cards" style="width: 18rem; height:140px;">
+                <div class="card cards" style="width: 18rem; height:150px;">
                     <input type="hidden" name="_token" value="{{ csrf_token }}"/>
                     <div class="card-body">
                         <h5 class="card-title text-center fw-bold fs-4 mt-2">{{product.price}}₽</h5>
@@ -59,40 +58,34 @@
                             </span>
                                 </button>
                             </div>
-
-                            <!--                            <div>-->
-                            <!--                                {% if product.stock < 2 %}-->
-                            <!--                                <p class="card-text text-danger d-flex justify-content-start mt-3">Осталось Всего {{product.stock}}шт! </p>-->
-                            <!--                                {% elif product.stock > 15 %}-->
-                            <!--                                <p class="card-text text-success d-flex justify-content-start mt-3">В Наличии</p>-->
-                            <!--                                {% else %}-->
-                            <!--                                <p class="card-text text-success d-flex justify-content-start mt-3">В Наличии {{product.stock}}шт </p>-->
-                            <!--                                {% endif %}-->
-                            <!--                            </div>-->
+                            <div class="row mb-2 mt-1 text-start">
+                                <div>
+                                    <img src="{{seller_profile.avatar.url}}" alt="" width="25" height="25" class="rounded-5">
+                                    <span>
+                                        <a href="{% url 'list_seller_products' seller_profile.user.username %}" style="text-decoration:none;" class="text-secondary">{{seller_profile.user.username}}</a>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
         <div class="container-fluid" style="padding-left:0;">
             <div class="col-12">
                 <button class="btn btn-primary mt-2" data-bs-target="#demo" data-bs-toggle="collapse" type="button">
-                    Посмотреть
-                    Описание
+                    Посмотреть Описание
                 </button>
                 <div class="collapse" id="demo" style="margin-top:10px; font-size:16px;">
                     {{product.description}}
                 </div>
                 <button class="btn btn-primary mt-2" data-bs-target="#demo1" data-bs-toggle="collapse" type="button">
-                    Все
-                    Характеристики
+                    Все Характеристики
                 </button>
                 <div class="collapse" id="demo1" style="margin-top:10px; font-size:16px;">
                     <div class="col-md-6 mb-3">
                         <h4>Характеристики</h4>
                         {% for key, val in info%}
-
                         <div class="row">
                             <div class="col border-bottom">
                                 <span class="text-muted">{{key}}</span>

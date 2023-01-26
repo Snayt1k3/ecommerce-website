@@ -29,9 +29,10 @@ urlpatterns = [
          auth_views.PasswordChangeView.as_view(template_name='shop/registration/password_change.html'),
          name='password_change'),
 
-
     # Payment
     path('checkout', views.checkout, name='checkout'),
     path('checkout/success', views.CheckSuccess.as_view(), name='checkout_success'),
     path('checkout/failed', views.CheckFailed.as_view(), name='checkout_failed'),
+
+    path('seller/<str:username>', views.SellerProductsView.as_view(), name='list_seller_products')
 ]
