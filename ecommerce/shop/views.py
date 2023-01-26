@@ -9,8 +9,8 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView, TemplateView
 from profile_user.models import SellerStatistics
 
-from .forms import UserLogForm, UserRegForm, Reviews
-from .models import Category, Product, Review, ReviewImages, Cart, Orders, OrdersItem, PersonalArea, PromoCode
+from .forms import UserLogForm, UserRegForm, Reviews, ReviewSellerForm
+from .models import Category, Product, Review, ReviewImages, Cart, Orders, OrdersItem, PersonalArea, PromoCode, ReviewSeller
 
 
 # Create your views here.
@@ -243,3 +243,20 @@ class CheckFailed(TemplateView):
 
 class CheckSuccess(TemplateView):
     template_name = 'shop/payment/checkout_success.html'
+
+
+def feedback_seller(request, username):
+    if request.method == 'POST':
+        form = ReviewSellerForm(request.POST)
+
+        seller = User.objects.get(username=username)
+        rating = request.POST.get('rating')
+        feedback = request.POST.get('feedback')
+        if rating and feedback:
+            ReviewSeller.objects.create(feedback=feedback, seller=seller, rating=rating, username=request.user.username)
+            return redirect('list_seller_products', username=username)
+    else:
+        form = ReviewSellerForm()
+    return render(request, 'shop/feedback_seller.html', context={'form': form})
+
+

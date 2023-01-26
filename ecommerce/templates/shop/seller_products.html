@@ -11,6 +11,7 @@
 
 
 
+
 </style>
 {% endblock %}
 
@@ -40,7 +41,9 @@
             <div class="col-lg-8">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h1 class="fs-3 text-secondary fst-italic fw-bold text-center">Товары Данного Продавца</h1>
+                        <h1 class="fs-3 text-secondary fst-italic fw-bold text-center">Товары Данного Продавца <a
+                                href="{% url 'feedback_seller' more_info_user.user.username %}"
+                                class="btn btn-outline-primary ms-3">Оставить Отзыв</a></h1>
                         <hr>
                         <div class="row ms-5">
                             {% for product in seller_products%}

@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-
+from .models import ReviewSeller
 
 class UserLogForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Логин'}), label='Логин')
@@ -35,3 +35,12 @@ class Reviews(forms.Form):
     files = forms.ImageField(
         widget=forms.ClearableFileInput(attrs={'multiple': True, 'class': 'form-control'}),
         required=False, label='Фото')
+
+
+class ReviewSellerForm(forms.ModelForm):
+    class Meta:
+        model = ReviewSeller
+        fields = ['feedback', 'rating']
+        widgets = {
+            'feedback': forms.Textarea(attrs={'wrap': 'hard', 'cols': '20', 'style': 'resize:none;'}),
+        }

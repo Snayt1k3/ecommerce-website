@@ -9,7 +9,7 @@
 {%block content%}
 <div class="container text-center user-form">
     <div class="user-form2">
-        <h1>Вход</h1>
+        <h1 class="fs-3 text-secondary fst-italic fw-bold text-center">Вход</h1>
         <form action="" method="post">
             {% csrf_token %}
             {% bootstrap_field form.username addon_before='<span class="material-symbols-outlined">person</span>'%}

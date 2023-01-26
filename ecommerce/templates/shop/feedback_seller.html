@@ -1,0 +1,46 @@
+{%extends 'shop/base.html'%}
+{% load static%}
+{% load bootstrap5 %}
+{%block head%}
+<link href="{% static 'css/user.css' %}" rel="stylesheet">
+<title>Отзыв О Продавце</title>
+{% endblock %}
+
+{%block content%}
+<div class="container text-center user-form">
+    <div class="user-form2">
+        <h1 class="fs-3 text-secondary fst-italic fw-bold text-center">Отзыв О Продавце</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="row ms-2 me-2">
+                <h1 class="fs-5 text-secondary fst-italic fw-bold text-start mb-2">Напишите Что думаете</h1>
+                {% bootstrap_field form.feedback show_label='skip'%}
+            </div>
+            <div class="row ms-2 me-2">
+                <h1 class="fs-5 text-secondary fst-italic fw-bold text-start mb-2">Оценка</h1>
+                <div class="rating mb-2">
+
+                    <input type="radio" id="star-1" name="rating" value="5">
+                    <label for="star-1" title="Оценка «5»"></label>
+
+                    <input type="radio" id="star-2" name="rating" value="4">
+                    <label for="star-2" title="Оценка «4»"></label>
+
+                    <input type="radio" id="star-3" name="rating" value="3">
+                    <label for="star-3" title="Оценка «3»"></label>
+
+                    <input type="radio" id="star-4" name="rating" value="2">
+                    <label for="star-4" title="Оценка «2»"></label>
+
+                    <input type="radio" id="star-5" name="rating" value="1">
+                    <label for="star-5" title="Оценка «1»"></label>
+                </div>
+            </div>
+            <div class="mt-4">
+                <button class="btn btn-primary" type="submit">Отправить</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
