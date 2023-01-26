@@ -154,11 +154,19 @@ class Orders(models.Model):
         ordering = ['date']
 
 
+class PromoCode(models.Model):
+    name = models.CharField(max_length=10)
+    is_percent = models.BooleanField(default=False)
+    from_the_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    amount_of_discount = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
 class PersonalArea(models.Model):
 
     # Информация О пользователе
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to='media/avatars/', blank=True)
+    avatar = models.ImageField(upload_to='avatars/', blank=True)
     address = models.CharField(max_length=100, blank=True)
     phone = models.CharField(max_length=100, blank=True)
     first_name = models.CharField(max_length=100, blank=True)
