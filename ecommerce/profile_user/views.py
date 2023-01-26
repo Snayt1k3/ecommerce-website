@@ -1,6 +1,6 @@
 import re
 from random import randint
-
+from django.urls import reverse
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -24,7 +24,7 @@ def profile_user_view(request, username):
         return redirect('/')
 
     if not PersonalArea.objects.filter(user=request.user):
-        PersonalArea.objects.create(user=request.user)
+        PersonalArea.objects.create(user=request.user, email=request.user.email)
 
     more_info_user = PersonalArea.objects.get(user=request.user)
     history_orders = Orders.objects.filter(user=request.user, status='Получен')
@@ -35,60 +35,6 @@ def profile_user_view(request, username):
     context['current_orders'] = current_orders
 
     return render(request, 'profile_user/profile_user.html', context)
-
-
-def profile_user_edit_view(request, username):
-    if not request.user.is_authenticated or request.user.username != username:
-        return redirect('/')
-
-    if request.method == 'POST':
-
-        # Вытаскиваем Данные
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        phone = request.POST.get('phone')
-        address = request.POST.get('address')
-        avatar = request.FILES.get('avatar')
-        email = request.POST.get('email')
-
-        # Получение пользователя и его профиля
-        user = User.objects.get(username=username)
-        user_profile = PersonalArea.objects.get(user=user)
-
-        # Проверки, что надо сохранить
-        if email:
-            user.email = email
-            user_profile.email_confirm = False
-
-        if first_name:
-            user.first_name = first_name
-
-        if last_name:
-            user.last_name = last_name
-
-        if phone:
-            user_profile.phone = phone
-
-        if address:
-            user_profile.address = address
-
-        if avatar:
-            fs = FileSystemStorage()
-            # сохраняем на файловой системе
-            filename = fs.save(avatar.name, avatar)
-            user_profile.avatar = filename
-
-        user.save()
-        user_profile.save()
-
-        return redirect('profile', username=username)
-    else:
-        user = User.objects.get(username=username)
-        user_profile = PersonalArea.objects.get(user=user)
-
-        return render(request, 'profile_user/profile_edit.html', context={
-            'more_info_user': user_profile
-        })
 
 
 def email_sent_view(request):
@@ -266,6 +212,19 @@ class OrderDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['more_info_user'] = PersonalArea.objects.get(user=self.request.user)
+        return context
+
+
+class ProfileUserUpdate(UpdateView):
+    model = PersonalArea
+    success_url = '/'
+    fields = ['first_name', 'last_name', 'phone', 'address', 'avatar']
+    template_name = 'profile_user/profile_edit.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        more_info_user = PersonalArea.objects.get(user=self.request.user)
+        context['more_info_user'] = more_info_user
         return context
 
 

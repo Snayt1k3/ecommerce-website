@@ -155,15 +155,21 @@ class Orders(models.Model):
 
 
 class PersonalArea(models.Model):
+
     # Информация О пользователе
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to='media/avatars/', blank=False)
-    address = models.CharField(max_length=100, blank=False)
-    phone = models.CharField(max_length=100, blank=False)
+    avatar = models.ImageField(upload_to='media/avatars/', blank=True)
+    address = models.CharField(max_length=100, blank=True)
+    phone = models.CharField(max_length=100, blank=True)
+    first_name = models.CharField(max_length=100, blank=True)
+    last_name = models.CharField(max_length=100, blank=True)
     email_confirm = models.BooleanField(default=False)
+    slug = models.SlugField(blank=True)
+
     # Для продавцов
     is_seller = models.BooleanField(default=False)
-    your_products = models.ManyToManyField(Product)
+    your_products = models.ManyToManyField(Product, blank=True)
+
     # Заработок и траты
     all_spent_money = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     all_earned_money = models.DecimalField(max_digits=10, decimal_places=2, default=0)
@@ -171,3 +177,14 @@ class PersonalArea(models.Model):
     class Meta:
         verbose_name = 'Personal_Area'
         verbose_name_plural = 'Personal_Areas'
+
+    @staticmethod
+    def slugify_rus(s):
+        """
+        Overriding django slugify that allows to use russian words as well.
+        """
+        return slugify(''.join(alphabet.get(w, w) for w in s.lower()))
+
+    def save(self, *args, **kwargs):
+        self.slug = self.slugify_rus(self.user.username)
+        super(PersonalArea, self).save(*args, **kwargs)

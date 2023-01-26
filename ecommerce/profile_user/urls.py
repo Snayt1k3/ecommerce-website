@@ -6,7 +6,7 @@ urlpatterns = [
 
     # Profile
     path('<str:username>', views.profile_user_view, name='profile'),
-    path('edit/<str:username>', views.profile_user_edit_view, name='edit_profile'),
+    path('edit/<slug:slug>', views.ProfileUserUpdate.as_view(), name='edit_profile'),
 
     # Profile order detail
     path('order/<int:pk>/', views.OrderDetailView.as_view(), name='order_detail_pk'),
