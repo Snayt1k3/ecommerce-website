@@ -10,7 +10,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, DetailView
 from django.views.generic.edit import UpdateView
-from shop.models import PersonalArea, Orders, Product, Category
+from shop.models import PersonalArea, Orders, Product, Category, PromoCode
 
 from .models import SellerStatistics
 
@@ -29,10 +29,12 @@ def profile_user_view(request, username):
     more_info_user = PersonalArea.objects.get(user=request.user)
     history_orders = Orders.objects.filter(user=request.user, status='Получен')
     current_orders = Orders.objects.exclude(status='Получен').filter(user=request.user).order_by('-id')
+    promos = PromoCode.objects.filter(user=request.user)
 
     context['more_info_user'] = more_info_user
     context['history_orders'] = history_orders
     context['current_orders'] = current_orders
+    context['promos'] = promos
 
     return render(request, 'profile_user/profile_user.html', context)
 

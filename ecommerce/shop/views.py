@@ -4,12 +4,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.core.files.storage import FileSystemStorage
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView, TemplateView
 from profile_user.models import SellerStatistics
 
 from .forms import UserLogForm, UserRegForm, Reviews
-from .models import Category, Product, Review, ReviewImages, Cart, Orders, OrdersItem, PersonalArea
+from .models import Category, Product, Review, ReviewImages, Cart, Orders, OrdersItem, PersonalArea, PromoCode
 
 
 # Create your views here.
@@ -133,6 +134,8 @@ def sign_out(request):
 
 def checkout(request):
     """Оплата"""
+    promo_db = ''
+
     if request.method == 'GET':
         cart_products = Cart.objects.filter(user=request.user.id)
 
@@ -140,9 +143,29 @@ def checkout(request):
         for item in cart_products:
             total += item.sub_total()
 
+        if request.GET.get('promo_code'):
+            # Манипуляции с Промо
+            promo = request.GET.get('promo_code')
+            try:
+                promo_db = get_object_or_404(PromoCode, name=promo, user=request.user)
+            except:
+                promo_db = ''
+
+            if promo_db:
+                if total > promo_db.from_the_price:
+                    if promo_db.is_percent:
+                        total = total * (promo_db.amount_of_discount / 100)
+                    else:
+                        total -= promo_db.amount_of_discount
+
+                request.session['promo'] = {'amount_of_discount': promo_db.amount_of_discount,
+                                            'is_percent': promo_db.is_percent,
+                                            'name': promo_db.name}
+
         return render(request, 'shop/payment/checkout.html', context={
             'cart_products': cart_products,
             'total': total,
+            'promo_db': promo_db
         })
 
     if request.method == 'POST':
@@ -177,8 +200,20 @@ def checkout(request):
             cart_item.delete()
             user_profile.save()
 
+        # Промокод
+        promo_db = request.session.get('promo')
+        if promo_db:
+            if promo_db['is_percent']:
+                total = total * (int(promo_db['amount_of_discount']) / 100)
+            else:
+                total = total - int(promo_db['amount_of_discount'])
+            PromoCode.objects.get(name=promo_db['name'], user=request.user).delete()
+            del promo_db
+
         current_order.total = total
         current_order.save()
+        PromoCode.objects.create(name='promo500', user=request.user, amount_of_discount=500, is_percent=False,
+                                 from_the_price=1000)
 
         return redirect('checkout_success')
 

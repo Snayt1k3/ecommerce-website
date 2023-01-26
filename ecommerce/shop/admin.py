@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Product, Review, ReviewImages, WishList, Cart, Orders, PersonalArea
+from .models import Category, Product, Review, ReviewImages, WishList, Cart, Orders, PersonalArea, PromoCode
 
 # Register your models here.
 
@@ -11,6 +11,7 @@ admin.site.register(ReviewImages)
 admin.site.register(WishList)
 admin.site.register(Cart)
 admin.site.register(PersonalArea)
+admin.site.register(PromoCode)
 
 
 @admin.register(Orders)

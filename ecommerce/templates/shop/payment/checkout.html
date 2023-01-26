@@ -57,22 +57,30 @@
                     <span class="text-muted">{{item.product.price}} ₽ </span>
                 </li>
                 {%endfor%}
+                {% if promo_db %}
                 <li class="list-group-item d-flex justify-content-between bg-light">
                     <div class="text-success">
                         <h6 class="my-0">Promo code</h6>
-                        <small>EXAMPLECODE</small>
+                        <small>{{promo_db.name}}</small>
                     </div>
-                    <span class="text-success">-$5</span>
+                    <span class="text-success">-{{promo_db.amount_of_discount}}
+                        {% if promo_db.is_percent%}
+                        %
+                        {% else %}
+                        Руб
+                        {% endif %}
+                    </span>
                 </li>
+                {%endif%}
                 <li class="list-group-item d-flex justify-content-between">
                     <span>Total (RUB)</span>
                     <strong>{{total}} ₽</strong>
                 </li>
             </ul>
 
-            <form class="card p-2">
+            <form class="card p-2" method="get">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Promo code">
+                    <input type="text" class="form-control" placeholder="Promo code" name="promo_code">
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-secondary">Redeem</button>
                     </div>
