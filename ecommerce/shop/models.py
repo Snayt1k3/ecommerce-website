@@ -155,10 +155,19 @@ class Orders(models.Model):
 
 
 class PromoCode(models.Model):
+    """Промокоды"""
+    # Сам промокод
     name = models.CharField(max_length=10)
+
+    # Скидка процентная или нет
     is_percent = models.BooleanField(default=False)
+
+    # От какой цены скидка
     from_the_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+    # Размер Скидки
     amount_of_discount = models.IntegerField()
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
@@ -196,3 +205,11 @@ class PersonalArea(models.Model):
     def save(self, *args, **kwargs):
         self.slug = self.slugify_rus(self.user.username)
         super(PersonalArea, self).save(*args, **kwargs)
+
+
+class ReviewSeller(models.Model):
+    """Отзыв На Продавца"""
+    seller = models.ForeignKey(User, on_delete=models.CASCADE)
+    username = models.CharField(max_length=100)
+    feedback = models.TextField()
+    rating = models.CharField(choices=((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)), max_length=1)
