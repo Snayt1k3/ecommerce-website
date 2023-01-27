@@ -14,6 +14,7 @@ urlpatterns = [
     # Email Confirmation
     path('email/send', views.email_sent_view),  # AJAX
     path('email/confirm', views.email_confirm_view),  # AJAX
+    path('email/change', views.change_email, name='email_change'),
 
     # BecomeSeller
     path('become-seller/', views.become_seller, name='become_seller'),

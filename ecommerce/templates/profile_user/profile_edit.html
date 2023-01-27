@@ -23,6 +23,7 @@
                         <li class="breadcrumb-item active"><a href="#">Редактировать
                             Профиль</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'password_change'%}">Сменить Пароль</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'email_change'%}">Сменить Email</a></li>
                         {% if not is_seller%}
                         <li class="breadcrumb-item"><a href="{% url 'become_seller' %}">Стать Продавцом</a></li>
                         {% else %}

@@ -1,6 +1,6 @@
 import re
 from random import randint
-
+from .forms import EmailChangeForm
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -263,3 +263,17 @@ class BecomeSellerSuccess(TemplateView):
 
 class ProductSellerSuccess(TemplateView):
     template_name = 'profile_user/success_seller_product.html'
+
+
+def change_email(request):
+    form = EmailChangeForm(request.user)
+    if request.method == 'POST':
+        form = EmailChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            user = PersonalArea.objects.get(user=request.user)
+            user.email_confirm = False
+            user.save()
+            return redirect('profile', username=request.user.username)
+
+    return render(request, 'profile_user/change_email.html', {'form': form})

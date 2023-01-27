@@ -1,0 +1,25 @@
+{%extends 'shop/base.html'%}
+{% load static%}
+{% load bootstrap5 %}
+{%block head%}
+<link href="{% static 'css/user.css' %}" rel="stylesheet">
+<title>Change Email</title>
+{% endblock %}
+
+{%block content%}
+<div class="container text-center user-form">
+    <div class="user-form2">
+        <h1 class="fs-3 text-secondary fst-italic fw-bold text-center">Change Email</h1>
+        <form action="" method="post" class="mt-5">
+            {% csrf_token %}
+            {% bootstrap_field form.new_email1 addon_before='<span class="material-symbols-outlined">mail</span>' show_label='skip'%}
+            {% bootstrap_field form.new_email2 addon_before='<span class="material-symbols-outlined">mail</span>' show_label='skip'%}
+            {% bootstrap_form_errors form %}
+            <div class="mt-5">
+                <button class="btn btn-primary" type="submit">Change</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
