@@ -186,7 +186,7 @@ def seller_view(request):
 
         stats = SellerStatistics.objects.filter(user=request.user)
 
-        return render(request, 'profile_user/seller_profile.html', context={
+        return render(request, 'profile_user/seller_stats.html', context={
             'your_products': your_products,
             'more_info_user': user_profile,
             'stats': stats,
@@ -241,7 +241,19 @@ class SellerFeedbackView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         user = User.objects.get(username=self.kwargs['username'])
-        context['more_info_user'] = PersonalArea.objects.get(user=user)
+        seller = PersonalArea.objects.get(user=user)
+        context['more_info_user'] = seller
+
+        # Пересчет Рейтинга Продавца
+        reviews = ReviewSeller.objects.filter(seller=user)
+        rating = 0.0
+        for review in reviews:
+            rating += float(review.rating)
+
+        rating = round(rating / len(reviews), 1)
+        seller.avg_rating = rating
+        seller.save()
+
         return context
 
 
