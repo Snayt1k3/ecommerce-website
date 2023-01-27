@@ -7,6 +7,10 @@
     text-decoration: none;
     }
 
+    #copytext1:hover{
+    cursor:pointer;
+    }
+
 </style>
 {% endblock %}
 
@@ -72,6 +76,7 @@
                         </ul>
                     </div>
                 </div>
+                {% if promos%}
                 <div class="card mt-4 mb-lg-0">
                     <div class="card-body p-0">
                         <h1 class="fs-5 text-secondary fst-italic fw-bold text-center mt-2">Ваши Промокоды</h1>
@@ -80,16 +85,19 @@
                         <div class="row mb-2 ms-1">
                             <div class="col-sm-5">
                                 <p class="mb-0 text-secondary fst-italic fw-bold">На сумму: {{promo.amount_of_discount}}руб</p>
-                                <p class="mb-0 text-secondary fst-italic fw-bold">Промокод - <span class="text-primary fw-normal">{{promo.name}}</span></p>
+                                <p class="mb-0 text-secondary fst-italic fw-bold">Промокод</p>
+
                             </div>
                             <div class="col-sm-7">
                                 <p class="mb-0 text-secondary fst-italic fw-bold">От Заказа {{promo.from_the_price}}руб</p>
+                                <p class="text-primary fw-normal" id="copytext1" onclick="copytext('#copytext1')">{{promo.name}}</p>
                             </div>
                         </div>
                         <hr>
                         {%endfor%}
                     </div>
                 </div>
+                {% endif%}
             </div>
             <div class="col-lg-8">
                 <div class="card mb-4">
@@ -156,6 +164,7 @@
                     </div>
                 </div>
                 <div class="row">
+                    {% if history_orders%}
                     <div class="col-md-6">
                         <div class="card mb-4 mb-md-0">
                             <div class="card-body history_orders" style="max-height:500px; overflow:hidden;">
@@ -177,6 +186,8 @@
                             <button class="btn btn-primary show_all_history">Показать Всю Историю</button>
                         </div>
                     </div>
+                    {% endif%}
+                    {% if current_orders%}
                     <div class="col-md-6">
                         <div class="card mb-4 mb-md-0">
                             <div class="card-body current_orders" style="max-height:500px; overflow:hidden;">
@@ -198,6 +209,7 @@
                             <button class="btn btn-primary show_all_chistory">Показать Всю Историю</button>
                         </div>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -35,6 +35,7 @@
                         <p class="text-muted mb-1">
                             Продавец
                         </p>
+                        <p class="text-secondary fst-italic fw-bold text-center mt-2">Рейтинг Продавца: {{more_info_user.avg_rating}}</p>
                     </div>
                 </div>
             </div>
@@ -56,7 +57,10 @@
                                     <div class="card-body">
                                         <h5 class="card-title">{{product.name|slice:":50"}}</h5>
                                         <p class="card-text">{{product.description|slice:":100"}}</p>
-                                        <a href="{% url 'one_pr' product.slug %}" class="btn btn-primary">К товару</a>
+                                        <a href="{% url 'one_pr' product.slug %}" class="btn btn-outline-primary btn-sm" >К товару</a>
+                                        {% if is_seller%}
+                                        <a href="{% url 'update_product' product.slug %}" class="btn btn-outline-primary btn-sm">Редактировать Товар</a>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

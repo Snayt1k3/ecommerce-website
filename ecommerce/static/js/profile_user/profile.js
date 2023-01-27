@@ -4,6 +4,16 @@ var body = document.querySelector('.history_orders');
 var body1 = document.querySelector('.current_orders');
 var email_sent_btn = document.querySelector('.email_btn');
 
+function copytext(el) {
+    var $tmp = $("<textarea>");
+    $("body").append($tmp);
+    $tmp.val($(el).text()).select();
+    document.execCommand("copy");
+    $tmp.remove();
+    alertify.success('Текст Скопирован');
+}
+
+
 btn.addEventListener('click', function(){
     if (btn.innerHTML === 'Скрыть Историю'){
         btn.innerHTML = 'Показать Всю Историю';

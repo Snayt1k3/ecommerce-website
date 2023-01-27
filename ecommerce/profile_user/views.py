@@ -63,7 +63,7 @@ def email_confirm_view(request):
     if request.method == 'POST':
 
         key1 = request.session.get('auth_key')
-        key2 = request.POST.get('auth_key')
+        key2 = request.POST.get('auth_key').strip()
         if key1 == key2:
 
             profile_user = PersonalArea.objects.get(user=request.user)

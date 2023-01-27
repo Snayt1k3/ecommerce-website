@@ -213,4 +213,5 @@ class ReviewSeller(models.Model):
     seller = models.ForeignKey(User, on_delete=models.CASCADE)
     username = models.CharField(max_length=100)
     feedback = models.TextField()
-    rating = models.CharField(choices=((1, 1), (2, 2), (3, 3), (4, 4), (5, 5)), max_length=1)
+    rating = models.CharField(choices=(('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')), max_length=1)
+    date = models.DateField(auto_now_add=True, null=True)
