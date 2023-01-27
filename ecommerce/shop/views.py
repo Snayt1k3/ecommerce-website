@@ -10,7 +10,8 @@ from django.views.generic import ListView, CreateView, TemplateView
 from profile_user.models import SellerStatistics
 
 from .forms import UserLogForm, UserRegForm, Reviews, ReviewSellerForm
-from .models import Category, Product, Review, ReviewImages, Cart, Orders, OrdersItem, PersonalArea, PromoCode, ReviewSeller
+from .models import Category, Product, Review, ReviewImages, Cart, Orders, OrdersItem, PersonalArea, PromoCode, \
+    ReviewSeller
 
 
 # Create your views here.
@@ -123,6 +124,7 @@ class UserRegView(CreateView):
 
     def form_valid(self, form):
         user = form.save()
+        PersonalArea.objects.create(user=user)
         login(self.request, user)
         return redirect(self.success_url)
 
@@ -258,5 +260,3 @@ def feedback_seller(request, username):
     else:
         form = ReviewSellerForm()
     return render(request, 'shop/feedback_seller.html', context={'form': form})
-
-

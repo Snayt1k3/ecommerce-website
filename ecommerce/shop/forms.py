@@ -2,7 +2,9 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+
 from .models import ReviewSeller
+
 
 class UserLogForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Логин'}), label='Логин')
@@ -22,9 +24,14 @@ class UserRegForm(UserCreationForm):
         fields = ('username', 'email', 'password1', 'password2')
 
     def clean(self):
+        username = self.cleaned_data.get('username')
         email = self.cleaned_data.get('email')
+        if User.objects.filter(username=username):
+            raise ValidationError("Данный username уже используется")
+
         if User.objects.filter(email=email).exists():
-            raise ValidationError("Пользователь с Данным email Уже существует")
+            raise ValidationError("Пользователь с данным email Уже существует")
+
         return self.cleaned_data
 
 

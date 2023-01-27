@@ -1,6 +1,6 @@
 import re
 from random import randint
-from django.urls import reverse
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -24,7 +24,7 @@ def profile_user_view(request, username):
         return redirect('/')
 
     if not PersonalArea.objects.filter(user=request.user):
-        PersonalArea.objects.create(user=request.user, email=request.user.email)
+        PersonalArea.objects.create(user=request.user)
 
     context['more_info_user'] = PersonalArea.objects.get(user=request.user)
     context['history_orders'] = Orders.objects.filter(user=request.user, status='Получен')
