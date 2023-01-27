@@ -186,6 +186,7 @@ class PersonalArea(models.Model):
     # Для продавцов
     is_seller = models.BooleanField(default=False)
     your_products = models.ManyToManyField(Product, blank=True)
+    avg_rating = models.FloatField(default=0.0)
 
     # Заработок и траты
     all_spent_money = models.DecimalField(max_digits=10, decimal_places=2, default=0)
