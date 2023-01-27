@@ -29,6 +29,7 @@
                         <li class="breadcrumb-item"><a href="{% url 'product_seller'%}">Выставить Товар</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'seller'%}">Ваша Статистика</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'seller_feedback_list' request.user.username %}">Ваши Отзывы</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'list_seller_products' request.user.username%}">Ваши Товары</a></li>
                         {% endif %}
                     </ol>
                 </nav>
@@ -66,7 +67,7 @@
                             <hr>
                             {% csrf_token %}
                             <div class="row">
-                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Name of Your Product</h1>
+                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Название Вашего Продукта</h1>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="material-symbols-outlined input-group-text">topic</span>
@@ -79,7 +80,7 @@
                             </div>
                             <hr>
                             <div class="row">
-                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Price</h1>
+                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Цена</h1>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="material-symbols-outlined input-group-text">currency_ruble</span>
@@ -93,7 +94,7 @@
                             </div>
                             <hr>
                             <div class="row">
-                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Description</h1>
+                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Описание</h1>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="material-symbols-outlined input-group-text">description </span>
@@ -107,7 +108,7 @@
                             </div>
                             <hr>
                             <div class="row">
-                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Characteristics</h1>
+                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Характеристики</h1>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="material-symbols-outlined input-group-text">settings</span>
@@ -122,7 +123,7 @@
                             </div>
                             <hr>
                             <div class="row">
-                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Category</h1>
+                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Категория</h1>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="material-symbols-outlined input-group-text">list</span>
@@ -141,7 +142,7 @@
                                 </div>
                             <hr>
                             <div class="row">
-                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Stock</h1>
+                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Кол-во товара на складе</h1>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="material-symbols-outlined input-group-text">inventory_2</span>
@@ -155,7 +156,7 @@
                             </div>
                             <hr>
                             <div class="row">
-                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Image</h1>
+                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Изображение товара</h1>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="material-symbols-outlined input-group-text">image</span>

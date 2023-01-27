@@ -29,7 +29,7 @@
                         <li class="breadcrumb-item"><a href="{% url 'product_seller'%}">Выставить Товар</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'seller'%}">Ваша Статистика</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'seller_feedback_list' request.user.username %}">Ваши Отзывы</a></li>
-                        {% endif %}
+                        <li class="breadcrumb-item"><a href="{% url 'list_seller_products' request.user.username%}">Ваши Товары</a></li>{% endif %}
                     </ol>
                 </nav>
             </div>
@@ -67,30 +67,30 @@
                             {% bootstrap_form_errors form %}
                             <hr>
                             <div class="row">
-                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Your First Name</h1>
-                                {% bootstrap_field form.first_name show_label='skip' addon_before='<span>First Name</span>' %}
+                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Ваше Имя и Фамилия</h1>
+                                {% bootstrap_field form.first_name show_label='skip' addon_before='<span>Имя</span>' %}
                                 <h1 class="fs-5 text-secondary fst-italic fw-bold">Your Last Name</h1>
-                                {% bootstrap_field form.last_name show_label='skip' addon_before='<span>Last Name</span>' %}
+                                {% bootstrap_field form.last_name show_label='skip' addon_before='<span>Фамилия</span>' %}
                             </div>
                             <hr>
                             <div class="row">
-                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Your Home Address</h1>
+                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Ваш Адрес</h1>
                                 {% bootstrap_field form.address show_label='skip' addon_before='<span class="material-symbols-outlined">home_pin</span>' %}
                             </div>
                             <hr>
                             <div class="row">
-                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Your Phone Number</h1>
+                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Ваш Телефон</h1>
                                 {% bootstrap_field form.phone show_label='skip' addon_before='<span class="material-symbols-outlined">phone</span>' %}
                             </div>
                             <hr>
                             <div class="row">
                                 <div class="avatar">
-                                    <h1 class="fs-5 text-secondary fst-italic fw-bold">Your Avatar</h1>
+                                    <h1 class="fs-5 text-secondary fst-italic fw-bold">Аватар</h1>
                                     <input type="file" name="avatar" accept="image/*" class="form-control" title id="id_avatar">                                </div>
                             </div>
                             <hr>
                             <div class="mt-2 text-center">
-                                <button class="btn btn-primary btn-lg" type="submit">Submit</button>
+                                <button class="btn btn-primary btn-lg" type="submit">Отправить</button>
                             </div>
                         </form>
                     </div>

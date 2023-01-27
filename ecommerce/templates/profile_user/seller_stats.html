@@ -18,7 +18,7 @@
             <div class="col">
                 <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="{% url 'profile' request.user.username%}">Профиль</a></li>
+                        <li class="breadcrumb-item active"><a href="{% url 'profile' request.user.username%}">Профиль</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'edit_profile' request.user.username %}">Редактировать
                             Профиль</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'password_change'%}">Сменить Пароль</a></li>
@@ -29,6 +29,7 @@
                         <li class="breadcrumb-item"><a href="{% url 'product_seller'%}">Выставить Товар</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'seller'%}">Ваша Статистика</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'seller_feedback_list' request.user.username %}">Ваши Отзывы</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'list_seller_products' request.user.username%}">Ваши Товары</a></li>
                         {% endif %}
                     </ol>
                 </nav>
