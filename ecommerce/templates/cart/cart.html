@@ -10,7 +10,7 @@
 
 
 {% block content%}
-{% if not user_cart%}
+{% if not cart%}
 <div class="text-center">
     <br>
     <h1 class="text-center cart-title">
@@ -36,23 +36,24 @@
                 </th>
             </tr>
             </thead>
-            {% for item in user_cart%}
+            {% for item in cart%}
+                {% with product=item.product %}
             <tr>
                 <td>
-                    <a href="{{item.product.get_url}}">
-                        <img alt="" height="150" src="{{item.product.img}}"
+                    <a href="{{product.get_url}}">
+                        <img alt="" height="150" src="{{product.img.url}}"
                              width="100">
                     </a>
                 </td>
 
                 <td class="text-start">
                     <input type="hidden" name="_token" value="{{ csrf_token }}">
-                    <input type="hidden" value="{{item.product.id}}" class="prod_id">
-                    {{item.product.name}}
+                    <input type="hidden" value="{{product.id}}" class="prod_id">
+                    {{product.name}}
                     <br>
-                    Цена: {{item.product.price}}₽
+                    Цена: {{product.price}}₽
                     <br>
-                    Кол-во: {{item.quantity}} x {{item.product.price}}₽
+                    Кол-во: {{item.quantity}} x {{item.price}}₽
                     <br>
                     id: {{item.product.id}}
                 </td>
@@ -60,7 +61,7 @@
                 <td class="text-start">
                     Итого:
                     <br>
-                    {{item.sub_total}}₽
+                    {{item.total_price}}₽
                 </td>
 
                 {%if item.quantity < item.product.stock%}
@@ -99,6 +100,7 @@
                     {%endif%}
                 </td>
             </tr>
+                {% endwith%}
             {%endfor%}
         </table>
     </div>
@@ -119,7 +121,7 @@
             </tr>
             <tr class="text">
                 <td>
-                    Сумма всех товаров: <strong>{{total}}₽</strong>
+                    Сумма всех товаров: <strong>{{cart.get_total_price}}₽</strong>
                 </td>
             </tr>
             </tbody>

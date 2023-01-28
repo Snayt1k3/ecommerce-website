@@ -5,10 +5,9 @@ from . import views
 
 urlpatterns = [
     # Cart
-    path('', views.CartView.as_view(), name='cart'),
+    path('', views.cart_detail, name='cart'),
     path('add_to_cart', views.add_to_cart),  # AJAX
     path('delete_from_cart', views.delete_from_cart),  # AJAX
-    path('plus_quantity', views.plus_quantity),  # AJAX
     path('minus_quantity', views.minus_quantity),  # AJAX
 
 ]

@@ -36,24 +36,6 @@ function minus_quantity(id){
     })
 }
 
-// Увеличение Кол-ва Товара В Корзине
-function plus_quantity(id){
-    alertify.set('notifier','position', 'top-left');
-    var token = $('input[name=_token]').val();
-    $.ajax({
-        type: "POST",
-        url: "/cart/plus_quantity",
-        data: {
-            'product_id': id,
-            csrfmiddlewaretoken: token
-        },
-        dataType: "json",
-        success: function (response) {
-            alertify.success(response['status']);
-            setTimeout(()  =>{location.reload()}, 2000);
-        }
-    });
-}
 
 // Удаление Товара из Корзины
 function delele_from_cart(id){
