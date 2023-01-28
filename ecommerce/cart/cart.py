@@ -1,5 +1,5 @@
 from shop.models import Product
-
+from django.forms.models import model_to_dict
 
 class Cart(object):
     def __init__(self, request):
@@ -53,7 +53,8 @@ class Cart(object):
         # получение объектов product и добавление их в корзину
         products = Product.objects.filter(id__in=product_ids)
         for product in products:
-            self.cart[str(product.id)]['product'] = product
+            self.cart[str(product.id)]['product'] = model_to_dict(product)
+            self.cart[str(product.id)]['product']['img'] = product.img.url
 
         for item in self.cart.values():
             item['price'] = int(item['price'])

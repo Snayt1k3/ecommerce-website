@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
 from profile_user.models import SellerStatistics
-from shop.models import Product, WishList
+from shop.models import Product
 from django.shortcuts import render
 from .favourites import Favourites
 

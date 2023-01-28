@@ -1,40 +1,47 @@
-.cart-plus{
-    text-decoration:none;
+@media (min-width: 1025px) {
+    .h-custom {
+    height: 100vh !important;
+    }
+    }
+    
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+    font-size: 1rem;
+    line-height: 2.15;
+    padding-left: .75em;
+    padding-right: .75em;
+    }
+    
+.card-registration .select-arrow {
+    top: 13px;
+    }
+    
+.bg-grey {
+    background-color: #eae8e8;
+    }
+    
+@media (min-width: 992px) {
+    .card-registration-2 .bg-grey {
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    }
+    }
+    
+@media (max-width: 991px) {
+    .card-registration-2 .bg-grey {
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    }
+    }
+
+body{
+    background-color: #d2c9ff;
 }
-
-.cart-minus{
-    text-decoration:none;
-}
-
-.cart-delete {
-    text-decoration:none;
-}
-
-.cart-table{
-    font-size:18px;
-    min-width:480px;
-
-}
-
-.cart-thead , .cart-title{
-    text-transform:uppercase;
-    font-weight:normal;
-    letter-spacing: .2em;
-}
-
-body{ min-height: 100vh; margin:0; }
-
-
-/* The article fills all the space between header & footer */
-body{ display:flex; flex-direction:column; }
-.need_to_footer{ flex:1; }
 
 .btns-cart{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .btns-cart button {
     margin-top: 5px;
-    margin-left: 30px;
 }

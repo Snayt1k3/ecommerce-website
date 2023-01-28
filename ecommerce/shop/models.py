@@ -40,7 +40,7 @@ class Category(models.Model):
 class Product(models.Model):
     """Модель товара"""
     name = models.CharField(max_length=1000)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.FloatField()
     description = models.TextField()
     characteristics = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -97,32 +97,6 @@ class ReviewImages(models.Model):
     class Meta:
         verbose_name = 'Review_Image'
         verbose_name_plural = 'Review_Images'
-
-
-class WishList(models.Model):
-    """Избранное"""
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    date = models.DateField(auto_now_add=True)
-
-    class Meta:
-        verbose_name = 'Wish_List'
-        verbose_name_plural = 'Wish_Lists'
-
-
-class Cart(models.Model):
-    """Корзина"""
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
-    date = models.DateField(auto_now_add=True)
-
-    class Meta:
-        verbose_name = 'Cart'
-        verbose_name_plural = 'Carts'
-
-    def sub_total(self):
-        return self.product.price * self.quantity
 
 
 class OrdersItem(models.Model):

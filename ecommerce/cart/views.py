@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_POST
 from profile_user.models import SellerStatistics
-from shop.models import Cart, Product
+from shop.models import Product
 
 from .cart import Cart
 

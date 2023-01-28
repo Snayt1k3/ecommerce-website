@@ -10,7 +10,7 @@ from django.views.generic import ListView, CreateView, TemplateView
 from profile_user.models import SellerStatistics
 
 from .forms import UserLogForm, UserRegForm, Reviews, ReviewSellerForm
-from .models import Category, Product, Review, ReviewImages, Cart, Orders, OrdersItem, PersonalArea, PromoCode, \
+from .models import Category, Product, Review, ReviewImages, Orders, OrdersItem, PersonalArea, PromoCode, \
     ReviewSeller
 
 

@@ -1,146 +1,122 @@
-{%extends 'shop/base.html'%}
+{% extends 'shop/base.html' %}
 {% load static%}
 
-{%block head%}
-<title>Корзина</title>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
-      rel="stylesheet"/>
-<link href="{% static 'css/cart.css' %}" rel="stylesheet">
-{%endblock%}
+{% block head %}
 
+<title>Корзина</title>
+<link rel="stylesheet" href="{% static 'css/cart2.css'%}">
+{% endblock %}
 
 {% block content%}
-{% if not cart%}
-<div class="text-center">
-    <br>
-    <h1 class="text-center cart-title">
-        Ваша Корзина Пуста
-    </h1>
-    <a href="{% url 'home' %}">
-        <button class="btn btn-primary btn-lg btn-block mt-5" type="button">Назад к товарам</button>
-    </a>
-</div>
-{% else %}
-<div style="height:100px;">
-    <div class="text-center">
-        <p class="fs-2 fw-bold mt-3 cart-title">Корзина</p>
-    </div>
-</div>
-<div class="row mx-auto main-div">
-    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
-        <table class="table table-hover cart-table">
-            <thead class="cart-thead">
-            <tr>
-                <th colspan="4">
-                    Ваши Товары
-                </th>
-            </tr>
-            </thead>
-            {% for item in cart%}
-                {% with product=item.product %}
-            <tr>
-                <td>
-                    <a href="{{product.get_url}}">
-                        <img alt="" height="150" src="{{product.img.url}}"
-                             width="100">
-                    </a>
-                </td>
+<section class="h-100 h-custom" style="background-color: #d2c9ff;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                    <div class="card-body p-0">
+                        <div class="row g-0">
+                            <div class="col-lg-8">
+                                <div class="p-5">
+                                    <div class="d-flex justify-content-between align-items-center mb-5">
+                                        <h1 class="fw-bold mb-0 text-black">Корзина</h1>
+                                        <h6 class="mb-0 text-muted">{{ cart|length }} Товара </h6>
+                                    </div>
+                                    <hr class="my-4">
 
-                <td class="text-start">
-                    <input type="hidden" name="_token" value="{{ csrf_token }}">
-                    <input type="hidden" value="{{product.id}}" class="prod_id">
-                    {{product.name}}
-                    <br>
-                    Цена: {{product.price}}₽
-                    <br>
-                    Кол-во: {{item.quantity}} x {{item.price}}₽
-                    <br>
-                    id: {{item.product.id}}
-                </td>
+                                    {% for item in cart%}
+                                    {% with product=item.product %}
+                                    <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                        <div class="col-md-2 col-lg-2 col-xl-2">
+                                            <img
+                                                    src="{{product.img}}"
+                                                    class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-xl-3">
+                                            <h6 class="text-muted">{{product.name}}</h6>
+                                            <h6 class="text-black mb-0">{{product.description|slice:":30" }}</h6>
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                            <button class="btn btn-link px-2"
+                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
 
-                <td class="text-start">
-                    Итого:
-                    <br>
-                    {{item.total_price}}₽
-                </td>
+                                            <div class="btns-cart">
+                                                <input type="hidden" name="_token" value="{{ csrf_token }}">
+                                                <button class="btn btn-success btn-sm rounded-5"
+                                                        onclick="add_to_cart({{product.id}})">
+                                                    <span class="material-symbols-outlined text-white cart-plus">add_circle</span>
+                                                </button>
+                                                <button class="btn btn-danger btn-sm rounded-5"
+                                                        onclick="minus_quantity({{product.id}})">
+                                                    <span class="material-symbols-outlined text-white cart-minus">do_not_disturb_on</span>
+                                                </button>
+                                                <button class="btn btn-secondary btn-sm rounded-5"
+                                                        onclick="delele_from_cart({{product.id}})">
+                                                    <span class="material-symbols-outlined text-white cart-delete">delete</span>
+                                                </button>
+                                            </div>
+                                            <button class="btn btn-link px-2"
+                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                            <h6 class="mb-0">{{item.quantity}} x {{product.price}}руб </h6>
+                                        </div>
+                                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                            <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+                                        </div>
+                                    </div>
 
-                {%if item.quantity < item.product.stock%}
+                                    <hr class="my-4">
+                                    {% endwith%}
+                                    {%endfor%}
 
-                <td>
-                    <div class="btns-cart">
-                        <button class="btn btn-success btn-sm rounded-5" onclick="add_to_cart({{product.id}})">
-                            <span class="material-symbols-outlined text-white cart-plus">add_circle</span>
-                        </button>
-                        <button class="btn btn-danger btn-sm rounded-5" onclick="minus_quantity({{item.product.id}})">
-                            <span class="material-symbols-outlined text-white cart-minus">do_not_disturb_on</span>
-                        </button>
-                        <button class="btn btn-secondary btn-sm rounded-5"
-                                onclick="delele_from_cart({{product.id}})">
-                            <span class="material-symbols-outlined text-white cart-delete">delete</span>
-                        </button>
+                                    <div class="pt-5">
+                                        <h6 class="mb-0"><a href="{% url 'home' %}" class="text-body"><i
+                                                class="fas fa-long-arrow-alt-left me-2"></i>Назад к товарам</a></h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 bg-grey">
+                                <div class="p-5">
+                                    <h3 class="fw-bold mb-5 mt-2 pt-1">Суммарно</h3>
+                                    <hr class="my-4">
+
+                                    <div class="d-flex justify-content-between mb-4">
+                                        <h5 class="text-uppercase">{{cart|length }} Товара</h5>
+                                        <h5>{{cart.get_total_price}}руб</h5>
+                                    </div>
+
+
+                                    <h5 class="text-uppercase mb-3">ПромоКод</h5>
+
+                                    <div class="mb-5">
+                                        <div class="form-outline">
+                                            <input type="text" id="form3Examplea2"
+                                                   class="form-control form-control-lg"/>
+                                            <label class="form-label" for="form3Examplea2">Введите Ваш код</label>
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-4">
+
+                                    <div class="d-flex justify-content-between mb-5">
+                                        <h5 class="text-uppercase">Цена</h5>
+                                        <h5>{{cart.get_total_price}}руб</h5>
+                                    </div>
+
+                                    <button type="button" class="btn btn-dark btn-block btn-lg"
+                                            data-mdb-ripple-color="dark">Register
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </td>
-
-                {%else%}
-
-                <td>
-                    <div class="btns-cart">
-                        <button class="btn btn-secondary btn-sm rounded-5">
-                            <span class="material-symbols-outlined text-white cart-plus">add_circle</span>
-                        </button>
-                        <button class="btn btn-danger btn-sm rounded-5">
-                            <span class="material-symbols-outlined text-white cart-minus"
-                                  onclick="minus_quantity({{product.id}})">do_not_disturb_on</span>
-                        </button>
-                        <button class="btn btn-secondary btn-sm rounded-5">
-                            <span class="material-symbols-outlined text-white cart-delete"
-                                  onclick="delele_from_cart({{product.id}})">delete</span>
-                        </button>
-                    </div>
-                    {%endif%}
-                </td>
-            </tr>
-                {% endwith%}
-            {%endfor%}
-        </table>
-    </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
-        <table class="table cart-table">
-            <thead class="cart-thead">
-            <tr>
-                <th colspan="4">
-                    Оплата
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>
-                    Проверьте корзину перед оплатой
-                </td>
-            </tr>
-            <tr class="text">
-                <td>
-                    Сумма всех товаров: <strong>{{cart.get_total_price}}₽</strong>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <div class="row">
-            <div class="col">
-                <a href="{% url 'home'%}">
-                    <button class="btn btn-primary btn-lg btn-block" type="button">Назад к товарам</button>
-                </a>
-            </div>
-            <div class="col">
-                <a href="#">
-                    <a class="btn btn-primary btn-lg btn-block" href="{% url 'checkout'%}">К оплате</a>
-                </a>
+                </div>
             </div>
         </div>
     </div>
-</div>
-{%endif%}
-<div class="need_to_footer">
-</div>
-{%endblock%}
+</section>
+{% endblock %}
