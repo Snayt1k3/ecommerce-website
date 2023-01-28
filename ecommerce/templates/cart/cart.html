@@ -68,14 +68,14 @@
 
                 <td>
                     <div class="btns-cart">
-                        <button class="btn btn-success btn-sm rounded-5" onclick="plus_quantity({{item.product.id}})">
+                        <button class="btn btn-success btn-sm rounded-5" onclick="add_to_cart({{product.id}})">
                             <span class="material-symbols-outlined text-white cart-plus">add_circle</span>
                         </button>
                         <button class="btn btn-danger btn-sm rounded-5" onclick="minus_quantity({{item.product.id}})">
                             <span class="material-symbols-outlined text-white cart-minus">do_not_disturb_on</span>
                         </button>
                         <button class="btn btn-secondary btn-sm rounded-5"
-                                onclick="delele_from_cart({{item.product.id}})">
+                                onclick="delele_from_cart({{product.id}})">
                             <span class="material-symbols-outlined text-white cart-delete">delete</span>
                         </button>
                     </div>
@@ -90,11 +90,11 @@
                         </button>
                         <button class="btn btn-danger btn-sm rounded-5">
                             <span class="material-symbols-outlined text-white cart-minus"
-                                  onclick="minus_quantity({{item.product.id}})">do_not_disturb_on</span>
+                                  onclick="minus_quantity({{product.id}})">do_not_disturb_on</span>
                         </button>
                         <button class="btn btn-secondary btn-sm rounded-5">
                             <span class="material-symbols-outlined text-white cart-delete"
-                                  onclick="delele_from_cart({{item.product.id}})">delete</span>
+                                  onclick="delele_from_cart({{product.id}})">delete</span>
                         </button>
                     </div>
                     {%endif%}

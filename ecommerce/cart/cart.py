@@ -29,11 +29,13 @@ class Cart(object):
         """Убавляем количество товара в корзине"""
         id_product = str(product.id)
 
-        if id_product in self.cart and self.cart[id_product] > 1:
+        if id_product in self.cart and self.cart[id_product]['quantity'] > 1:
             self.cart[id_product]['quantity'] -= 1
 
         else:
             self.delete(product)
+
+        self.save()
 
     def delete(self, product):
         """Удаление товара из корзины"""
