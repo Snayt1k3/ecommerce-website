@@ -16,7 +16,7 @@
             <thead class="thead-wish">
             <tr>
                 <th colspan="4">
-                    {%if wish_products%}
+                    {%if favourites%}
                     Ваше Избранное
                     {%else%}
                     У вас нету ничего в Избранном
@@ -24,31 +24,29 @@
                 </th>
             </tr>
             </thead>
-            {% for wish_product in wish_products%}
+            {% for product in favourites%}
             <tr class="all_data">
                 <td class="col-1">
-                    <a href="{{wish_product.product.get_url}}">
-                        <img alt="" height="140" src="{{wish_product.product.img}}"
+                    <a href="{{product.get_url}}">
+                        <img alt="" height="140" src="{{product.img.url}}"
                              width="100" class="me-3">
                     </a>
                 </td>
                 <td class="text-start col-4">
-                    {{wish_product.product.name}}
+                    {{product.name}}
                     <br>
-                    Цена: {{wish_product.product.price}}₽
+                    Цена: {{product.price}}₽
                     <br>
-                    id: {{wish_product.product.id}}
-                    <br>
-                    Добавлен: {{wish_product.date}}
+                    id: {{product.id}}
                 </td>
                 <td class="col-1">
                     <div class="btns-wl">
                         <input type="hidden" name="_token" value="{{ csrf_token }}"/>
-                        <button class="btn btn-success rounded-5 mt-3 AddToCart" onclick="add_to_cart({{wish_product.product.id}})">
+                        <button class="btn btn-success rounded-5 mt-3 AddToCart" onclick="add_to_cart({{product.id}})">
                             <span class="material-symbols-outlined">shopping_cart</span>
                         </button>
                         <button class="btn btn-danger rounded-5 deleteBtnWl mt-3"
-                                onclick="delete_from_wish({{wish_product.product.id}})">
+                                onclick="delete_from_wish({{product.id}})">
                             <span class="material-symbols-outlined">delete</span>
                         </button>
                     </div>

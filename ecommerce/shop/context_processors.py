@@ -1,6 +1,7 @@
-from django.contrib.auth.models import User
+from cart.cart import Cart
+from wish_list.favourites import Favourites
 
-from .models import Category, Cart, WishList, PersonalArea
+from .models import Category, PersonalArea
 
 
 def is_seller(request):
@@ -18,18 +19,8 @@ def menu_links(request):
 
 
 def count_product_in_cart(request):
-    if request.user.is_authenticated:
-        user = User.objects.get(id=request.user.id)
-        items = Cart.objects.filter(user=user)
-    else:
-        items = ''
-    return dict(count_product_in_cart=len(items))
+    return dict(count_product_in_cart=len(Cart(request)))
 
 
 def count_product_in_wishlist(request):
-    if request.user.is_authenticated:
-        user = User.objects.get(id=request.user.id)
-        items = WishList.objects.filter(user=user)
-    else:
-        items = ''
-    return dict(count_product_in_wishlist=len(items))
+    return dict(count_product_in_wishlist=len(Favourites(request)))
