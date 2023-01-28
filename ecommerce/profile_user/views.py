@@ -1,6 +1,6 @@
 import re
 from random import randint
-from .forms import EmailChangeForm
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -12,6 +12,7 @@ from django.views.generic import TemplateView, DetailView, ListView
 from django.views.generic.edit import UpdateView
 from shop.models import PersonalArea, Orders, Product, Category, PromoCode, ReviewSeller
 
+from .forms import EmailChangeForm
 from .models import SellerStatistics
 
 
@@ -147,7 +148,7 @@ def product_seller_view(request):
 
             product = Product.objects.create(name=product_name, price=product_price, description=description,
                                              characteristics=characteristics, category=category, stock=stock,
-                                             img='https://bipbap.ru/wp-content/uploads/2017/04/0_7c779_5df17311_orig.jpg',
+                                             img=img,
                                              seller=request.user)
             SellerStatistics.objects.create(product=product, user=request.user)
             profile_user.your_products.add(product)

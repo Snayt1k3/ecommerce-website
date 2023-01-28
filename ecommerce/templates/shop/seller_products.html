@@ -6,12 +6,6 @@
     a{
     text-decoration: none;
     }
-
-
-
-
-
-
 </style>
 {% endblock %}
 
@@ -77,7 +71,7 @@
                             {% for product in seller_products%}
                             <div class="col-sm-6 mt-3">
                                 <div class="card" style="width: 18rem;">
-                                    <img src="{{product.img}}" class="card-img-top" alt="...">
+                                    <img src="{{product.img.url}}" class="card-img-top" alt="...">
                                     <div class="card-body">
                                         <h5 class="card-title">{{product.name|slice:":50"}}</h5>
                                         <p class="card-text">{{product.description|slice:":100"}}</p>

@@ -16,7 +16,7 @@ alphabet = {'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', '�
 class Category(models.Model):
     """Класс Категории Продукта"""
     category_name = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=100)
+    slug = models.SlugField(max_length=100, blank=True)
 
     class Meta:
         ordering = ('category_name',)
@@ -44,8 +44,8 @@ class Product(models.Model):
     description = models.TextField()
     characteristics = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    img = models.URLField()
-    slug = models.SlugField(max_length=1000)
+    img = models.ImageField(upload_to='media/products/')
+    slug = models.SlugField(max_length=1000, blank=True)
     stock = models.IntegerField()
     available = models.BooleanField(default=True)
     avg_rating = models.FloatField(default=0)

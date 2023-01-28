@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Category, Product, Review, ReviewImages, WishList, Cart, Orders, PersonalArea, PromoCode, ReviewSeller
+from .models import Category, Product, Review, ReviewImages, WishList, Cart, Orders, PersonalArea, PromoCode, \
+    ReviewSeller
 
 # Register your models here.
 
