@@ -44,7 +44,7 @@ class Product(models.Model):
     description = models.TextField()
     characteristics = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    img = models.ImageField(upload_to='media/products/')
+    img = models.ImageField(upload_to='products/')
     slug = models.SlugField(max_length=1000, blank=True)
     stock = models.IntegerField()
     available = models.BooleanField(default=True)
