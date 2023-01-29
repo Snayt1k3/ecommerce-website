@@ -22,7 +22,9 @@ class Cart(object):
                 'price': int(product.price)
             }
         else:
-            self.cart[id_product]['quantity'] += 1
+            if self.cart[id_product]['quantity'] < product.stock:
+                self.cart[id_product]['quantity'] += 1
+
         self.save()
 
     def minus(self, product):

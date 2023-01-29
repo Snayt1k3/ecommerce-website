@@ -2,12 +2,14 @@ body {
     background: #eee;
     height:100vh;
 }
-body{ min-height: 100vh; margin:0; }
-
-
-/* The article fills all the space between header & footer */
-body{ display:flex; flex-direction:column; }
-.need_to_footer{ flex:1; }
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    background-color: #000;
+    color: #fff;
+    }
 
 .cards{
     box-shadow: 0px 5px 20px #c2c2c2;

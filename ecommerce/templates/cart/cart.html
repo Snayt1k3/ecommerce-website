@@ -4,7 +4,7 @@
 {% block head %}
 
 <title>Корзина</title>
-<link rel="stylesheet" href="{% static 'css/cart2.css'%}">
+<link rel="stylesheet" href="{% static 'css/cart.css'%}">
 {% endblock %}
 
 {% block content%}
@@ -36,24 +36,19 @@
                                             <h6 class="text-black mb-0">{{product.description|slice:":30" }}</h6>
                                         </div>
                                         <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                            <button class="btn btn-link px-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                <i class="fas fa-minus"></i>
-                                            </button>
-
                                             <div class="btns-cart">
                                                 <input type="hidden" name="_token" value="{{ csrf_token }}">
                                                 <button class="btn btn-success btn-sm rounded-5"
                                                         onclick="add_to_cart({{product.id}})">
-                                                    <span class="material-symbols-outlined text-white cart-plus">add_circle</span>
+                                                    <span class="material-symbols-outlined cart-plus">add_circle</span>
                                                 </button>
                                                 <button class="btn btn-danger btn-sm rounded-5"
                                                         onclick="minus_quantity({{product.id}})">
-                                                    <span class="material-symbols-outlined text-white cart-minus">do_not_disturb_on</span>
+                                                    <span class="material-symbols-outlined cart-minus">do_not_disturb_on</span>
                                                 </button>
                                                 <button class="btn btn-secondary btn-sm rounded-5"
                                                         onclick="delele_from_cart({{product.id}})">
-                                                    <span class="material-symbols-outlined text-white cart-delete">delete</span>
+                                                    <span class="material-symbols-outlined cart-delete">delete</span>
                                                 </button>
                                             </div>
                                             <button class="btn btn-link px-2"

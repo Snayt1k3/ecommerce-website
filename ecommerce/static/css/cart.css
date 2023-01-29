@@ -42,6 +42,26 @@ body{
     flex-direction: row;
 }
 
+
 .btns-cart button {
     margin-top: 5px;
+    background-color: white;
+    border: 0;
+}
+
+.btns-cart button:hover {
+    background-color: #d4d5d6;
+}
+
+
+.cart-plus{
+    color: green;
+}
+
+.cart-minus{
+    color: red;
+}
+
+.cart-delete{
+    color: dimgrey;
 }
