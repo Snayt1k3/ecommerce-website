@@ -1,13 +1,12 @@
 import re
 from random import randint
-
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.views.generic import TemplateView, DetailView, ListView
 from django.views.generic.edit import UpdateView
 from shop.models import PersonalArea, Orders, Product, Category, PromoCode, ReviewSeller

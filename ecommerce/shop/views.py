@@ -94,6 +94,7 @@ def detail_view(request, slug):
 
     if product.seller:
         context['seller_profile'] = PersonalArea.objects.get(user=product.seller)
+        context['seller_products'] = Product.objects.filter(seller=context['seller_profile'].user)
 
     return render(request, 'shop/product_detail.html', context)
 
