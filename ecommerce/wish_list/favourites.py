@@ -36,6 +36,14 @@ class Favourites(object):
     def __len__(self):
         return len(self.fav)
 
+    def get_total_price(self):
+        """Вычисление все стоимости Избранного"""
+        total = 0
+        products = Product.objects.filter(id__in=self.fav)
+        for product in products:
+            total += product.price
+        return total
+
     def save(self):
         # Обновление сессии Избранного
         self.request.session['fav'] = self.fav

@@ -1,14 +1,12 @@
 body {
     background: #eee;
-    height:100vh;
+
 }
 footer {
     position: fixed;
     bottom: 0;
     width: 100%;
     height: auto;
-    background-color: #000;
-    color: #fff;
     }
 
 .cards{

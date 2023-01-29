@@ -22,7 +22,7 @@ class HomeView(ListView):
     paginate_by = 16
     model = Product
     context_object_name = 'products'
-    template_name = 'shop/main_page.html'
+    template_name = 'shop/main.html'
 
     def get_queryset(self):
         query = self.request.GET.get('search')
