@@ -1,0 +1,217 @@
+{% extends 'shop/base.html' %}
+{% load static bootstrap5%}
+{% block head%}
+<title>{{product.name}}</title>
+<link rel="stylesheet" href="{% static 'css/review.css'%}">
+{%endblock%}
+{% block content%}
+<!-- Product section-->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{product.img.url}}" alt="..."/></div>
+            <div class="col-md-6">
+                <div class="small mb-1">SKU: {{product.id}}</div>
+                <h1 class="display-5 fw-bolder">{{product.name}}</h1>
+                <div class="fs-5 mb-5">
+                    <!--<span class="text-decoration-line-through">$45.00</span>-->
+                    <span>{{product.price}} ₽</span>
+                </div>
+                <p class="lead">{{product.description}}</p>
+                <div class="d-flex flex-column">
+                    <div class="row">
+                            <input type="hidden" name="_token" value="{{ csrf_token }}">
+                            <div class="col-1 text-start me-2">
+                                <button class="btn btn-success rounded-3 btn-sm" onclick="add_to_cart({{product.id}})">
+                                    <i class="fas fa-cart-plus fa-2x"></i>
+                                </button>
+                            </div>
+                            <div class="col-3 text-start ms-4">
+                                <button class="btn btn-danger rounded-3 btn-sm" onclick="add_to_wish({{product.id}})">
+                                    <i class="far fa-heart fa-2x"></i>
+                                </button>
+                            </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div>
+                            <div class="mb-2">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-mdb-toggle="modal"
+                                        data-mdb-target="#staticBackdrop">
+                                    Оставить Отзыв
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="staticBackdrop" data-mdb-backdrop="static" data-mdb-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel">Ваш Отзыв</h5>
+                                                <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                                        aria-label="Close">
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form">
+                                                    <form action="" method="post" enctype="multipart/form-data">
+                                                        {% csrf_token %}
+                                                        <div class="row">
+                                                            {% bootstrap_field form.feedback show_label='skip' form_group_class='mb-0' %}
+                                                            {% bootstrap_field form.files show_label='skip' %}
+                                                        </div>
+                                                        <div class="rating">
+
+                                                            <input type="radio" id="star-1" name="rating" value="5">
+                                                            <label for="star-1" title="Оценка «5»"></label>
+
+                                                            <input type="radio" id="star-2" name="rating" value="4">
+                                                            <label for="star-2" title="Оценка «4»"></label>
+
+                                                            <input type="radio" id="star-3" name="rating" value="3">
+                                                            <label for="star-3" title="Оценка «3»"></label>
+
+                                                            <input type="radio" id="star-4" name="rating" value="2">
+                                                            <label for="star-4" title="Оценка «2»"></label>
+
+                                                            <input type="radio" id="star-5" name="rating" value="1">
+                                                            <label for="star-5" title="Оценка «1»"></label>
+
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary btn-sm sent_review">
+                                                            Оставить Отзыв
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <img class="rounded-pill" src="{{seller_profile.avatar.url}}" alt="" width="25"
+                                     height="25">
+                                <a class="text-muted"
+                                   href="{% url 'list_seller_products' seller_profile.user.username %}">{{seller_profile.user.username}}</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Related items section-->
+<section class="py-5 bg-light">
+    <div class="container px-4 px-lg-5 mt-5">
+        <h2 class="fw-bolder mb-4">Related products</h2>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <!-- Product image-->
+                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."
+                         height="180" width="300"/>
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">Fancy Product</h5>
+                            <!-- Product price-->
+                            $40.00 - $80.00
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <!-- Sale badge-->
+                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale
+                    </div>
+                    <!-- Product image-->
+                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">Special Item</h5>
+                            <!-- Product reviews-->
+                            <div class="d-flex justify-content-center small text-warning mb-2">
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                            </div>
+                            <!-- Product price-->
+                            <span class="text-muted text-decoration-line-through">$20.00</span>
+                            $18.00
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <!-- Sale badge-->
+                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale
+                    </div>
+                    <!-- Product image-->
+                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">Sale Item</h5>
+                            <!-- Product price-->
+                            <span class="text-muted text-decoration-line-through">$50.00</span>
+                            $25.00
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <!-- Product image-->
+                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">Popular Item</h5>
+                            <!-- Product reviews-->
+                            <div class="d-flex justify-content-center small text-warning mb-2">
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                            </div>
+                            <!-- Product price-->
+                            $40.00
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

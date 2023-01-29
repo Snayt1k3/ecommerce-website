@@ -2,10 +2,10 @@
     <div class="container-fluid">
         <span class="material-symbols-outlined" style="color:white;">storefront</span>
         <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
-                class="navbar-toggler bg-light"
-                data-bs-target="#navbarNav" data-bs-theme="dark" data-bs-toggle="collapse"
+                class="navbar-toggler bd-dark"
+                data-mdb-target="#navbarNav" data-bs-theme="light" data-mdb-toggle="collapse"
                 type="button">
-            <span class="navbar-toggler-icon"></span>
+           <i class="fas fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto ">
@@ -14,33 +14,11 @@
                 </li>
                 {% if request.user.is_authenticated%}
                 <li class="nav-item">
-                    <a class="nav-link text-uppercase fw-bold" href="{% url 'cart'%}">Корзина</a>
+                    <a class="nav-link text-uppercase fw-bold position-relative" href="{% url 'cart'%}">Корзина</a>
                 </li>
-                {% if count_product_in_cart%}
-                <li class="nav-item">
-                    <a class="count_product_in_cart text-white">
-                        {%if count_product_in_cart > 9 %}
-                        9+
-                        {%else%}
-                        {{count_product_in_cart}}
-                        {%endif%}
-                    </a>
-                </li>
-                {%endif%}
                 <li class="nav-item">
                     <a class="nav-link text-uppercase fw-bold" href="{% url 'wishlist' %}">Избранное</a>
                 </li>
-                {% if count_product_in_wishlist%}
-                <li class="nav-item">
-                    <a class="count_product_in_wishlist text-white position-relative">
-                        {%if count_product_in_wishlist > 9 %}
-                        9+
-                        {%else%}
-                        {{count_product_in_wishlist}}
-                        {%endif%}
-                    </a>
-                </li>
-                {%endif%}
                 <li class="nav-item">
                     <a aria-current="page" class="nav-link text-uppercase fw-bold"
                        href="{% url 'profile' request.user.username %}">{{request.user.username}}</a>

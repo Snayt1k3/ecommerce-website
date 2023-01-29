@@ -34,34 +34,8 @@
     }
 
 body{
-    background-color: #d2c9ff;
-}
-
-.btns-cart{
-    display: flex;
-    flex-direction: row;
+    background-color: #eee;
 }
 
 
-.btns-cart button {
-    margin-top: 5px;
-    background-color: white;
-    border: 0;
-}
 
-.btns-cart button:hover {
-    background-color: #d4d5d6;
-}
-
-
-.cart-plus{
-    color: green;
-}
-
-.cart-minus{
-    color: red;
-}
-
-.cart-delete{
-    color: dimgrey;
-}

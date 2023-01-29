@@ -32,15 +32,13 @@
                         <div class="text-center">
                             <!-- Product name-->
                             <h5 class="fw-bolder">{{product.name}}</h5>
-                            <div class="d-flex justify-content-center small text-warning mb-2">
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                            </div>
                             <!-- Product price-->
                             {{product.price}} ₽
+                        </div>
+                        <div class="d-flex justify-content-center mt-2">
+                            <i class="fa-star fa-sm text-primary fas active">
+                                <span class="me-2">{{product.avg_rating}}</span>
+                            </i>
                         </div>
                     </div>
                     <!-- Product actions-->

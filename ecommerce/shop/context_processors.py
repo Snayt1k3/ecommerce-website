@@ -16,11 +16,3 @@ def menu_links(request):
     """Категории в Context"""
     links = Category.objects.all()
     return dict(links=links)
-
-
-def count_product_in_cart(request):
-    return dict(count_product_in_cart=len(Cart(request)))
-
-
-def count_product_in_wishlist(request):
-    return dict(count_product_in_wishlist=len(Favourites(request)))
