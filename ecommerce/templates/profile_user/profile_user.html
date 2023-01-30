@@ -88,12 +88,18 @@
                         {% for promo in promos%}
                         <div class="row mb-2 ms-1">
                             <div class="col-sm-5">
-                                <p class="mb-0 text-secondary fst-italic fw-bold">На сумму: {{promo.amount_of_discount}}руб</p>
+                                <p class="mb-0 text-secondary fst-italic fw-bold">На : {{promo.amount_of_discount}}
+                                    {% if promo.is_percent%}
+                                    %
+                                    {%else%}
+                                    руб
+                                    {% endif%}
+                                </p>
                                 <p class="mb-0 text-secondary fst-italic fw-bold">Промокод</p>
 
                             </div>
                             <div class="col-sm-7">
-                                <p class="mb-0 text-secondary fst-italic fw-bold">От Заказа {{promo.from_the_price}}руб</p>
+                                <p class="mb-0 text-secondary fst-italic fw-bold">От {{promo.from_the_price}}руб</p>
                                 <p class="text-primary fw-normal" id="copytext1" onclick="copytext('#copytext1')">{{promo.name}}</p>
                             </div>
                         </div>
@@ -128,13 +134,13 @@
                                 <div class="d-inline-flex">
                                     <input type="hidden" name="_token" value="{{ csrf_token }}">
                                     <p class="text-warning mb-0">{{request.user.email}}
-                                        <button class="btn btn-outline-primary btn-sm ms-2 email_btn">Подтвердить
+                                        <button class="btn btn-primary btn-sm ms-2 email_btn">Подтвердить
                                         </button>
                                     <div class="email_confirm_div d-inline-flex ms-2 invisible">
                                         <input type="text" placeholder="Ваш код" class="form-control auth_email_key"
                                                style="width:100px; height:30px;" name="auth_email_key">
-                                        <button type="submit" class="btn btn-outline-primary btn-sm ms-1 sent_btn_key"
-                                                style="width:120px;">Отправить Код
+                                        <button type="submit" class="btn btn-primary btn-sm ms-1 sent_btn_key"
+                                                style="width:120px;">Отправить
                                         </button>
                                     </div>
                                 </div>

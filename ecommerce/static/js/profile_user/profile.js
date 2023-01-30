@@ -14,51 +14,54 @@ function copytext(el) {
 }
 
 
-btn.addEventListener('click', function(){
-    if (btn.innerHTML === 'Скрыть Историю'){
-        btn.innerHTML = 'Показать Всю Историю';
-        body.style.maxHeight = '500px';
-    } else {
+document.addEventListener("DOMContentLoaded", function(){
 
-        btn.innerHTML = 'Скрыть Историю';
-        body.style.maxHeight = 'None';
-    };
-});
-
-
-btn1.addEventListener('click', function(){
-    if (btn1.innerHTML === 'Скрыть Историю'){
-        btn1.innerHTML = 'Показать Всю Историю';
-        body1.style.maxHeight = '500px';
-    } else {
-        btn1.innerHTML = 'Скрыть Историю';
-        body1.style.maxHeight = 'None';
-    };
-});
-
+if (btn){
+    btn.addEventListener('click', function(){
+        if (btn.innerHTML === 'Скрыть Историю'){
+            btn.innerHTML = 'Показать Всю Историю';
+            body.style.maxHeight = '500px';
+        } else {
+    
+            btn.innerHTML = 'Скрыть Историю';
+            body.style.maxHeight = 'None';
+        };
+    })};
+    
+if (btn1){
+    btn1.addEventListener('click', function(){
+        if (btn1.innerHTML === 'Скрыть Историю'){
+            btn1.innerHTML = 'Показать Всю Историю';
+            body1.style.maxHeight = '500px';
+        } else {
+            btn1.innerHTML = 'Скрыть Историю';
+            body1.style.maxHeight = 'None';
+        };
+    })};
+    
 if (email_sent_btn){
-email_sent_btn.addEventListener('click', function(){
-    var email_conf_div = document.querySelector('.email_confirm_div');
-    var token = $('input[name=_token]').val();
-    alertify.set('notifier','position', 'top-left');
-    $.ajax({
-        type: "POST",
-        url: "/profile/email/send",
-        data: {csrfmiddlewaretoken: token},
-        dataType: "json",
-        success: function (response) {
-            if (response['error']){
-                alertify.error(response['status']);
-            } else{
-                alertify.success(response['status']);
-                email_conf_div.classList.remove('invisible');
-                email_sent_btn.classList.add('invisible');
-            };
-        }
-    })
-})}
+    email_sent_btn.addEventListener('click', function(){
+        var email_conf_div = document.querySelector('.email_confirm_div');
+        var token = $('input[name=_token]').val();
+        alertify.set('notifier','position', 'top-left');
+        $.ajax({
+            type: "POST",
+            url: "/profile/email/send",
+            data: {csrfmiddlewaretoken: token},
+            dataType: "json",
+            success: function (response) {
+                if (response['error']){
+                    alertify.error(response['status']);
+                } else{
+                    alertify.success(response['status']);
+                    email_conf_div.classList.remove('invisible');
+                    email_sent_btn.classList.add('invisible');
+                };
+            }
+        })
+    })}
+    
 
-if (email_sent_btn){
     var email_confirm_btn = document.querySelector('.sent_btn_key');
     email_confirm_btn.addEventListener('click', function(){
         var auth_key = $('input[name=auth_email_key]').val();
@@ -72,7 +75,10 @@ if (email_sent_btn){
             dataType: "json",
             success: function (response) {
                 location.reload();
-
+    
             }
         });
-    })}
+    })
+
+});
+
