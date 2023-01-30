@@ -88,16 +88,6 @@ class Review(models.Model):
         verbose_name_plural = 'Reviews'
 
 
-class ReviewImages(models.Model):
-    """Для изображений с отзывов"""
-    img = models.ImageField(upload_to='media')
-    review = models.ForeignKey(Review, on_delete=models.CASCADE, default='')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name = 'Review_Image'
-        verbose_name_plural = 'Review_Images'
-
 
 class OrdersItem(models.Model):
     """Для Order, Чтобы хранить какие-то смежные данные"""

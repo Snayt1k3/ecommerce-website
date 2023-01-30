@@ -10,8 +10,7 @@ from django.views.generic import ListView, CreateView, TemplateView
 from profile_user.models import SellerStatistics
 
 from .forms import UserLogForm, UserRegForm, Reviews, ReviewSellerForm
-from .models import Category, Product, Review, ReviewImages, Orders, OrdersItem, PersonalArea, PromoCode, \
-    ReviewSeller
+from .models import Category, Product, Review, Orders, OrdersItem, PersonalArea, PromoCode, ReviewSeller
 
 
 # Create your views here.
@@ -48,17 +47,6 @@ def detail_view(request, slug):
 
             rev = Review(rating=rating, text=review, username=user, product=product)
             rev.save()
-
-            # Проверка на наличие Отправленных Файлов
-
-            if request.FILES:
-                files = request.FILES.getlist('files')
-                for file in files:
-                    fs = FileSystemStorage()
-                    # сохраняем на файловой системе
-                    filename = fs.save(file.name, file)
-                    ex = ReviewImages(img=filename, product=product, review=rev)
-                    ex.save()
 
             return redirect('one_pr', slug=slug)
         else:
