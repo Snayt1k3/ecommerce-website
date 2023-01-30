@@ -48,4 +48,4 @@ def delete_from_wish_list(request):
 
 
 def favourites_view(request):
-    return render(request, 'favourites/favourites2.html', {'favourites': Favourites(request)})
+    return render(request, 'favourites/favourites.html', {'favourites': Favourites(request)})

@@ -1,63 +1,96 @@
-{%extends 'shop/base.html'%}
+{% extends 'shop/base.html' %}
 {% load static%}
-{% block head%}
-<title>Избранное</title>
-<link rel="stylesheet" href="{%static 'css/wishlist.css' %}">
-{% endblock%}
 
+{% block head %}
+
+<title>Корзина</title>
+<link rel="stylesheet" href="{% static 'css/cart.css'%}">
+<style>
+    body{
+    background-color: #d2c9ff;
+    }
+</style>
+{% endblock %}
 
 {% block content%}
-<div class="container text-center">
-    <p class="fw-bold fs-3 title-table">Избранное</p>
-</div>
-<div class="row mx-auto main-div">
-    <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
-        <table class="table table-hover">
-            <thead class="thead-wish">
-            <tr>
-                <th colspan="4">
-                    {%if favourites%}
-                    Ваше Избранное
-                    {%else%}
-                    У вас нету ничего в Избранном
-                    {%endif%}
-                </th>
-            </tr>
-            </thead>
-            {% for product in favourites%}
-            <tr class="all_data">
-                <td class="col-1">
-                    <a href="{{product.get_url}}">
-                        <img alt="" height="140" src="{{product.img.url}}"
-                             width="100" class="me-3">
-                    </a>
-                </td>
-                <td class="text-start col-4">
-                    {{product.name}}
-                    <br>
-                    Цена: {{product.price}}₽
-                    <br>
-                    id: {{product.id}}
-                </td>
-                <td class="col-1">
-                    <div class="btns-wl">
-                        <input type="hidden" name="_token" value="{{ csrf_token }}"/>
-                        <button class="btn btn-success rounded-5 mt-3 AddToCart" onclick="add_to_cart({{product.id}})">
-                            <span class="material-symbols-outlined">shopping_cart</span>
-                        </button>
-                        <button class="btn btn-danger rounded-5 deleteBtnWl mt-3"
-                                onclick="delete_from_wish({{product.id}})">
-                            <span class="material-symbols-outlined">delete</span>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-            {%endfor%}
-        </table>
-    </div>
-</div>
-{% endblock%}
+<section class="h-100 h-custom" style="background-color: #d2c9ff;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                    <div class="card-body p-0">
+                        <div class="row g-0">
+                            <div class="col-lg-8">
+                                <div class="p-5">
+                                    <div class="d-flex justify-content-between align-items-center mb-5">
+                                        <h1 class="fw-bold mb-0 text-black">Избранное</h1>
+                                        <h6 class="mb-0 text-muted">{{ favourites|length }} Товара </h6>
+                                    </div>
+                                    <hr class="my-4">
 
-{% block scripts%}
-<script src="{% static 'js/cart/cart.js' %}"></script>
-{% endblock%}
+                                    {% for product in favourites%}
+
+                                    <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                        <div class="col-md-2 col-lg-2 col-xl-2">
+                                            <img
+                                                    src="{{product.img.url}}"
+                                                    class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-xl-3">
+                                            <h6 class="text-muted">{{product.name}}</h6>
+                                            <h6 class="text-black mb-0">{{product.description|slice:":30" }}</h6>
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                            <div class="btns-cart">
+                                                <input type="hidden" name="_token" value="{{ csrf_token }}">
+
+                                                <button class="btn btn-link px-2 text-success btn-lg"
+                                                        onclick="add_to_cart({{product.id}})">
+                                                    <i class="fas fa-cart-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                            <h6 class="mb-0">{{product.price}}руб </h6>
+                                        </div>
+                                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                            <a href="#" class="text-muted" onclick="delete_from_wish({{product.id}})"><i class="fas fa-times"></i></a>
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-4">
+                                    {%endfor%}
+
+                                    <div class="pt-5">
+                                        <h6 class="mb-0"><a href="{% url 'home' %}" class="text-body"><i
+                                                class="fas fa-long-arrow-alt-left me-2"></i>Назад к товарам</a></h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 bg-grey">
+                                <div class="p-5">
+                                    <h3 class="fw-bold mb-5 mt-2 pt-1">Суммарно</h3>
+                                    <hr class="my-4">
+
+                                    <div class="d-flex justify-content-between mb-4">
+                                        <h5 class="text-uppercase">{{favourites|length }} Товара</h5>
+                                        <h5>{{favourites.get_total_price}}руб</h5>
+                                    </div>
+
+
+                                    <hr class="my-4">
+
+                                    <div class="d-flex justify-content-between mb-5">
+                                        <h5 class="text-uppercase">Цена</h5>
+                                        <h5>{{favourites.get_total_price}}руб</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

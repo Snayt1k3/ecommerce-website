@@ -37,5 +37,11 @@ body{
     background-color: #eee;
 }
 
+.clear-promo:hover{
+    background: #eae8e8
+}
 
+input {
+    height: 40px !important;
+}
 

@@ -100,25 +100,33 @@
                                     </div>
 
 
-                                    <h5 class="text-uppercase mb-3">ПромоКод</h5>
+                                    <h5 class="text-uppercase mb-3">Промокод</h5>
 
                                     <div class="mb-5">
-                                        <div class="form-outline">
-                                            <input type="text" id="form3Examplea2"
-                                                   class="form-control form-control-lg"/>
-                                            <label class="form-label" for="form3Examplea2">Введите Ваш код</label>
+                                        <div class="form-outline input-group">
+                                            <input type="hidden" name="_token" value="{{ csrf_token }}">
+                                            <input type="text" id="promo"
+                                                   class="form-control form-control-lg" oninput="promo_activate(this.value)"
+                                                   aria-describedby="button-addon2"/>
+                                            <label class="form-label" for="promo">Введите Ваш код</label>
+                                            <button class="btn btn-link text-muted clear-promo" type="button"
+                                                    id="button-addon2" data-mdb-ripple-color="dark" onclick="promo_clear()">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                            <div class="valid-feedback mt-5 mb-3"></div>
+                                            <div class="invalid-feedback mt-5 mb-3"></div>
                                         </div>
                                     </div>
 
-                                    <hr class="my-4">
+                                    <hr class="my-5">
 
                                     <div class="d-flex justify-content-between mb-5">
-                                        <h5 class="text-uppercase">Цена</h5>
-                                        <h5>{{cart.get_total_price}}руб</h5>
+                                        <h5 class="text-uppercase">Итоговая Цена</h5>
+                                        <h5 class="total-price">{{cart.get_total_price}}руб</h5>
                                     </div>
 
                                     <button type="button" class="btn btn-dark btn-block btn-lg"
-                                            data-mdb-ripple-color="dark">Register
+                                            data-mdb-ripple-color="dark">Оплатить
                                     </button>
                                 </div>
                             </div>
@@ -137,4 +145,5 @@
         type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"
 ></script>
+<script src="{% static 'js/cart/cart.js' %}"></script>
 {% endblock %}

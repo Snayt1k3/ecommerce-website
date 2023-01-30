@@ -9,6 +9,7 @@ urlpatterns = [
     path('add_to_cart', views.add_to_cart),  # AJAX
     path('delete_from_cart', views.delete_from_cart),  # AJAX
     path('minus_quantity', views.minus_quantity),  # AJAX
+    path('promo_activate', views.activate_view, )  # AJAX
 
 ]
 

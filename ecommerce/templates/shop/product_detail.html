@@ -143,6 +143,7 @@
         <h2 class="fw-bolder mb-4">Еще Товары от этого Продавца</h2>
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             {% for seller_product in seller_products|slice:":5"%}
+            {% if seller_product != product %}
             <div class="col mb-5">
                 <div class="card h-100">
                     <!-- Product image-->
@@ -178,6 +179,7 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>

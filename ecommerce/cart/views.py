@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_POST
 from profile_user.models import SellerStatistics
-from shop.models import Product
+from shop.models import Product, PromoCode
 
 from .cart import Cart
 
@@ -54,3 +54,32 @@ def delete_from_cart(request):
     cart.delete(product)
 
     return JsonResponse({'status': 'Успешно Удален'})
+
+
+@require_POST
+def activate_view(request):
+    if request.user.is_authenticated:
+        if PromoCode.objects.filter(name=request.POST.get('promo')):
+            promo = PromoCode.objects.get(name=request.POST.get('promo'))
+            cart = Cart(request)
+
+            if cart.get_total_price() > promo.from_the_price:
+                request.session['promo'] = {
+                    'name': promo.name,
+                    'is_percent': promo.is_percent,
+                    'amount_of_discount': promo.amount_of_discount
+                }
+
+                return JsonResponse({'status': 'Промокод Активирован', 'error': False,
+                                     'promo': {
+                                         'is_percent': promo.is_percent,
+                                         'amount_of_discount': promo.amount_of_discount,
+                                     }})
+
+            else:
+                return JsonResponse({'status': f'Этот Промокод действует от цены {promo.from_the_price}руб',
+                                     'error': True})
+        else:
+            return JsonResponse({'status': 'Такого Промокода не существует', 'error': True})
+    else:
+        return JsonResponse({'status': 'Вам нужно авторизоваться', 'error': True})

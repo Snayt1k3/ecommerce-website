@@ -1,6 +1,7 @@
 from shop.models import Product
 from django.forms.models import model_to_dict
 
+
 class Cart(object):
     def __init__(self, request):
         """Инициализация Корзины"""
