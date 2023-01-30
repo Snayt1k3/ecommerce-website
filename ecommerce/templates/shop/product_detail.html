@@ -42,6 +42,10 @@
                                     Оставить Отзыв
                                 </button>
 
+                                <button type="button" class="btn btn-primary mt-2 mt-lg-0" data-mdb-toggle="modal" data-mdb-target="#product_charac">
+                                    Посмотреть Характеристики
+                                </button>
+
                                 <!-- Modal -->
                                 <div class="modal fade" id="staticBackdrop" data-mdb-backdrop="static" data-mdb-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -89,6 +93,35 @@
                                         </div>
                                     </div>
                                 </div>
+<!--                                Modal-->
+                                <div class="modal fade" id="product_charac" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">{{product.name}}</h5>
+                                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                                      </div>
+                                      <div class="modal-body">
+                                            <div class="col-md-12 mb-3">
+                                                <h4>Характеристики</h4>
+                                                {% for key, val in info%}
+                                                <div class="row">
+                                                    <div class="col border-bottom">
+                                                        <span class="text-muted">{{key}}</span>
+                                                    </div>
+                                                    <div class="col d-flex justify-content-between ">
+                                                        <span>{{val}}</span>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Закрыть</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                             </div>
 
                             <div class="col-4">
@@ -129,19 +162,19 @@
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                         <div class="row">
                                 <input type="hidden" name="_token" value="{{ csrf_token }}">
-                            <div class="col-6">
-                                <a class="btn btn-secondary rounded-3 ms-0 me-0" style="width:110px;" href="{% url 'one_pr' seller_product.slug%}">К товару</a>
+                            <div class="col-5 text-start me-2">
+                                <a class="btn btn-secondary rounded-3 ms-0 me-0" style="width:105px;" href="{% url 'one_pr' seller_product.slug%}">К товару</a>
                             </div>
-                            <div class="col-3 text-end">
+                            <div class="col-4 text-center ms-4">
                                 <button class="btn btn-success rounded-3 btn-sm" onclick="add_to_cart({{seller_product.id}})">
                                     <i class="fas fa-cart-plus fa-2x"></i>
                                 </button>
                             </div>
-                            <div class="col-3 text-end">
-                                <button class="btn btn-danger rounded-3 btn-sm" onclick="add_to_wish({{seller_product.id}})">
-                                    <i class="far fa-heart fa-2x"></i>
-                                </button>
-                            </div>
+<!--                            <div class="col-3 text-end">-->
+<!--                                <button class="btn btn-danger rounded-3 btn-sm" onclick="add_to_wish({{seller_product.id}})">-->
+<!--                                    <i class="far fa-heart fa-2x"></i>-->
+<!--                                </button>-->
+<!--                            </div>-->
                         </div>
                     </div>
                 </div>
