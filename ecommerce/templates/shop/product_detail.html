@@ -143,7 +143,7 @@
     <div class="container px-4 px-lg-5 mt-5">
         <h2 class="fw-bolder mb-4">Еще Товары от этого Продавца</h2>
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            {% for seller_product in seller_products%}
+            {% for seller_product in seller_products|slice:":5"%}
             <div class="col mb-5">
                 <div class="card h-100">
                     <!-- Product image-->
@@ -177,6 +177,31 @@
 <!--                            </div>-->
                         </div>
                     </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <h1 class="fs-2">Отзывы Пользователей</h1>
+        <div class="row gx-4 row-cols-2 gx-lg-5 align-items-center">
+            {% for review in reviews%}
+            <div class="col-md-5">
+                <div class="card me-2 mt-2">
+                  <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-user me-1"></i>{{review.username.username}}</h5>
+                    <p class="card-text">{{review.text}}</p>
+                    <p>Оценка Товара -
+                        <i class="fa-star fa-sm text-primary fas active">
+                            <span class="me-2">{{review.rating}}</span>
+                        </i>
+                    </p>
+                      <div class="card-footer">
+                        <small class="text-muted">Отзыв от: {{review.date}}</small>
+                      </div>
+                  </div>
                 </div>
             </div>
             {% endfor %}

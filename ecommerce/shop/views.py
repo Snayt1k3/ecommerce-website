@@ -65,11 +65,7 @@ def detail_view(request, slug):
             messages.error(request, 'У вас Уже есть отзыв на данный товар')
 
     # Получение Отзывов на товар
-    reviews = Review.objects.filter(product=product)
-    img_reviews = ReviewImages.objects.filter(product=product)
-
-    context['reviews'] = reviews
-    context['img_reviews'] = img_reviews
+    context['reviews'] = Review.objects.filter(product=product)
 
     # Характеристики из модели
     good = product.characteristics
