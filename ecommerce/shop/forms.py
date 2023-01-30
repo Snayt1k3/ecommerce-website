@@ -39,9 +39,6 @@ class Reviews(forms.Form):
     feedback = forms.CharField(
         widget=forms.Textarea(attrs={'placeholder': 'Оставьте Отзыв', 'class': 'form-control', 'wrap': 'hard', }),
         required=False)
-    files = forms.ImageField(
-        widget=forms.ClearableFileInput(attrs={'multiple': True, 'class': 'form-control'}),
-        required=False, label='Фото')
 
 
 class ReviewSellerForm(forms.ModelForm):
