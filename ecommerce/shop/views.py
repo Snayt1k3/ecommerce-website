@@ -210,7 +210,7 @@ def checkout(request):
 
 
 class SellerProductsView(ListView):
-    template_name = 'shop/seller_products.html'
+    template_name = 'profile_user/seller_products.html'
     context_object_name = 'seller_products'
 
     def get_queryset(self):

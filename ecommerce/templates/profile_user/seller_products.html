@@ -6,6 +6,9 @@
     a{
     text-decoration: none;
     }
+    body{
+    background-color: #eee;
+}
 </style>
 {% endblock %}
 
@@ -63,22 +66,23 @@
                         <h1 class="fs-3 text-secondary fst-italic fw-bold text-center">Товары Данного Продавца
                             {% if request.user.username != more_info_user.user.username%}
                             <a href="{% url 'feedback_seller' more_info_user.user.username %}"
-                                class="btn btn-outline-primary ms-3">Оставить Отзыв</a>
+                                class="btn btn-primary ms-3">Оставить Отзыв</a>
                             {% endif %}
                         </h1>
                         <hr>
                         <div class="row ms-5">
                             {% for product in seller_products%}
                             <div class="col-sm-6 mt-3">
-                                <div class="card" style="width: 18rem;">
-                                    <img src="{{product.img.url}}" class="card-img-top" alt="...">
+                                <div class="card" style="width: 18rem; height:auto;">
+                                    <img src="{{product.img.url}}" class="card-img-top" alt="..." height="220">
                                     <div class="card-body">
                                         <h5 class="card-title">{{product.name|slice:":50"}}</h5>
-                                        <p class="card-text">{{product.description|slice:":100"}}</p>
-                                        <a href="{% url 'one_pr' product.slug %}" class="btn btn-outline-primary btn-sm" >К товару</a>
-                                        {% if is_seller%}
-                                        <a href="{% url 'update_product' product.slug %}" class="btn btn-outline-primary btn-sm">Редактировать Товар</a>
-                                        {% endif %}
+                                        <div>
+                                            <a href="{% url 'one_pr' product.slug %}" class="btn btn-primary btn-sm" >К товару</a>
+                                            {% if is_seller%}
+                                            <a href="{% url 'update_product' product.slug %}" class="btn btn-primary btn-sm">Редактировать</a>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

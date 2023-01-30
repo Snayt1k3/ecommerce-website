@@ -7,6 +7,12 @@
     a{
     text-decoration: none;
     }
+    body{
+    background-color: #eee;
+}
+
+
+
 </style>
 <link rel="stylesheet" href="{% static 'css/seller_product.css'%}">
 {% endblock %}
@@ -18,7 +24,8 @@
             <div class="col">
                 <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item active"><a href="{% url 'profile' request.user.username%}">Профиль</a></li>
+                        <li class="breadcrumb-item active"><a
+                                href="{% url 'profile' request.user.username%}">Профиль</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'edit_profile' request.user.username %}">Редактировать
                             Профиль</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'password_change'%}">Сменить Пароль</a></li>
@@ -28,8 +35,10 @@
                         {% else %}
                         <li class="breadcrumb-item"><a href="{% url 'product_seller'%}">Выставить Товар</a></li>
                         <li class="breadcrumb-item"><a href="{% url 'seller'%}">Ваша Статистика</a></li>
-                        <li class="breadcrumb-item"><a href="{% url 'seller_feedback_list' request.user.username %}">Ваши Отзывы</a></li>
-                        <li class="breadcrumb-item"><a href="{% url 'list_seller_products' request.user.username%}">Ваши Товары</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'seller_feedback_list' request.user.username %}">Ваши
+                            Отзывы</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'list_seller_products' request.user.username%}">Ваши
+                            Товары</a></li>
                         {% endif %}
                     </ol>
                 </nav>
@@ -40,7 +49,7 @@
             <div class="col-lg-4">
                 <div class="card mb-4">
                     <div class="card-body text-center">
-                       {% if more_info_user.avatar %}
+                        {% if more_info_user.avatar %}
                         <img src="{{more_info_user.avatar.url}}"
                              alt="avatar"
                              class="rounded-circle img-fluid" style="width: 150px; height:145px;">
@@ -72,106 +81,121 @@
                                     <div class="input-group-prepend">
                                         <span class="material-symbols-outlined input-group-text">topic</span>
                                     </div>
-                                    <input type="text" class="form-control" id="product_name" placeholder="Имя Товара" name="product_name" required>
-                                    <div class="invalid-feedback">
-                                        Укажите Имя Товара
+                                    <div class="form-outline">
+                                        <input type="text" class="form-control" id="product_name" name="product_name"
+                                               required>
+                                        <label for="product_name" class="form-label">Имя Товара</label>
+                                        <div class="invalid-feedback mt-0">Укажите Имя Товара</div>
                                     </div>
                                 </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Цена</h1>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="material-symbols-outlined input-group-text">currency_ruble</span>
-                                    </div>
-                                    <input type="number" class="form-control" id="price"
-                                           placeholder="Цена Товара в Рублях" name="product_price" required>
-                                    <div class="invalid-feedback">
-                                        Укажите цену Товара
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Описание</h1>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="material-symbols-outlined input-group-text">description </span>
-                                    </div>
-                                    <input type="text" class="form-control" id="description"
-                                           placeholder="Описание Товара" name="description" required>
-                                    <div class="invalid-feedback">
-                                        Опишите Ваш Товар
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Характеристики</h1>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="material-symbols-outlined input-group-text">settings</span>
-                                    </div>
-                                    <input type="text" class="form-control" id="characteristics"
-                                           placeholder="Характеристики, записываете в формате: хар-ка - значение, ..."
-                                           name="characteristics" required>
-                                    <div class="invalid-feedback">
-                                        Укажите Характеристики
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Категория</h1>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="material-symbols-outlined input-group-text">list</span>
-                                    </div>
 
-                                    <select class="form-select" required id="inputGroupSelect01" name="category">
-                                        <option name="category"></option>
-                                        {% for category in links%}
-                                        <option value="{{category}}">{{category}}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <div class="invalid-feedback">
-                                        Выберите Категорию
-                                    </div>
-                                    </div>
-                                </div>
-                            <hr>
-                            <div class="row">
-                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Кол-во товара на складе</h1>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="material-symbols-outlined input-group-text">inventory_2</span>
-                                    </div>
-                                    <input type="number" class="form-control" id="stock"
-                                           placeholder="Кол-во Товара у вас на складе" name="stock" required>
-                                    <div class="invalid-feedback">
-                                        Укажите сколько у вас товара
+                                <hr class="mt-4">
+
+                                <div class="row">
+                                    <h1 class="fs-5 text-secondary fst-italic fw-bold">Цена</h1>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="material-symbols-outlined input-group-text">currency_ruble</span>
+                                        </div>
+                                        <div class="form-outline">
+                                            <input type="number" class="form-control" id="price" name="product_price"
+                                                   required>
+                                            <label for="price" class="form-label">Цена Товара в Рублях</label>
+                                            <div class="invalid-feedback mt-0">Укажите цену Товара</div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <h1 class="fs-5 text-secondary fst-italic fw-bold">Изображение товара</h1>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="material-symbols-outlined input-group-text">image</span>
-                                    </div>
-                                    <input type="file" class="form-control" id="img"
-                                           placeholder="Изображение вашего товара" name="img" required>
-                                    <div class="invalid-feedback">
-                                        Прикрепите Фото вашего Товара
+
+                                <hr class="mt-4">
+
+                                <div class="row">
+                                    <h1 class="fs-5 text-secondary fst-italic fw-bold">Описание</h1>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="material-symbols-outlined input-group-text">description </span>
+                                        </div>
+                                        <div class="form-outline">
+                                            <input type="text" class="form-control" id="description" required
+                                                   name="description">
+                                            <label for="description" class="form-label">Описание Товара</label>
+                                            <div class="invalid-feedback mt-0">Опишите Ваш Товар</div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <hr>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary btn-lg">Выставить</button>
-                            </div>
+
+                                <hr class="mt-4">
+
+                                <div class="row">
+                                    <h1 class="fs-5 text-secondary fst-italic fw-bold">Характеристики</h1>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="material-symbols-outlined input-group-text">settings</span>
+                                        </div>
+                                        <div class="form-outline">
+                                            <input type="text" class="form-control" id="characteristics"
+                                                   name="characteristics" required>
+                                            <label for="characteristics" class="form-label">Характеристики, записываете
+                                                в формате: хар-ка - значение, ...</label>
+                                            <div class="invalid-feedback mt-0">Укажите Характеристики</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr class="mt-4">
+
+                                <div class="row">
+                                    <h1 class="fs-5 text-secondary fst-italic fw-bold">Категория</h1>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="material-symbols-outlined input-group-text">list</span>
+                                        </div>
+                                        <select class="form-select" required id="inputGroupSelect01" name="category" style="height:35px;">
+                                            <option name="category"></option>
+                                            {% for category in links%}
+                                            <option value="{{category}}">{{category}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <div class="invalid-feedback" style="margin-top:40px;">
+                                            Выберите Категорию
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr class="mt-4">
+
+                                <div class="row">
+                                    <h1 class="fs-5 text-secondary fst-italic fw-bold">Кол-во товара на складе</h1>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="material-symbols-outlined input-group-text">inventory_2</span>
+                                        </div>
+                                        <div class="form-outline">
+                                            <input type="number" class="form-control" id="stock" name="stock" required>
+                                            <label for="stock" class="form-label">Кол-во Товара у вас на складе</label>
+                                            <div class="invalid-feedback mt-0">Укажите сколько у вас товара на складе</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr class="mt-4">
+
+                                <div class="row">
+                                    <h1 class="fs-5 text-secondary fst-italic fw-bold">Изображение товара</h1>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="material-symbols-outlined input-group-text">image</span>
+                                        </div>
+                                        <input type="file" class="form-control" id="img"
+                                               placeholder="Изображение вашего товара" name="img" required>
+                                        <div class="invalid-feedback">
+                                            Прикрепите Фото вашего Товара
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt-4">
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg">Выставить</button>
+                                </div>
                         </form>
                     </div>
                 </div>

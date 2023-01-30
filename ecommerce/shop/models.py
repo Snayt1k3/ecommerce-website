@@ -88,7 +88,6 @@ class Review(models.Model):
         verbose_name_plural = 'Reviews'
 
 
-
 class OrdersItem(models.Model):
     """Для Order, Чтобы хранить какие-то смежные данные"""
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -136,7 +135,6 @@ class PromoCode(models.Model):
 
 
 class PersonalArea(models.Model):
-
     # Информация О пользователе
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='avatars/', blank=True)

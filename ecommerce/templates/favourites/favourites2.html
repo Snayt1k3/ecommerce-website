@@ -5,6 +5,11 @@
 
 <title>Корзина</title>
 <link rel="stylesheet" href="{% static 'css/cart.css'%}">
+<style>
+    body{
+    background-color: #d2c9ff;
+    }
+</style>
 {% endblock %}
 
 {% block content%}
@@ -18,7 +23,7 @@
                             <div class="col-lg-8">
                                 <div class="p-5">
                                     <div class="d-flex justify-content-between align-items-center mb-5">
-                                        <h1 class="fw-bold mb-0 text-black">Корзина</h1>
+                                        <h1 class="fw-bold mb-0 text-black">Избранное</h1>
                                         <h6 class="mb-0 text-muted">{{ favourites|length }} Товара </h6>
                                     </div>
                                     <hr class="my-4">
@@ -38,17 +43,10 @@
                                         <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
                                             <div class="btns-cart">
                                                 <input type="hidden" name="_token" value="{{ csrf_token }}">
-                                                <button class="btn btn-success btn-sm rounded-5"
+
+                                                <button class="btn btn-link px-2 text-success btn-lg"
                                                         onclick="add_to_cart({{product.id}})">
-                                                    <span class="material-symbols-outlined cart-plus">add_circle</span>
-                                                </button>
-                                                <button class="btn btn-danger btn-sm rounded-5"
-                                                        onclick="minus_quantity({{product.id}})">
-                                                    <span class="material-symbols-outlined cart-minus">do_not_disturb_on</span>
-                                                </button>
-                                                <button class="btn btn-secondary btn-sm rounded-5"
-                                                        onclick="delele_from_cart({{product.id}})">
-                                                    <span class="material-symbols-outlined cart-delete">delete</span>
+                                                    <i class="fas fa-cart-plus"></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -56,7 +54,7 @@
                                             <h6 class="mb-0">{{product.price}}руб </h6>
                                         </div>
                                         <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                            <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+                                            <a href="#" class="text-muted" onclick="delete_from_wish({{product.id}})"><i class="fas fa-times"></i></a>
                                         </div>
                                     </div>
 
@@ -80,26 +78,12 @@
                                     </div>
 
 
-                                    <h5 class="text-uppercase mb-3">ПромоКод</h5>
-
-                                    <div class="mb-5">
-                                        <div class="form-outline">
-                                            <input type="text" id="form3Examplea2"
-                                                   class="form-control form-control-lg"/>
-                                            <label class="form-label" for="form3Examplea2">Введите Ваш код</label>
-                                        </div>
-                                    </div>
-
                                     <hr class="my-4">
 
                                     <div class="d-flex justify-content-between mb-5">
                                         <h5 class="text-uppercase">Цена</h5>
                                         <h5>{{favourites.get_total_price}}руб</h5>
                                     </div>
-
-                                    <button type="button" class="btn btn-dark btn-block btn-lg"
-                                            data-mdb-ripple-color="dark">Register
-                                    </button>
                                 </div>
                             </div>
                         </div>

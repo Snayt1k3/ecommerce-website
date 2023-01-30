@@ -6,6 +6,9 @@
     a{
     text-decoration: none;
     }
+    body{
+    background-color: #eee;
+}
 </style>
 {% endblock %}
 {% block content %}
@@ -67,9 +70,11 @@
                             <div class="col-sm-6 mt-3">
                                 <div class="card" style="width: 18rem;">
                                     <div class="card-body">
-                                        <h5 class="card-title">Отзыв от {{review.username}}</h5>
+                                        <h5 class="card-title"><i class="fas fa-user me-1"></i>{{review.username}}</h5>
                                         <p class="card-text">{{review.feedback}}</p>
-                                        <p class="card-text text-muted">Оценка: {{review.rating}}</p>
+                                        <i class="fa-star fa-sm text-primary fas active">
+                                            <span class="me-2">{{review.rating}}</span>
+                                        </i>
                                     </div>
                                     <div class="card-footer text-muted">
                                         {{review.date}}
