@@ -13,8 +13,14 @@
 <header class="bg-dark py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Hi, {% if request.user%}{{request.user.username}}{% else %}Hi, User{% endif %}</h1>
-            <p class="lead fw-normal text-white-50 mb-0">Some Text</p>
+            <h1 class="display-4 fw-bolder">Hi,
+                {% if request.user.is_authenticated%}
+                {{request.user.username}}
+                {% else %}
+                User
+                {% endif %}
+            </h1>
+            <p class="lead fw-normal text-white-50 mb-0">Welcome to shop</p>
         </div>
     </div>
 </header>

@@ -1,26 +1,36 @@
-{%extends 'shop/base.html'%}
-{% load static%}
-{% load bootstrap5 %}
-{%block head%}
-<link href="{% static 'css/user.css' %}" rel="stylesheet">
+{% extends 'shop/base.html' %}
+{% load static bootstrap5 %}
+{% block head%}
 <title>Регистрация</title>
-{% endblock %}
+<link rel="stylesheet" href="{% static 'css/sign_up.css'%}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+{% endblock%}
 
-{%block content%}
-<div class="container text-center user-form">
-    <div class="user-form2 col">
-        <h1 class="fs-3 text-secondary fst-italic fw-bold text-center">Регистрация</h1>
-        <form action="" method="post">
+{% block content%}
+<div class="registration-form">
+        <form method="post">
+            <div class="form-icon">
+                <span><i class="icon icon-user"></i></span>
+            </div>
             {% csrf_token %}
             {% bootstrap_field form.username addon_before='<span class="material-symbols-outlined">person</span>' show_label='skip'%}
             {% bootstrap_field form.email addon_before='<span class="material-symbols-outlined">mail</span>' show_label='skip'%}
             {% bootstrap_field form.password1 addon_before='<span class="material-symbols-outlined">key</span>' show_label='skip'%}
             {% bootstrap_field form.password2 addon_before='<span class="material-symbols-outlined">key</span>' show_label='skip'%}
             {% bootstrap_form_errors form %}
-            <button class="btn btn-primary " type="submit">Регистрация</button>
-            <a class="btn btn-primary " href="{% url 'reset_password'%}">Забыли Пароль</a>
-        </form>
-    </div>
-</div>
 
-{% endblock %}
+            <div class="form-group">
+                <button type="submit" class="btn btn-block create-account">Зарегистрироваться</button>
+            </div>
+        </form>
+        <div class="social-media">
+            <a href="{% url 'reset_password'%}" class="mb-5">Забыли Пароль? <a href="{% url 'login_user' %}">Войти</a></a>
+            <h5>Sign up with social media</h5>
+            <div class="social-icons">
+                <a href="#"><i class="icon-social-facebook" title="Facebook"></i></a>
+                <a href="#"><i class="icon-social-google" title="Google"></i></a>
+                <a href="#"><i class="icon-social-twitter" title="Twitter"></i></a>
+            </div>
+        </div>
+    </div>
+{% endblock%}
