@@ -32,6 +32,9 @@ urlpatterns = [
     # Payment
     path('checkout', views.checkout, name='checkout'),
 
+    # get_order
+    path('my_order', views.get_order_for_anonymous, name='get_order'),
+
     path('seller/<str:username>', views.SellerProductsView.as_view(), name='list_seller_products'),
     path('seller/feedback/<str:username>', views.feedback_seller, name='feedback_seller'),
 

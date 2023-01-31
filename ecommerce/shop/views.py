@@ -3,10 +3,11 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
+from django.core.mail import send_mail
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView
-from django.core.mail import send_mail
+
 from .forms import UserLogForm, UserRegForm, Reviews, ReviewSellerForm
 from .models import Category, Product, Review, Orders, PersonalArea, ReviewSeller, OrdersItem
 
@@ -200,3 +201,13 @@ def feedback_seller(request, username):
     else:
         form = ReviewSellerForm()
     return render(request, 'shop/feedback_seller.html', context={'form': form})
+
+
+def get_order_for_anonymous(request):
+    if request.method == 'POST':
+        pk = request.POST.get('order_id')
+
+        if Orders.objects.filter(pk=pk):
+            return redirect('order_detail_pk', pk=pk)
+
+    return render(request, 'shop/get_order.html')

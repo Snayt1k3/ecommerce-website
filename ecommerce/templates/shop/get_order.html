@@ -1,0 +1,26 @@
+{% extends 'shop/base.html'%}
+{% load bootstrap5 %}
+{% load static%}
+
+{% block head%}
+<title>Мой Закак</title>
+<link rel="stylesheet" href="{% static 'css/registration/change_password.css' %}">
+{% endblock %}
+
+{% block content%}
+<div class="container shadow p-5 main_content rounded-4">
+    <h2 class="text-center mt-0 mb-5">Найти Заказ</h2>
+    <div class="d-flex justify-content-center">
+        <form action="" method="post">
+            {% csrf_token%}
+            <div class="form-outline">
+              <input type="number" name="order_id" id="order_id" class="form-control">
+              <label for="order_id" class="form-label">Введите Номер Заказа</label>
+            </div>
+            <div class="mt-3 d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary btn-block">Найти Заказ</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

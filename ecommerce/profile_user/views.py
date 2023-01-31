@@ -46,14 +46,13 @@ def email_sent_view(request):
 
             send_mail(
                 'Confirm email',
-                f'Код для Подтверждения Почты - {auth_key} Никому не сообщайте его',
+                f'''Код для Подтверждения Почты - {auth_key} 
+                Никому не сообщайте его''',
                 from_email=settings.EMAIL_HOST_USER,
                 recipient_list=[request.user.email])
-
-            return JsonResponse({'status': 'Email has been send', 'error': False})
-
+            return JsonResponse({'status': 'Письмо С кодом было Отправлено ', 'error': False})
         else:
-            return JsonResponse({'status': 'Something went wrong', 'error': True})
+            return JsonResponse({'status': 'Что-то пошло не так', 'error': True})
     else:
         return redirect('/')
 
