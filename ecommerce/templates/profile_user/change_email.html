@@ -1,31 +1,23 @@
 {%extends 'shop/base.html'%}
-{% load static%}
-{% load bootstrap5 %}
+{% load static bootstrap5%}
 {%block head%}
-<link href="{% static 'css/user.css' %}" rel="stylesheet">
-<title>Change Email</title>
+<link rel="stylesheet" href="{% static 'css/registration/change_password.css' %}">
+<title>Смена Email</title>
 <style>
-    .user-form2{
-    margin-top:200px;
-    }
-    .user-form2 form{
-    margin-top:100px;
-    }
-
 </style>
 {% endblock %}
 
 {%block content%}
-<div class="container text-center user-form">
-    <div class="user-form2">
-        <h1 class="fs-3 text-secondary fst-italic fw-bold text-center">Change Email</h1>
-        <form action="" method="post" class="mt-5">
+<div class="container shadow p-5 main_content rounded-4">
+    <h2 class="text-center mt-0 mb-5">Смена Email</h2>
+    <div class="d-flex justify-content-center">
+        <form action="" method="post" class="mt-3">
             {% csrf_token %}
             {% bootstrap_field form.new_email1 addon_before='<span class="material-symbols-outlined">mail</span>' show_label='skip'%}
             {% bootstrap_field form.new_email2 addon_before='<span class="material-symbols-outlined">mail</span>' show_label='skip'%}
             {% bootstrap_form_errors form %}
             <div class="mt-5">
-                <button class="btn btn-primary" type="submit">Change</button>
+                <button class="btn btn-primary btn-block" type="submit">Сменить</button>
             </div>
         </form>
     </div>

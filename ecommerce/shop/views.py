@@ -1,4 +1,5 @@
 from cart.cart import Cart
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
@@ -7,6 +8,7 @@ from django.core.mail import send_mail
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView
+from profile_user.models import SellerStatistics
 
 from .forms import UserLogForm, UserRegForm, Reviews, ReviewSellerForm
 from .models import Category, Product, Review, Orders, PersonalArea, ReviewSeller, OrdersItem, PromoCode
@@ -147,23 +149,30 @@ def checkout(request):
         order = Orders.objects.create(first_name=firstname, last_name=lastname, email=email, address=address,
                                       country=country, zip_index=zip_index, total=total)
 
-        PromoCode.objects.get(name=promo['name']).delete()
+        if promo:
+            PromoCode.objects.get(name=promo['name']).delete()
 
         for item in cart:
-            # Get Product
             product = Product.objects.get(name=item['product']['name'])
-            # create order_item
+
+            # seller stats
+            seller_stats = SellerStatistics.objects.get(product=product)
+            seller_stats.bought += 1
+            seller_stats.save()
+
             order_item = OrdersItem.objects.create(product=product, quantity=item['quantity'])
+
             # put order_item in order
             order.order_items.add(order_item)
-            # save order
+
             order.save()
-        # cart clear
+
         cart.clear()
 
         send_mail(
             f'Заказ {order.id}',
-            f"""Спасибо за покупку, 
+            f"""
+            Спасибо за покупку, 
             Вы можете отследить свой заказ на сайте
             Ваш Заказ Под номером {order.id}
             """,

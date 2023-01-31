@@ -4,17 +4,17 @@ from django.utils.translation import gettext as _
 
 class EmailChangeForm(forms.Form):
     error_messages = {
-        'email_mismatch': _("The two email addresses fields didn't match."),
-        'not_changed': _("The email address is the same as the one already defined."),
+        'email_mismatch': _("Два поля адресов электронной почты не совпадают."),
+        'not_changed': _("Адрес электронной почты совпадает с уже заданным."),
     }
 
     new_email1 = forms.EmailField(
-        label=_("New email address"),
+        label=_("Новый Email"),
         widget=forms.EmailInput,
     )
 
     new_email2 = forms.EmailField(
-        label=_("New email address confirmation"),
+        label=_("Подтвердите Email"),
         widget=forms.EmailInput,
     )
 
