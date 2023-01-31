@@ -9,7 +9,7 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView
 from profile_user.models import SellerStatistics
-
+from decimal import Decimal
 from .forms import UserLogForm, UserRegForm, Reviews, ReviewSellerForm
 from .models import Category, Product, Review, Orders, PersonalArea, ReviewSeller, OrdersItem, PromoCode
 
@@ -159,6 +159,9 @@ def checkout(request):
             seller_stats = SellerStatistics.objects.get(product=product)
             seller_stats.bought += 1
             seller_stats.save()
+            seller_profile = PersonalArea.objects.get(user=product.seller)
+            seller_profile.all_earned_money += Decimal(product.price * item['quantity'])
+            seller_profile.save()
 
             order_item = OrdersItem.objects.create(product=product, quantity=item['quantity'])
 
