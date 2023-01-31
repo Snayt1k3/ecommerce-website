@@ -98,25 +98,6 @@ class OrdersItem(models.Model):
         verbose_name_plural = 'Order_Items'
 
 
-class Orders(models.Model):
-    """Модель Заказа"""
-    CHOICES = (
-        ('В сборке у продавца', 'assembl'),
-        ('В доставке', 'delivery'),
-        ('Получен', 'received')
-    )
-    order_items = models.ManyToManyField(OrdersItem)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    status = models.CharField(max_length=30, choices=CHOICES, blank=False, default='В сборке у продавца')
-    total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    date = models.DateField(auto_now_add=True, null=True)
-
-    class Meta:
-        verbose_name = 'Order'
-        verbose_name_plural = 'Orders'
-        ordering = ['date']
-
-
 class PromoCode(models.Model):
     """Промокоды"""
     # Сам промокод
@@ -131,7 +112,39 @@ class PromoCode(models.Model):
     # Размер Скидки
     amount_of_discount = models.IntegerField()
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+
+
+class Orders(models.Model):
+    """Модель Заказа"""
+    CHOICES = (
+        ('В сборке у продавца', 'assembl'),
+        ('В доставке', 'delivery'),
+        ('Получен', 'received'),
+        ('Отменен', 'cancelled')
+    )
+
+    # data about user
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    first_name = models.CharField(max_length=50, default='')
+    last_name = models.CharField(max_length=50, default='')
+    email = models.EmailField(default='')
+    address = models.CharField(max_length=50, default='')
+    country = models.CharField(max_length=50, default='')
+    zip_index = models.CharField(max_length=50, default='000000')
+
+    # data about order
+    promo_use = models.BooleanField(default=False)
+    promo_name = models.CharField(max_length=10, blank=True)
+    status = models.CharField(max_length=30, choices=CHOICES, blank=False, default='В сборке у продавца')
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    date = models.DateField(auto_now_add=True, null=True)
+    order_items = models.ManyToManyField(OrdersItem)
+
+    class Meta:
+        verbose_name = 'Order'
+        verbose_name_plural = 'Orders'
+        ordering = ['date']
 
 
 class PersonalArea(models.Model):
