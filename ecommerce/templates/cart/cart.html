@@ -110,7 +110,7 @@
                                                    aria-describedby="button-addon2"/>
                                             <label class="form-label" for="promo">Введите Ваш код</label>
                                             <button class="btn btn-link text-muted clear-promo" type="button"
-                                                    id="button-addon2" data-mdb-ripple-color="dark" onclick="promo_clear()">
+                                                    id="button-addon2" data-mdb-ripple-color="dark" onclick="promo_clear({{cart.get_total_price}})">
                                                 <i class="fas fa-times"></i>
                                             </button>
                                             <div class="valid-feedback mt-5 mb-3"></div>

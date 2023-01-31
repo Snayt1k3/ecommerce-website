@@ -94,12 +94,24 @@ function promo_activate(value){
 };
 
 
-function promo_clear(){
+function promo_clear(value){
+    alertify.set('notifier','position', 'top-left');
+    let token = $('input[name=_token]').val();
     let valid_feed = document.querySelector('.valid-feedback');
     let invalid_feed = document.querySelector('.invalid-feedback');
+    let price = document.querySelector('.total-price');
 
     document.getElementById('promo').value = '';
-    sessionStorage.removeItem("promo");
     invalid_feed.style.display = 'none'
     valid_feed.style.display = 'none'
+    price.innerHTML = value + 'руб'
+    $.ajax({
+        type: "POST",
+        url: "/cart/promo_delete",
+        data: {csrfmiddlewaretoken: token,},
+        dataType: "json",
+        success: function (response) {
+            alertify.success(response['status'])
+        }
+    });
 }

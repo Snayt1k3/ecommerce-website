@@ -13,6 +13,12 @@ def cart_detail(request):
 
 
 @require_POST
+def delete_promo(request):
+    del request.session['promo']
+    return JsonResponse({'status': 'Промокод Удален'})
+
+
+@require_POST
 def add_to_cart(request):
     """Добавление Товара В Корзину"""
     cart = Cart(request)
@@ -59,7 +65,7 @@ def delete_from_cart(request):
 @require_POST
 def activate_view(request):
     if request.user.is_authenticated:
-        if PromoCode.objects.filter(name=request.POST.get('promo')):
+        if PromoCode.objects.filter(name=request.POST.get('promo'), user=request.user):
             promo = PromoCode.objects.get(name=request.POST.get('promo'))
             cart = Cart(request)
 

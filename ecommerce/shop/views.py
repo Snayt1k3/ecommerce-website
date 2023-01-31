@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView
 
 from .forms import UserLogForm, UserRegForm, Reviews, ReviewSellerForm
-from .models import Category, Product, Review, Orders, PersonalArea, ReviewSeller, OrdersItem
+from .models import Category, Product, Review, Orders, PersonalArea, ReviewSeller, OrdersItem, PromoCode
 
 
 # Create your views here.
@@ -146,6 +146,8 @@ def checkout(request):
         # create order
         order = Orders.objects.create(first_name=firstname, last_name=lastname, email=email, address=address,
                                       country=country, zip_index=zip_index, total=total)
+
+        PromoCode.objects.get(name=promo['name']).delete()
 
         for item in cart:
             # Get Product
