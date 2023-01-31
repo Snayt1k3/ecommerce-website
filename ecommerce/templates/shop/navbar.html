@@ -12,13 +12,13 @@
                 <li class="nav-item">
                     <a aria-current="page" class="nav-link text-uppercase fw-bold" href="{% url 'home' %}">Главная</a>
                 </li>
-                {% if request.user.is_authenticated%}
                 <li class="nav-item">
                     <a class="nav-link text-uppercase fw-bold position-relative" href="{% url 'cart'%}">Корзина</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-uppercase fw-bold" href="{% url 'wishlist' %}">Избранное</a>
                 </li>
+                {% if request.user.is_authenticated%}
                 <li class="nav-item">
                     <a aria-current="page" class="nav-link text-uppercase fw-bold"
                        href="{% url 'profile' request.user.username %}"><i class="fas fa-user me-1"></i>{{request.user.username}}</a>

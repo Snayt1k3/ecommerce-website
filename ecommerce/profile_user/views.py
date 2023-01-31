@@ -204,11 +204,6 @@ class OrderDetailView(DetailView):
     model = Orders
     context_object_name = 'order'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['more_info_user'] = PersonalArea.objects.get(user=self.request.user)
-        return context
-
 
 class ProfileUserUpdate(UpdateView):
     model = PersonalArea
