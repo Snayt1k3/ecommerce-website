@@ -77,6 +77,10 @@ class Cart(object):
         return sum(int(item['price']) * item['quantity'] for item in
                    self.cart.values())
 
+    def clear(self):
+        self.cart = {}
+        self.save()
+
     def save(self):
         # Обновление сессии cart
         self.request.session['cart'] = self.cart

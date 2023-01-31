@@ -1,16 +1,14 @@
+from cart.cart import Cart
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
-from django.core.files.storage import FileSystemStorage
 from django.db.models import Q
-from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, CreateView, TemplateView
-from profile_user.models import SellerStatistics
-
+from django.views.generic import ListView, CreateView
+from django.core.mail import send_mail
 from .forms import UserLogForm, UserRegForm, Reviews, ReviewSellerForm
-from .models import Category, Product, Review, Orders, OrdersItem, PersonalArea, PromoCode, ReviewSeller
+from .models import Category, Product, Review, Orders, PersonalArea, ReviewSeller, OrdersItem
 
 
 # Create your views here.
@@ -122,91 +120,56 @@ def sign_out(request):
 
 def checkout(request):
     """Оплата"""
-    promo_db = ''
+    promo = request.session.get('promo')
+    cart = Cart(request)
+    total = cart.get_total_price()
 
-    if request.method == 'GET':
-        cart_products = Cart.objects.filter(user=request.user.id)
+    # Проверка промокода
+    if promo:
+        if promo['is_percent']:
+            total = round((total * (int(promo['amount_of_discount']) / 100)), 2)
+        else:
+            total = total - int(promo['amount_of_discount'])
 
-        total = 0
-        for item in cart_products:
-            total += item.sub_total()
-
-        if request.GET.get('promo_code'):
-            # Манипуляции с Промо
-            promo = request.GET.get('promo_code')
-            try:
-                promo_db = get_object_or_404(PromoCode, name=promo, user=request.user)
-            except:
-                promo_db = ''
-
-            if promo_db:
-                if total > promo_db.from_the_price:
-                    if promo_db.is_percent:
-                        total = total * (promo_db.amount_of_discount / 100)
-                    else:
-                        total -= promo_db.amount_of_discount
-
-                request.session['promo'] = {'amount_of_discount': promo_db.amount_of_discount,
-                                            'is_percent': promo_db.is_percent,
-                                            'name': promo_db.name}
-
-        return render(request, 'shop/payment/checkout.html', context={
-            'cart_products': cart_products,
-            'total': total,
-            'promo_db': promo_db
-        })
-
+    # Косвенная Оплата
     if request.method == 'POST':
-        total = 0
-        cart_items = Cart.objects.filter(user=request.user)
-        current_order = Orders.objects.create(user=request.user, status='В сборке у продавца')
-        user_profile = PersonalArea.objects.get(user=request.user)
+        # get data
+        firstname = request.POST.get('firstName')
+        lastname = request.POST.get('lastName')
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        address = request.POST.get('address')
+        country = request.POST.get('country')
+        zip_index = request.POST.get('zip_index')
 
-        for cart_item in cart_items:
+        # create order
+        order = Orders.objects.create(first_name=firstname, last_name=lastname, email=email, address=address,
+                                      country=country, zip_index=zip_index, total=total)
 
-            # Манипуляции с CartItem
-            total += cart_item.sub_total()
-            cart_item.product.stock -= 1
-            user_profile.all_spent_money += cart_item.sub_total()
+        for item in cart:
+            # Get Product
+            product = Product.objects.get(name=item['product']['name'])
+            # create order_item
+            order_item = OrdersItem.objects.create(product=product, quantity=item['quantity'])
+            # put order_item in order
+            order.order_items.add(order_item)
+            # save order
+            order.save()
+        # cart clear
+        cart.clear()
 
-            # Манипуляции С продавцом
-            if cart_item.product.seller:
-                seller_profile = PersonalArea.objects.get(user=cart_item.product.seller)
-                seller_profile.all_earned_money += cart_item.sub_total()
-                seller_profile.save(update_fields=['all_earned_money'])
+        send_mail(
+            f'Заказ {order.id}',
+            f"""Спасибо за покупку, 
+            Вы можете отследить свой заказ на сайте
+            Ваш Заказ Под номером {order.id}
+            """,
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[email])
 
-                stat = SellerStatistics.objects.get(product=cart_item.product)
-                stat.bought += 1
-                stat.save()
+        return render(request, 'shop/payment/checkout_success.html', {'order_id': order.id})
 
-            # Создание Item и его присоединение к order
-            item = OrdersItem.objects.create(product=cart_item.product, quantity=cart_item.quantity)
-            current_order.order_items.add(item)
-
-            # Сохранение Кол-во продукта на складе и удаление корзины пользователя
-            cart_item.product.save()
-            cart_item.delete()
-            user_profile.save()
-
-        # Промокод
-        promo_db = request.session.get('promo')
-        if promo_db:
-
-            if promo_db['is_percent']:
-                total = total * (int(promo_db['amount_of_discount']) / 100)
-
-            else:
-                total = total - int(promo_db['amount_of_discount'])
-
-            PromoCode.objects.get(name=promo_db['name'], user=request.user).delete()
-            del promo_db
-
-        current_order.total = total
-        current_order.save()
-        PromoCode.objects.create(name='promo500', user=request.user, amount_of_discount=500, is_percent=False,
-                                 from_the_price=1000)
-
-        return redirect('checkout_success')
+    return render(request, 'shop/payment/checkout.html', {'cart': cart, 'promo': promo, 'total': total})
 
 
 class SellerProductsView(ListView):
@@ -222,14 +185,6 @@ class SellerProductsView(ListView):
         user = User.objects.get(username=self.kwargs['username'])
         context['more_info_user'] = PersonalArea.objects.get(user=user)
         return context
-
-
-class CheckFailed(TemplateView):
-    template_name = 'shop/payment/checkout_failed.html'
-
-
-class CheckSuccess(TemplateView):
-    template_name = 'shop/payment/checkout_success.html'
 
 
 def feedback_seller(request, username):

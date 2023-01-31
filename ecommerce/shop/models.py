@@ -125,7 +125,7 @@ class Orders(models.Model):
     )
 
     # data about user
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     first_name = models.CharField(max_length=50, default='')
     last_name = models.CharField(max_length=50, default='')
     email = models.EmailField(default='')
@@ -134,8 +134,6 @@ class Orders(models.Model):
     zip_index = models.CharField(max_length=50, default='000000')
 
     # data about order
-    promo_use = models.BooleanField(default=False)
-    promo_name = models.CharField(max_length=10, blank=True)
     status = models.CharField(max_length=30, choices=CHOICES, blank=False, default='В сборке у продавца')
     total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     date = models.DateField(auto_now_add=True, null=True)

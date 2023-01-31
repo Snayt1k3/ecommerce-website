@@ -31,8 +31,6 @@ urlpatterns = [
 
     # Payment
     path('checkout', views.checkout, name='checkout'),
-    path('checkout/success', views.CheckSuccess.as_view(), name='checkout_success'),
-    path('checkout/failed', views.CheckFailed.as_view(), name='checkout_failed'),
 
     path('seller/<str:username>', views.SellerProductsView.as_view(), name='list_seller_products'),
     path('seller/feedback/<str:username>', views.feedback_seller, name='feedback_seller'),

@@ -2,7 +2,11 @@
 {% load static%}
 {%block head%}
 <title>Checkout Success</title>
-<link rel="stylesheet" href="{% static 'css/checkout_success.css' %}">
+<style>
+    .success_cont{
+    margin-top: 250px;
+}
+</style>
 {%endblock%}
 
 {% block content %}
@@ -13,7 +17,9 @@
         </div>
         <div class="col-lg-8 col-7 ms-5">
             <p class="fs-1 fw-bold text-success">Спасибо за покупку!</p>
+            <p>Ваш Заказ по номером:{{order_id}}</p>
             <a href="{% url 'home'%}" class="btn btn-primary rounded-4">На главную</a>
+            <a href="#" class="btn btn-primary rounded-4">Узнать где мой заказ</a>
         </div>
     </div>
 </div>
