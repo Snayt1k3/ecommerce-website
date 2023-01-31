@@ -1,17 +1,16 @@
-import re
 from random import randint
+
 from django.conf import settings
-from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail
 from django.http import JsonResponse
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, DetailView, ListView
 from django.views.generic.edit import UpdateView
 from shop.models import PersonalArea, Orders, Product, Category, PromoCode, ReviewSeller
 
-from .forms import EmailChangeForm
+from .forms import EmailChangeForm, BecomeSellerForm
 from .models import SellerStatistics
 
 
@@ -81,40 +80,14 @@ def email_confirm_view(request):
 
 
 def become_seller(request):
+    form = BecomeSellerForm(request.user)
     if request.method == 'POST':
-        # Получение пользователя и его доп профиля
-        user = User.objects.get(username=request.user.username)
-        user_profile = PersonalArea.objects.get(user=user)
+        form = BecomeSellerForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('become_seller_success')
 
-        # Получение данных с формы
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        phone = request.POST.get('phone')
-
-        # Валидация
-        if not user_profile.email_confirm:
-            messages.error(request, 'Подтвердите Почту чтобы продолжить')
-        else:
-            if not re.fullmatch(r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$', phone):
-                messages.error(request, 'Телефон Введен Некорректно')
-            else:
-                if not user.check_password(password):
-                    messages.error(request, "Неверный Пароль")
-                else:
-                    if not user.email == email:
-                        user_profile.email_confirm = False
-
-                    # Запись данных
-                    user_profile.is_seller = True
-                    user_profile.phone = phone
-                    user.email = email
-                    user_profile.save()
-                    user.save()
-                    return redirect('become_seller_success')
-
-        return render(request, 'profile_user/become_seller.html', context={'phone': phone})
-    else:
-        return render(request, 'profile_user/become_seller.html')
+    return render(request, 'profile_user/become_seller.html', {'form': form})
 
 
 def product_seller_view(request):
