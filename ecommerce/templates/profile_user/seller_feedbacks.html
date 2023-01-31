@@ -66,6 +66,9 @@
                         <h1 class="fs-3 text-secondary fst-italic fw-bold text-center">Отзывы о Продавце</h1>
                         <hr>
                         <div class="row ms-5">
+                            {% if not reviews%}
+                            <h5 class="fs-3 text-secondary fst-italic fw-bold text-center">На вас никто не оставлял отзыв</h5>
+                            {%endif%}
                             {% for review in reviews%}
                             <div class="col-sm-6 mt-3">
                                 <div class="card" style="width: 18rem;">

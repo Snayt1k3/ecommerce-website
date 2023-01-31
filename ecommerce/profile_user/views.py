@@ -217,7 +217,8 @@ class SellerFeedbackView(ListView):
         for review in reviews:
             rating += float(review.rating)
 
-        rating = round(rating / len(reviews), 1)
+        if rating:
+            rating = round(rating / len(reviews), 1)
         seller.avg_rating = rating
         seller.save()
 

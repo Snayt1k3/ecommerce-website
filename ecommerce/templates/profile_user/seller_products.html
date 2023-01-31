@@ -71,6 +71,10 @@
                         </h1>
                         <hr>
                         <div class="row ms-5">
+                            {% if not seller_products%}
+                            <h5 class="fs-3 text-secondary fst-italic fw-bold text-center">Вы еще не выставили товар на продажу</h5>
+                            {%endif%}
+
                             {% for product in seller_products%}
                             <div class="col-sm-6 mt-3">
                                 <div class="card" style="width: 18rem; height:auto;">
@@ -79,7 +83,7 @@
                                         <h5 class="card-title">{{product.name|slice:":50"}}</h5>
                                         <div>
                                             <a href="{% url 'one_pr' product.slug %}" class="btn btn-primary btn-sm" >К товару</a>
-                                            {% if is_seller%}
+                                            {% if request.user == more_info_user.user %}
                                             <a href="{% url 'update_product' product.slug %}" class="btn btn-primary btn-sm">Редактировать</a>
                                             {% endif %}
                                         </div>
