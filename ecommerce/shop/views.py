@@ -87,7 +87,7 @@ def detail_view(request, slug):
 
 
 class ProductCategoryView(ListView):
-    template_name = 'shop/main_page.html'
+    template_name = 'shop/main.html'
     context_object_name = 'products'
 
     def get_queryset(self):
