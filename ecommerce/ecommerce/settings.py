@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -79,11 +80,11 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ecommercedb',
-        'USER': 'postgres',
-        'PASSWORD': '05052006e',
-        'HOST': 'localhost',
-        'PORT': '8888',
+        'NAME': 'your_db_name',
+        'USER': 'your_user',
+        'PASSWORD': 'your_password',
+        'HOST': 'your_host',
+        'PORT': 'your_host',
     }
 }
 
@@ -132,9 +133,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 MEDIA_URL = '/media/'
 
-
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'egorpomidor0505@gmail.com'
-EMAIL_HOST_PASSWORD = 'rdlehqzihepvdbep'
+EMAIL_HOST_USER = 'your_email'
+EMAIL_HOST_PASSWORD = 'your_password'
