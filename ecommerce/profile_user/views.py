@@ -251,3 +251,9 @@ class SellerStatsDetail(DetailView):
     model = SellerStatistics
     template_name = 'profile_user/seller_stats_detail.html'
     context_object_name = 'seller_stats'
+
+
+def delete_product(request):
+    id = request.POST.get('id')
+    Product.objects.get(id=id).delete()
+    return JsonResponse({'status': 'Успешно Удален'})

@@ -87,9 +87,11 @@
                                             <a href="{% url 'update_product' product.slug %}" class="btn btn-primary btn-sm">Редактировать</a>
                                             {% for seller_stat in seller_stats %}
                                             {% if seller_stat.product == product%}
-                                            <a href="{% url 'stats_detail' more_info_user.user.username seller_stat.id %}" class="btn btn-primary btn-block mt-2 me-2" style="width:225px;">Статистика по товару</a>
+                                            <a href="{% url 'stats_detail' more_info_user.user.username seller_stat.id %}" class="btn btn-primary mt-2 btn-sm">Статистика по товару</a>
                                             {% endif %}
                                             {% endfor %}
+                                            <input type="hidden" name="_token" value="{{ csrf_token }}">
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="delete_product({{product.id}})"><i class="fas fa-times"></i></button>
                                             {% endif %}
                                         </div>
                                     </div>
@@ -104,5 +106,9 @@
     </div>
 </section>
 {% endblock %}
+
+{% block scripts%}
+<script src="{% static 'js/profile_user/seller_product.js'%}"></script>
+{% endblock%}
 
 
