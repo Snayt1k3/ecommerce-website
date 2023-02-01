@@ -5,39 +5,39 @@ Hello friends, This is my first full e-commerce project with Python-Django. This
 
 ## Platform Used
 ### Front-End
-  (i) HTML5 <br>
-  (ii) CSS3 <br>
-  (iii) JavaScript <br>
-  (iv) Bootstrap/MDB <br>
+  (1) HTML5 <br>
+  (2) CSS3 <br>
+  (3) JavaScript <br>
+  (4) Bootstrap/MDB <br>
 
 ### Back-End
-  (i) Python - Django <br>
-  (ii) PostgreSQL <br>
+  (1) Python - Django <br>
+  (2) PostgreSQL <br>
 
 ## Key Features
 ### Public User
-(i) Search Product <br>
-(ii) View Product <br>
-(iii) Create User Account <br>
-(iv) Add, delete product from cart or wish list <br>
-(v) Track Order <br>
-(vi) Indirectly pay for goods <br>
-(vii) Can view seller's items <br>
+(1) Search Product <br>
+(2) View Product <br>
+(3) Create User Account <br>
+(4) Add, delete product from cart or wish list <br>
+(5) Track Order <br>
+(6) Indirectly pay for goods <br>
+(7) Can view seller's items <br>
 
 
 ### Signin User
-(i) The same as Public User <br>
-(ii) Can become a seller <br>
-(iii) Can see how much money he spent <br>
-(iv) Can view all order history <br>
-(v) Can change your profile <br>
-(vi) Can change email/password <br>
-(vii) Leave feedback about a product or seller <br>
+(1) The same as Public User <br>
+(2) Can become a seller <br>
+(3) Can see how much money he spent <br>
+(4) Can view all order history <br>
+(5) Can change your profile <br>
+(6) Can change email/password <br>
+(7) Leave feedback about a product or seller <br>
 
 ## Installation
-(i) git clone https://github.com/Snayt1k3/ecommerce-website.git <br>
-(ii) pip install -r requirements.txt <br>
-(iii) python manage.py runserver <br>
+(1)  ``` git clone https://github.com/Snayt1k3/ecommerce-website.git  ``` <br>
+(2)  ``` pip install -r requirements.txt  ``` <br>
+(3)  ``` python manage.py runserver  ``` <br>
 
 ## Conclusion
 There are also many more feature which are not in the list. Feel free to use this project
