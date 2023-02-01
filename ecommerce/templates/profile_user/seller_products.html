@@ -64,7 +64,7 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <h1 class="fs-3 text-secondary fst-italic fw-bold text-center">Товары Данного Продавца
-                            {% if request.user.username != more_info_user.user.username%}
+                            {% if request.user.username != more_info_user.user.username and request.user.is_authenticated%}
                             <a href="{% url 'feedback_seller' more_info_user.user.username %}"
                                 class="btn btn-primary ms-3">Оставить Отзыв</a>
                             {% endif %}
