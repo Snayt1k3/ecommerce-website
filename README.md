@@ -37,8 +37,8 @@ Hello friends, This is my first full e-commerce project with Python-Django. This
 ## Installation
 (1)  ``` git clone https://github.com/Snayt1k3/ecommerce-website.git  ``` <br>
 (2)  ``` pip install -r requirements.txt  ``` <br>
-(3) in settings.py set your email and app_password
-(4) in settings.py set your database settings
+(3) in settings.py set your email and app_password <br>
+(4) in settings.py set your database settings <br>
 (5)  ``` python manage.py runserver  ``` <br>
 
 ## Conclusion
