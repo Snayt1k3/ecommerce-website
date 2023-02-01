@@ -26,5 +26,6 @@ urlpatterns = [
     path('seller/product/success', views.ProductSellerSuccess.as_view(), name='seller_product_ok'),
     path('seller/product/edit/<slug:slug>', views.SellerProductUpdateView.as_view(), name='update_product'),
     path('seller/feedback/<str:username>', views.SellerFeedbackView.as_view(), name='seller_feedback_list'),
+    path('seller/stats/<str:username>/<int:pk>', views.SellerStatsDetail.as_view(), name='stats_detail'),
 
 ]

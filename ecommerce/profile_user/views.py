@@ -245,3 +245,9 @@ def change_email(request):
             return redirect('profile', username=request.user.username)
 
     return render(request, 'profile_user/change_email.html', {'form': form})
+
+
+class SellerStatsDetail(DetailView):
+    model = SellerStatistics
+    template_name = 'profile_user/seller_stats_detail.html'
+    context_object_name = 'seller_stats'

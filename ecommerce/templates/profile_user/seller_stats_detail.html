@@ -1,0 +1,67 @@
+{%extends 'shop/base.html'%}
+{% load static %}
+{% block head %}
+<title>{{seller_stats.product.name}}</title>
+<style>
+    a{
+    text-decoration: none;
+    }
+    body{
+    background-color: #eee;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+<section style="background-color: #eee;">
+    <div class="container py-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h1 class="text-center fs-3 text-secondary fst-italic mb-0 fw-bold mt-1">Ваша Статистика по {{seller_stats.product.name}}</h1>
+                        <hr>
+                        <div class="row">
+                            <div class="text-start">
+                                <p class="fs-5 text-secondary fst-italic mb-0 fw-bold"><span class="fs-4 me-3">{{seller_stats.add_cart}}</span>
+                                    Пользователей <span class="text-success">Добавили</span> Ваш товар В Корзину</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="text-start">
+                                <p class="fs-5 text-secondary fst-italic mb-0 fw-bold"><span class="fs-4 me-3">{{seller_stats.remove_cart}}</span>
+                                    Пользователей <span class="text-danger">Удалили</span> Ваш товар Из Корзины</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="text-start">
+                                <p class="fs-5 text-secondary fst-italic mb-0 fw-bold"><span class="fs-4 me-3">{{seller_stats.add_wish_list}}</span>
+                                    Пользователей <span class="text-success">Добавили</span> Ваш товар В Избранное</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="text-start">
+                                <p class="fs-5 text-secondary fst-italic mb-0 fw-bold"><span class="fs-4 me-3">{{seller_stats.remove_wish_list}}</span>
+                                    Пользователей <span class="text-danger">Удалили</span> Ваш товар Из Избранного</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="text-start">
+                                <p class="fs-5 text-secondary fst-italic mb-0 fw-bold"><span class="fs-4 me-3">{{seller_stats.bought}}</span>
+                                    Пользователей <span class="text-success">Приобрели</span> Ваш Товар</p>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

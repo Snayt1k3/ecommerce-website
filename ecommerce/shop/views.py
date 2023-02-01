@@ -207,6 +207,7 @@ class SellerProductsView(ListView):
         context = super().get_context_data()
         user = User.objects.get(username=self.kwargs['username'])
         context['more_info_user'] = PersonalArea.objects.get(user=user)
+        context['seller_stats'] = SellerStatistics.objects.filter(user=context['more_info_user'].user)
         return context
 
 

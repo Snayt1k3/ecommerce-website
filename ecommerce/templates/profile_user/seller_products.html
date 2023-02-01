@@ -85,6 +85,11 @@
                                             <a href="{% url 'one_pr' product.slug %}" class="btn btn-primary btn-sm" >К товару</a>
                                             {% if request.user == more_info_user.user %}
                                             <a href="{% url 'update_product' product.slug %}" class="btn btn-primary btn-sm">Редактировать</a>
+                                            {% for seller_stat in seller_stats %}
+                                            {% if seller_stat.product == product%}
+                                            <a href="{% url 'stats_detail' more_info_user.user.username seller_stat.id %}" class="btn btn-primary btn-block mt-2 me-2" style="width:225px;">Статистика по товару</a>
+                                            {% endif %}
+                                            {% endfor %}
                                             {% endif %}
                                         </div>
                                     </div>
