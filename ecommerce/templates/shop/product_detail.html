@@ -37,11 +37,12 @@
                         <div>
                             <div class="mb-2">
                                 <!-- Button trigger modal -->
+                                {% if request.user.is_authenticated%}
                                 <button type="button" class="btn btn-primary" data-mdb-toggle="modal"
                                         data-mdb-target="#staticBackdrop">
                                     Оставить Отзыв
                                 </button>
-
+                                {% endif %}
                                 <button type="button" class="btn btn-primary mt-2 mt-lg-0" data-mdb-toggle="modal" data-mdb-target="#product_charac">
                                     Посмотреть Характеристики
                                 </button>
