@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from cart.cart import Cart
 from django.conf import settings
 from django.contrib import messages
@@ -9,7 +11,7 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView
 from profile_user.models import SellerStatistics
-from decimal import Decimal
+
 from .forms import UserLogForm, UserRegForm, Reviews, ReviewSellerForm
 from .models import Category, Product, Review, Orders, PersonalArea, ReviewSeller, OrdersItem, PromoCode
 
@@ -148,6 +150,8 @@ def checkout(request):
         # create order
         order = Orders.objects.create(first_name=firstname, last_name=lastname, email=email, address=address,
                                       country=country, zip_index=zip_index, total=total)
+        if request.user.is_authenticated:
+            order.user = request.user
 
         if promo:
             PromoCode.objects.get(name=promo['name']).delete()
@@ -168,8 +172,12 @@ def checkout(request):
             # put order_item in order
             order.order_items.add(order_item)
 
-            order.save()
+            if request.user.is_authenticated:
+                user_profile = PersonalArea.objects.get(user=request.user)
+                user_profile.all_spent_money += Decimal(product.price * item['quantity'])
+                user_profile.save()
 
+        order.save()
         cart.clear()
 
         send_mail(

@@ -129,7 +129,19 @@
                             </div>
                             <div class="col-sm-9">
                                 {% if more_info_user.email_confirm%}
-                                <p class="text-muted mb-0">{{request.user.email}}</p>
+                                <div class="d-inline-flex">
+                                    <input type="hidden" name="_token" value="{{ csrf_token }}">
+                                    <p class="mb-0">{{request.user.email}}
+                                        <button class="btn btn-primary btn-sm ms-2 email_btn invisible">Подтвердить
+                                        </button>
+                                    <div class="email_confirm_div d-inline-flex ms-2 invisible">
+                                        <input type="text" placeholder="Ваш код" class="form-control auth_email_key"
+                                               style="width:100px; height:30px;" name="auth_email_key">
+                                        <button type="submit" class="btn btn-primary btn-sm ms-1 sent_btn_key"
+                                                style="width:120px;">Отправить
+                                        </button>
+                                    </div>
+                                </div>
                                 {% else%}
                                 <div class="d-inline-flex">
                                     <input type="hidden" name="_token" value="{{ csrf_token }}">
@@ -187,7 +199,7 @@
                                     <div>
                                         <div>
                                             <p class=" text-secondary fst-italic fw-bold mb-0">Статус Заказа: {{order.status}}</p>
-                                            <a href="{% url 'order_detail_pk' order.id %}" class="btn btn-outline-primary btn-sm mt-1 mb-1">Детали</a>
+                                            <a href="{% url 'order_detail_pk' order.id %}" class="btn btn-secondary btn-sm mt-1 mb-1">Детали</a>
                                         </div>
                                     </div>
                                 </div>
@@ -210,7 +222,7 @@
                                     <div>
                                         <div>
                                             <p class=" text-secondary fst-italic fw-bold mb-0">Статус Заказа: {{order.status}}</p>
-                                            <a href="{% url 'order_detail_pk' order.id %}" class="btn btn-outline-primary btn-sm mt-1 mb-1">Детали</a>
+                                            <a href="{% url 'order_detail_pk' order.id %}" class="btn btn-secondary btn-sm mt-1 mb-1">Детали</a>
                                         </div>
                                     </div>
                                 </div>
