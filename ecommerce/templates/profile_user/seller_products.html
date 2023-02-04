@@ -70,15 +70,15 @@
                             {% endif %}
                         </h1>
                         <hr>
-                        <div class="row ms-5">
+                        <div class="row d-flex justify-content-center">
                             {% if not seller_products%}
                             <h5 class="fs-3 text-secondary fst-italic fw-bold text-center">Вы еще не выставили товар на продажу</h5>
                             {%endif%}
 
                             {% for product in seller_products%}
-                            <div class="col-sm-6 mt-3">
-                                <div class="card" style="width: 18rem; height:auto;">
-                                    <img src="{{product.img.url}}" class="card-img-top" alt="..." height="220">
+                            <div class="col-md-6 col-sm-7 col-7 mt-3">
+                                <div class="card" style="width: 18rem; max-height:auto;">
+                                    <img src="{{product.img.url}}" class="card-img-top" height="220">
                                     <div class="card-body">
                                         <h5 class="card-title">{{product.name|slice:":50"}}</h5>
                                         <div>
