@@ -39,7 +39,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     """Модель товара"""
-    name = models.CharField(max_length=1000)
+    name = models.CharField(max_length=1000, unique=True)
     price = models.FloatField()
     description = models.TextField()
     characteristics = models.TextField()
