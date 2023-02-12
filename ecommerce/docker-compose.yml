@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  db_ecommerce:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+  web:
+    build:
+      context: ecommerce
+      dockerfile: ecommerce/Dockerfile
+    command: python /ecommerce/manage.py runserver 0.0.0.0:8000
+    volumes:
+        - .:/ecommerce
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - db_ecommerce
